@@ -1,4 +1,4 @@
-TABLAS
+<pre>TABLAS
 
 Reserva de espacio Comun
 -residente
@@ -8,3 +8,4 @@ Reserva de espacio Comun
 Mensajeria Interna
 -residentes
 -mensajería (id_mensaje, titulo, contenido,fecha_publicacion)
+</pre>
