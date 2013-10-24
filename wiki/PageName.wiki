@@ -1,0 +1,10 @@
+TABLAS
+
+Reserva de espacio Comun
+-residente
+-espacio_común (id_espa_comun, nom_espa_comun)
+-reserva_espacio_común (id_reserva, id_espa_comun, id_residente, fecha_reg_reserva, hora_ini, hora_fin)
+
+Mensajeria Interna
+-residentes
+-mensajería (id_mensaje, titulo, contenido,fecha_publicacion)
