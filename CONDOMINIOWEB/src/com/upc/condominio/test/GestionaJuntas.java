@@ -19,7 +19,7 @@ import com.upc.condominio.util.FormatoFecha;
 public class GestionaJuntas {
 
 	
-   //@Test
+   @Test
 	public void insertarJunta(){
 			
 		try{
@@ -109,7 +109,7 @@ public class GestionaJuntas {
 			
 		}
 	}
-	@Test
+	//@Test
 	public void listarJunta(){
 			
 		try{

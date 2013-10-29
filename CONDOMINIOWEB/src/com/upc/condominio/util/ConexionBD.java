@@ -18,7 +18,7 @@ public class ConexionBD {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			con = DriverManager.getConnection("jdbc:mysql://localhost/bdcondominio",
-					"root", "mysql");
+					"root", "root");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
