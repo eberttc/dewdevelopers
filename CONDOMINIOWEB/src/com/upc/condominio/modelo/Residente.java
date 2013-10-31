@@ -1,11 +1,13 @@
 package com.upc.condominio.modelo;
 
+import java.util.Date;
+
 public class Residente {
 
 	private int N_CodRes;
 	private String C_NomRes;
 	private int C_TipDoc;
-	private String D_FecNac;
+	private Date D_FecNac;
 	private String C_Correo;
 	private String C_NumDoc;
 	private String C_Clave;
@@ -15,7 +17,7 @@ public class Residente {
 	}
 
 	public Residente(int n_CodRes, String c_NomRes, int c_TipDoc,
-			String d_FecNac, String c_Correo, String c_NumDoc, String c_Clave,
+			Date d_FecNac, String c_Correo, String c_NumDoc, String c_Clave,
 			int c_EstReg) {
 		super();
 		N_CodRes = n_CodRes;
@@ -52,11 +54,11 @@ public class Residente {
 		C_TipDoc = c_TipDoc;
 	}
 
-	public String getD_FecNac() {
+	public Date getD_FecNac() {
 		return D_FecNac;
 	}
 
-	public void setD_FecNac(String d_FecNac) {
+	public void setD_FecNac(Date d_FecNac) {
 		D_FecNac = d_FecNac;
 	}
 
