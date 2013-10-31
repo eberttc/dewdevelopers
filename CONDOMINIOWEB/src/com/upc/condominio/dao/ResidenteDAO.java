@@ -19,18 +19,18 @@ public class ResidenteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"INSERT INTO RESIDENTES (N_CODRES, C_NOMRES, C_TIPDOC, C_NUMDOC, D_FECHANAC, C_CORREO, C_CLAVE) " +
+				String query =	"INSERT INTO RESIDENTES (C_NOMRES, N_TIPDOC, C_NUMDOC, D_FECNAC, C_CORREO, C_CLAVE, C_ESTREG) " +
 								"VALUES (?,?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setInt(1, residente.getN_CodRes());
-				stmt.setString(2, residente.getC_NomRes());
-				stmt.setString(3, residente.getC_TipDoc());
-				stmt.setString(4, residente.getC_NumDoc());
-				stmt.setString(5, residente.getD_FecNac());
-				stmt.setString(6, residente.getC_Correo());
-				stmt.setString(7, residente.getC_Clave());
+				stmt.setString(1, residente.getC_NomRes());
+				stmt.setInt(2, residente.getC_TipDoc());
+				stmt.setString(3, residente.getC_NumDoc());
+				stmt.setString(4, residente.getD_FecNac());
+				stmt.setString(5, residente.getC_Correo());
+				stmt.setString(6, residente.getC_Clave());
+				stmt.setInt(7, residente.getC_TipDoc());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
