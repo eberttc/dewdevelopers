@@ -2,7 +2,6 @@ package com.upc.condominio.modelo;
 
 import java.util.Date;
 
-
 public class Cuota {
 
 	private int N_IdCuot;
@@ -85,5 +84,5 @@ public class Cuota {
 	public void setO_TipPag(TipoPago o_TipPag) {
 		O_TipPag = o_TipPag;
 	}
-
 }
+
