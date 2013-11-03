@@ -17,7 +17,7 @@ import com.upc.condominio.negocio.GestionJunta;
 public class GestionaJuntasTest {
 
 	
-   @Test
+   //@Test
 	public void insertarJunta(){
 		
 	   try{
@@ -93,19 +93,16 @@ public class GestionaJuntasTest {
 					
 		}
 	}
-	//@Test
+	@Test
 	public void listarJunta(){
 			
 		try{
-			
 			
 			GestionJunta negocio=new  GestionJunta();	
 			Collection<Junta> c = new ArrayList<Junta>();
 			
 			c=negocio.listarJunta();
-			
-			
-			
+
 			System.out.print("cantidad de juntas="+c.size());
 			
 		}catch(DAOExcepcion e){
