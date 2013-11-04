@@ -9,8 +9,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.upc.condominio.core.ResidenteCore;
 import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.negocio.ResidenteCore;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 

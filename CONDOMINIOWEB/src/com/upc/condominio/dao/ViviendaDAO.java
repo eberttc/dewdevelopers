@@ -32,7 +32,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
-				stmt.setInt(5, vivienda.getN_CodRes());
+				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
 				stmt.setInt(6, vivienda.getC_EstReg());
 				stmt.setInt(7, 1);
 				
@@ -121,7 +121,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
-				stmt.setInt(5, vivienda.getN_CodRes());
+				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {

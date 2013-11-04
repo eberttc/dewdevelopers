@@ -60,4 +60,18 @@ public class ResidenteCore {
         return residente;
         
 	}
+	
+	public String eliminar(int idResidente) throws DAOExcepcion {
+		
+		String vReturn = "NO_OK";
+		try{
+			ResidenteDAO dao = new ResidenteDAO();
+			vReturn = dao.eliminar(idResidente);
+		}
+		catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vReturn;
+		
+	}
 }
