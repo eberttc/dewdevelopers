@@ -1,4 +1,4 @@
-package com.upc.condominio.core;
+package com.upc.condominio.negocio;
 
 import java.util.List;
 import com.upc.condominio.dao.ResidenteDAO;
