@@ -80,7 +80,7 @@ public class ResidenteTest {
 
 		residente.setN_CodRes(2);
 		residente.setD_FecNac(df.parse("02/02/1979"));
-		residente.setC_NomRes("JUAN RAMIREZ PEREZ");
+		residente.setC_NomRes("JUAN RAMIREZ ROJAS");
 		residente.setC_TipDoc(1);
 		residente.setC_NumDoc("12345679");
 		residente.setC_Correo("JPEREZ@GMAIL.COM");
