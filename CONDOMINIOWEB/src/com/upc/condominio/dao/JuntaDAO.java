@@ -10,14 +10,14 @@ import java.util.Collection;
 import java.util.List;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
-import com.upc.condominio.modelo.Directivos;
-import com.upc.condominio.modelo.Junta;
+import com.upc.condominio.modelo.DirectivosDTO;
+import com.upc.condominio.modelo.JuntaDTO;
 import com.upc.condominio.util.ConexionBD;
 
 public class JuntaDAO extends BaseDAO {
 
 
-	public Junta insertar(Junta junta) throws DAOExcepcion {
+	public JuntaDTO insertar(JuntaDTO junta) throws DAOExcepcion, SQLException {
 		
 		String query1 = "insert into junta(D_FecJun,C_HorJun,C_TemJun,C_AcuJun) values (?,?,?,?)";
 
@@ -57,7 +57,7 @@ public class JuntaDAO extends BaseDAO {
 			}
 			
 			
-			for(Directivos d:junta.getLstDirectivos()){
+			for(DirectivosDTO d:junta.getLstDirectivos()){
 				
 				stmt = con.prepareStatement(query2,Statement.RETURN_GENERATED_KEYS);
 				
@@ -80,21 +80,11 @@ public class JuntaDAO extends BaseDAO {
 			junta.setIntCodigoJunta(idJunta);
 
 		} catch (SQLException e) {
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			con.rollback();
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			con.commit();
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
@@ -102,9 +92,9 @@ public class JuntaDAO extends BaseDAO {
 	return junta;
 	}
 
-	public Junta obtener(int idJunta) throws DAOExcepcion {
-		Junta junta=new Junta();
-		List<Directivos> lstDirectivos=new ArrayList<Directivos>();
+	public JuntaDTO obtener(int idJunta) throws DAOExcepcion {
+		JuntaDTO junta=new JuntaDTO();
+		List<DirectivosDTO> lstDirectivos=new ArrayList<DirectivosDTO>();
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -128,7 +118,7 @@ public class JuntaDAO extends BaseDAO {
 				stmt.setInt(1,idJunta);
 				rs = stmt.executeQuery();
 				while(rs.next()){
-					Directivos dir=new Directivos();
+					DirectivosDTO dir=new DirectivosDTO();
 					dir.setIntCodigoDirectivo(rs.getInt(2));
 					dir.setStrPresideJunta(rs.getString(3));
 					lstDirectivos.add(dir);
@@ -150,7 +140,7 @@ public class JuntaDAO extends BaseDAO {
 		return junta;
 	}
 	
-	public void eliminar(int idJunta) throws DAOExcepcion{
+	public void eliminar(int idJunta) throws DAOExcepcion, SQLException {
 		String query = "delete from junta  where N_CodJun=?";
 		String query2 = "delete from juntadirectivos  where N_CodJun=?";
 		Connection con = null;
@@ -176,27 +166,17 @@ public class JuntaDAO extends BaseDAO {
 			}
 			
 		} catch (SQLException e) {
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			con.rollback();
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			con.commit();
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
 	}
 
-	public Junta actualizar(Junta j) throws DAOExcepcion {
+	public JuntaDTO actualizar(JuntaDTO j) throws DAOExcepcion, SQLException {
 		String query = "update junta set C_TemJun=?,C_AcuJun=? where N_CodJun=?";
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -214,29 +194,19 @@ public class JuntaDAO extends BaseDAO {
 			}
 			
 		} catch (SQLException e) {
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			con.rollback();
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			con.commit();
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
 		return j;
 	}
 
-	public Collection<Junta> listar() throws DAOExcepcion {
-		Collection<Junta> c = new ArrayList<Junta>();
+	public Collection<JuntaDTO> listar() throws DAOExcepcion {
+		Collection<JuntaDTO> c = new ArrayList<JuntaDTO>();
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -247,7 +217,7 @@ public class JuntaDAO extends BaseDAO {
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Junta junta = new Junta();
+				JuntaDTO junta = new JuntaDTO();
 				junta.setIntCodigoJunta(rs.getInt(1));
 				junta.setdFechaJunta(rs.getDate(2));
 				junta.settHoraJunta(rs.getString(3));

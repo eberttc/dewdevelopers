@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.util.ConexionBD;
@@ -182,4 +181,34 @@ public class ResidenteDAO extends BaseDAO {
 	}
 
 	
+	public String eliminar(int idResidente) throws DAOExcepcion {
+		
+		Residente residente = new Residente();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		
+		String vReturn = "NO_OK";
+		try {
+				String query = "UPDATE RESIDENTES SET C_EstReg = 0 WHERE N_CODRES=?";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setInt(1, idResidente);
+				
+				int i = stmt.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO ELIMINAR");
+				}else{
+					vReturn = "OK";
+				}
+		} catch (SQLException e) {
+				residente = null;	
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return vReturn;
+	}
+
 }

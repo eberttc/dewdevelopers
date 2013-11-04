@@ -73,7 +73,7 @@ public class ResidenteTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void actualizarTest() throws ParseException{
 		
 		SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
@@ -95,6 +95,22 @@ public class ResidenteTest {
 		}
 	}
 		
-
+	@Test
+	public void eliminarTest() {
+		
+		int nResidente;
+		nResidente = 1; 
+		
+		String vReturn = "NO_OK";
+		try {
+			vReturn = residenteCore.eliminar(nResidente);
+			Assert.assertEquals("OK", vReturn);
+			System.out.println( "SE ELIMINÓ EL RESIDENTE: " + nResidente + " CORRECTAMENTE.");
+		} 
+		catch (DAOExcepcion e) {
+			Assert.fail("ERROR: " + e.getMessage());
+		}
+				
+	}
 		
 }

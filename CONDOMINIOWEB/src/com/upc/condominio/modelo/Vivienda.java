@@ -3,21 +3,28 @@ package com.upc.condominio.modelo;
 public class Vivienda {
 
 	private int N_IdVivi;
-	private String C_NroUbi;
-	private Double N_NumMet;
-	private String C_TipViv;
+	private int C_Ubicacion;
+	private String C_Numero;
+	private Double N_Metraje;
+	private int C_TipViv;
+	private int N_CodRes;
+	private int C_EstReg;
 	private Residente residente;
 	
 	public Vivienda() {
 	}
 
-	public Vivienda(int n_IdVivi, String c_NroUbi, Double n_NumMet,
-			String c_TipViv, Residente residente) {
+	public Vivienda(int n_IdVivi, int c_Ubicacion, String c_Numero,
+			Double n_Metraje, int c_TipViv, int n_CodRes, int c_EstReg,
+			Residente residente) {
 		super();
 		N_IdVivi = n_IdVivi;
-		C_NroUbi = c_NroUbi;
-		N_NumMet = n_NumMet;
+		C_Ubicacion = c_Ubicacion;
+		C_Numero = c_Numero;
+		N_Metraje = n_Metraje;
 		C_TipViv = c_TipViv;
+		N_CodRes = n_CodRes;
+		C_EstReg = c_EstReg;
 		this.residente = residente;
 	}
 
@@ -29,28 +36,52 @@ public class Vivienda {
 		N_IdVivi = n_IdVivi;
 	}
 
-	public String getC_NroUbi() {
-		return C_NroUbi;
+	public int getC_Ubicacion() {
+		return C_Ubicacion;
 	}
 
-	public void setC_NroUbi(String c_NroUbi) {
-		C_NroUbi = c_NroUbi;
+	public void setC_Ubicacion(int c_Ubicacion) {
+		C_Ubicacion = c_Ubicacion;
 	}
 
-	public Double getN_NumMet() {
-		return N_NumMet;
+	public String getC_Numero() {
+		return C_Numero;
 	}
 
-	public void setN_NumMet(Double n_NumMet) {
-		N_NumMet = n_NumMet;
+	public void setC_Numero(String c_Numero) {
+		C_Numero = c_Numero;
 	}
 
-	public String getC_TipViv() {
+	public Double getN_Metraje() {
+		return N_Metraje;
+	}
+
+	public void setN_Metraje(Double n_Metraje) {
+		N_Metraje = n_Metraje;
+	}
+
+	public int getC_TipViv() {
 		return C_TipViv;
 	}
 
-	public void setC_TipViv(String c_TipViv) {
+	public void setC_TipViv(int c_TipViv) {
 		C_TipViv = c_TipViv;
+	}
+
+	public int getN_CodRes() {
+		return N_CodRes;
+	}
+
+	public void setN_CodRes(int n_CodRes) {
+		N_CodRes = n_CodRes;
+	}
+
+	public int getC_EstReg() {
+		return C_EstReg;
+	}
+
+	public void setC_EstReg(int c_EstReg) {
+		C_EstReg = c_EstReg;
 	}
 
 	public Residente getResidente() {
@@ -60,8 +91,7 @@ public class Vivienda {
 	public void setResidente(Residente residente) {
 		this.residente = residente;
 	}
-	
-	
+
 	
 	
 }

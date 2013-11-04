@@ -1,3 +1,9 @@
+package com.upc.condominio.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

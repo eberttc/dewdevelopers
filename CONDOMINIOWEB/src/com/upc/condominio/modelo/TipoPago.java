@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.upc.condominio.modelo;
 
 public class TipoPago {
@@ -45,4 +42,3 @@ public class TipoPago {
 	}
 
 }
-
