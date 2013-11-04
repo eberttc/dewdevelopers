@@ -1,0 +1,183 @@
+package com.upc.condominio.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Queja;
+import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.util.ConexionBD;
+
+public class QuejaDAO extends BaseDAO {
+	
+	public Queja insertar(Queja queja) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		java.util.Date d; 
+		
+		try {
+				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_CODRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
+								"VALUES (?,?,?,?,?,?)";
+				
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setInt(1, queja.getintIdQueja());
+				stmt.setInt(2, queja.getintIdResidente());
+				stmt.setString(3, queja.getstrTipoQueja());
+				stmt.setString(4, queja.getstrMotivoQueja());
+				
+				//
+				d = queja.getdFechaQueja();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				stmt.setTimestamp(5, dt);
+				//
+				stmt.setString(6, queja.getstrEstadoQueja());
+				
+				
+				
+				int i = stmt.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+				}
+	
+				int id = 0;
+				query = "SELECT LAST_INSERT_ID()";
+				stmt = con.prepareStatement(query);
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					id = rs.getInt(1);
+				}
+				queja.setintIdQueja(id);
+
+		} catch (SQLException e) {
+				queja = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return queja;
+	}
+	
+	public List<Queja> buscarPorTipoQueja(String estadoQueja) throws DAOExcepcion {
+		
+		List<Queja> lista = new ArrayList<Queja>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+				String query =	"SELECT Q.N_IdQueja, Q.CTipoQueja, Q.D_FecQue, Q.C_Estado FROM Quejas Q " +
+								"WHERE Q.C_Estado LIKE ? ";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setString(1, "%" + estadoQueja + "%");
+				rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+
+					Queja queja = new Queja();
+					queja.setintIdQueja(rs.getInt("N_IdQueja"));
+					queja.setstrTipoQueja(rs.getString("CTipoQueja"));
+					queja.setdFechaQueja(rs.getDate("D_FecQue"));
+					queja.setstrEstadoQueja(rs.getString("C_Estado"));
+														
+					lista.add(queja);
+				}
+		} 
+		catch (SQLException e) {
+				lista = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} 
+		finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return lista;
+	} 	
+
+	public Queja obtener(int idQueja) throws DAOExcepcion {
+		
+		Queja queja = new Queja();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+				String query =	"SELECT Q.N_IdQueja, Q.CTipoQueja, Q.D_FecQue, Q.C_Estado FROM Quejas Q " +
+					"WHERE Q.N_IdQueja = ? ";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setInt(1, idQueja);
+				rs = stmt.executeQuery();
+				
+				if (rs.next()) {		
+					
+					queja.setintIdQueja(rs.getInt("N_IdQueja"));
+					queja.setstrTipoQueja(rs.getString("C_TipoQueja"));
+					queja.setdFechaQueja(rs.getDate("D_FecQue"));
+					queja.setstrEstadoQueja(rs.getString("C_Estado"));
+														
+			}
+		} catch (SQLException e) {
+			queja = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return queja;
+	}
+	
+	public Queja actualizar(Queja queja) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		java.util.Date d; 
+		
+		try {
+				String query =	"UPDATE QUEJAS SET N_CODRES=?, C_TIPQUE=?, C_MOTIVO=?, D_FECQUE=?, C_ESTADO=? " +
+								"WHERE N_CODRES=?";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setInt(1, queja.getintIdResidente());
+				stmt.setString(2, queja.getstrTipoQueja());
+				stmt.setString(3, queja.getstrMotivoQueja());
+				//
+				d = queja.getdFechaQueja();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				stmt.setTimestamp(4, dt);
+				//
+				stmt.setString(5, queja.getstrEstadoQueja());
+				
+				int i = stmt.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO ACTUALIZAR");
+				}
+		} catch (SQLException e) {
+				queja = null;	
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return queja;
+	}
+
+	
+}
