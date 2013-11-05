@@ -4,10 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.modelo.Vivienda;
@@ -20,7 +16,6 @@ public class ViviendaDAO extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		java.util.Date d; 
 		
 		try {
 				String query =	"INSERT INTO VIVIENDAS (C_Ubicacion, C_Numero, N_Metraje, C_TipViv, N_CodRes, C_EstReg) " +
@@ -33,8 +28,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
 				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
-				stmt.setInt(6, vivienda.getC_EstReg());
-				stmt.setInt(7, 1);
+				stmt.setInt(6, 1);
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
@@ -63,6 +57,38 @@ public class ViviendaDAO extends BaseDAO {
 	}
 
 	
+	public int getExisteVivienda(Vivienda vivienda) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int v_nCantidad = 0; 
+		
+		try {
+			String query =	"SELECT COUNT(*) AS CANTIDAD FROM VIVIENDAS V " +
+							"WHERE V.C_Ubicacion = ? AND V.C_Numero = ? AND V.C_TipViv = ? AND V.C_EstReg = 1";
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, vivienda.getC_Ubicacion());
+			stmt.setString(2, vivienda.getC_Numero());
+			stmt.setInt(3, vivienda.getC_TipViv());
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				v_nCantidad = rs.getInt("CANTIDAD");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return v_nCantidad;
+	}
+	
 	public Vivienda obtener(int idVivienda) throws DAOExcepcion {
 	
 		Vivienda vivienda = new Vivienda();
@@ -73,8 +99,8 @@ public class ViviendaDAO extends BaseDAO {
 		
 		try {
 				String query =	"SELECT V.N_IdVivi, V.C_Ubicacion, V.C_Numero, V.N_Metraje, V.C_TipViv, R.N_CodRes, R.C_NomRes " +
-								"FROM VIVIENDA V INNER JOIN RESIDENTES R ON V.N_CodRes = R.N_CodRes" +
-								"WHERE V.N_IdVivi = ? ";
+								"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_CodRes = R.N_CodRes " +
+								"WHERE V.N_IdVivi = ? AND V.C_EstReg = 1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idVivienda);
@@ -109,7 +135,6 @@ public class ViviendaDAO extends BaseDAO {
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
-		java.util.Date d; 
 		
 		try {
 			
@@ -122,6 +147,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
 				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
+				stmt.setInt(6, vivienda.getN_IdVivi());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {

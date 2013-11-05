@@ -3,10 +3,10 @@ package com.upc.condominio.modelo;
 public class Vivienda {
 
 	private int N_IdVivi;
-	private int C_Ubicacion;
+	private int C_Ubicacion;	//1=Edificio; 2=Zona
 	private String C_Numero;
 	private Double N_Metraje;
-	private int C_TipViv;
+	private int C_TipViv;		//1=Casa; 2=Departamento
 	private int C_EstReg;
 	private Residente residente;
 	

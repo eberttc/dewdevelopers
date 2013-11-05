@@ -22,22 +22,22 @@ public class ViviendaTest {
 	ViviendaCore viviendaCore = new ViviendaCore();
 	
 	
-	//@Test
+	@Test
 	public void insertarTest() throws ParseException {
 		
-		residente.setN_CodRes(1);
+		String v_vReturn = "NO_OK";
 		
+		residente.setN_CodRes(8);
 		vivienda.setResidente(residente);
 		vivienda.setC_Ubicacion(1);
-		vivienda.setC_Numero("654");
-		vivienda.setN_Metraje(100.00);
-		vivienda.setC_TipViv(1);
-		vivienda.setC_EstReg(1);
+		vivienda.setC_Numero("124");
+		vivienda.setN_Metraje(121.00);
+		vivienda.setC_TipViv(2);
 				
 		try {
-			vivienda = viviendaCore.insertar(vivienda);
-			Assert.assertNotNull(vivienda);
-			System.out.println( "SE INSERTÓ LA VIVIENDA: " +vivienda.getN_IdVivi() + " " + vivienda.getC_Ubicacion());
+			v_vReturn = viviendaCore.insertar(vivienda);
+			System.out.println(v_vReturn);
+			Assert.assertEquals("VIVIENDA GRABADA EXITOSAMENTE.",v_vReturn);
 		} 
 		catch (DAOExcepcion e) {
 			Assert.fail("ERROR: " + e.getMessage());
@@ -48,7 +48,7 @@ public class ViviendaTest {
 	public void obtenerTest() {
 				
 		try {
-			vivienda = viviendaCore.obtener(1);
+			vivienda = viviendaCore.obtener(3);
 			Assert.assertNotNull(vivienda);
 			System.out.print("Ubicacion: " + vivienda.getC_Ubicacion() + "; Tipo de vivienda:" + vivienda.getC_TipViv());
 		} 
@@ -60,30 +60,31 @@ public class ViviendaTest {
 	//@Test
 	public void actualizarTest() throws ParseException{
 		
-		residente.setN_CodRes(1);
+		String v_vReturn = "NO_OK";
 		
-		vivienda.setResidente(residente);
+		vivienda.setN_IdVivi(3);
 		vivienda.setC_Ubicacion(1);
-		vivienda.setC_Numero("655");
-		vivienda.setN_Metraje(90.50);
-		vivienda.setC_TipViv(1);
-		vivienda.setC_EstReg(1);
+		vivienda.setC_Numero("124");
+		vivienda.setN_Metraje(122.50);
+		vivienda.setC_TipViv(2);
+		residente.setN_CodRes(8);
+		vivienda.setResidente(residente);
 		
 		try {
-			vivienda = viviendaCore.actualizar(vivienda);
-			Assert.assertNotNull(vivienda);
-			System.out.println( "SE ACTUALIZÓ LOS DATOS DE LA VIVIENDA: " + vivienda.getN_IdVivi());
+			v_vReturn = viviendaCore.actualizar(vivienda);
+			System.out.println(v_vReturn);
+			Assert.assertEquals("VIVIENDA EDITADA EXITOSAMENTE.",v_vReturn);
 		} 
 		catch (DAOExcepcion e) {
 			Assert.fail("ERROR: " + e.getMessage());
 		}
 	}
 		
-	@Test
+	//@Test
 	public void eliminarTest() {
 		
 		int nVivienda;
-		nVivienda = 1; 
+		nVivienda = 3; 
 		
 		String vReturn = "NO_OK";
 		try {

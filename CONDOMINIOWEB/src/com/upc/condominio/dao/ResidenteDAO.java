@@ -43,6 +43,7 @@ public class ResidenteDAO extends BaseDAO {
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
+					residente = null;
 					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
 				}
 	
@@ -66,6 +67,65 @@ public class ResidenteDAO extends BaseDAO {
 		}
 		return residente;
 	}
+	
+	public int getExisteDocumento(int p_nTi_Doc, String p_vNu_Doc) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int v_nCantidad = 0; 
+		
+		try {
+			String query =	"SELECT COUNT(*) as cantidad FROM RESIDENTES R " +
+							"WHERE R.N_TipDoc = ? AND R.C_NumDoc = ? AND C_ESTREG=1";
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, p_nTi_Doc);
+			stmt.setString(2, p_vNu_Doc);
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				v_nCantidad = rs.getInt("cantidad");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return v_nCantidad;
+	}
+	
+	public int getExisteCorreo(String p_vCorreo) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int v_nCantidad = 0; 
+		
+		try {
+			String query =	"SELECT COUNT(*) as cantidad FROM RESIDENTES R " +
+							"WHERE R.C_Correo = ? AND C_ESTREG=1";
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, p_vCorreo);
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				v_nCantidad = rs.getInt("cantidad");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return v_nCantidad;
+	}
 
 	public List<Residente> buscarPorNombre(String nombre) throws DAOExcepcion {
 		
@@ -76,7 +136,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 				String query =	"SELECT R.N_CodRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
-								"WHERE R.C_NomRes LIKE ? ";
+								"WHERE R.C_NomRes LIKE ? AND C_ESTREG=1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setString(1, "%" + nombre + "%");
@@ -117,7 +177,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 				String query =	"SELECT R.N_CodRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
-								"WHERE R.N_CodRes = ? ";
+								"WHERE R.N_CodRes = ? AND C_ESTREG=1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idResidente);

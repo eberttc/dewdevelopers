@@ -20,23 +20,25 @@ public class ResidenteTest {
 	ResidenteCore residenteCore = new ResidenteCore();
 	
 	
-	//@Test
+	@Test
 	public void insertarTest() throws ParseException {
 		
+		String v_vReturn = "NO_OK";
+
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		
-		residente.setC_NomRes("JUAN PEREZ RAMIREZ");
+		residente.setC_NomRes("TAMARA VALDIVIESO");
 		residente.setC_TipDoc(1);
-		residente.setC_NumDoc("12345678");
-		residente.setD_FecNac(df.parse("01/01/1980"));
-		residente.setC_Correo("JPEREZ@GMAIL.COM");
+		residente.setC_NumDoc("69696969");
+		residente.setD_FecNac(df.parse("08/11/1984"));
+		residente.setC_Correo("TVALDIVIESO@GMAIL.COM");
 		residente.setC_Clave("ADMIN");
 		residente.setC_EstReg(1);
 				
 		try {
-			residente = residenteCore.insertar(residente);
-			Assert.assertNotNull(residente);
-			System.out.println( "SE INSERTÓ EL RESIDENTE: " +residente.getN_CodRes() + " " + residente.getC_NomRes());
+			v_vReturn = residenteCore.insertar(residente);
+			System.out.println(v_vReturn);
+			Assert.assertEquals("RESIDENTE GRABADO EXITOSAMENTE.",v_vReturn);
 		} 
 		catch (DAOExcepcion e) {
 			Assert.fail("ERROR: " + e.getMessage());
@@ -48,7 +50,7 @@ public class ResidenteTest {
 		
 		try {
 			List<Residente> residenteList = new ArrayList<Residente>();
-	        residenteList = residenteCore.buscarPorNombre("PEREZ");
+	        residenteList = residenteCore.buscarPorNombre("ADNA");
 	        Assert.assertNotNull(residenteList);
 	        
 	        for (Residente residente : residenteList){
@@ -60,11 +62,13 @@ public class ResidenteTest {
 		}
 	}
 	
+	
+	
 	//@Test
 	public void obtenerTest() {
 				
 		try {
-			residente = residenteCore.obtener(1);
+			residente = residenteCore.obtener(8);
 			Assert.assertNotNull(residente);
 			System.out.print("Nombre: " + residente.getC_NomRes() + "; Correo:" + residente.getC_Correo());
 		} 
@@ -76,30 +80,33 @@ public class ResidenteTest {
 	//@Test
 	public void actualizarTest() throws ParseException{
 		
+		String v_vReturn = "NO_OK";
+
 		SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
-		residente.setN_CodRes(2);
-		residente.setD_FecNac(df.parse("02/02/1979"));
-		residente.setC_NomRes("JUAN RAMIREZ ROJAS");
+		residente.setN_CodRes(8);
+		residente.setC_NomRes("ARIADNA VALDIVIESO");
 		residente.setC_TipDoc(1);
-		residente.setC_NumDoc("12345679");
-		residente.setC_Correo("JPEREZ@GMAIL.COM");
+		residente.setC_NumDoc("69696969");
+		residente.setD_FecNac(df.parse("08/11/1984"));
+		residente.setC_Correo("AVALDIVIESO@GMAIL.COM");
 		
 		try {
-			residente = residenteCore.actualizar(residente);
-			Assert.assertNotNull(residente);
-			System.out.println( "SE ACTUALIZÓ LOS DATOS DEL RESIDENTE: " + residente.getN_CodRes() + " " + residente.getC_NomRes());
+			v_vReturn = residenteCore.actualizar(residente);
+			System.out.println(v_vReturn);
+			Assert.assertEquals("RESIDENTE EDITADO EXITOSAMENTE.",v_vReturn);
 		} 
 		catch (DAOExcepcion e) {
 			Assert.fail("ERROR: " + e.getMessage());
 		}
+				
 	}
 		
-	@Test
+	//@Test
 	public void eliminarTest() {
 		
 		int nResidente;
-		nResidente = 1; 
+		nResidente = 8; 
 		
 		String vReturn = "NO_OK";
 		try {
