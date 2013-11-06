@@ -3,14 +3,13 @@ package com.upc.condominio.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class ConexionBD {
-	
 	
 	public static Connection obtenerConexion() throws SQLException {
 		Connection con = null;
@@ -32,21 +31,20 @@ public class ConexionBD {
 	public static Connection obtenerConexionPool()throws SQLException{
 		
 		Connection cn=null;
-		Properties env = new Properties();
 		try{
 			 Context context=new InitialContext();
-		        
 		     Context envContext = (Context) context.lookup("java:/comp/env");
-			 DataSource datasource = (DataSource) envContext.lookup("jdbc/CondominioDS");
-			 
+			 DataSource datasource = (DataSource) envContext
+					 .lookup("jdbc/com.upc.condominio"); //CondominioDS
 			 cn = datasource.getConnection();
 		
-		
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new SQLException("No se pudo encontrar el DataSource.");							
+		} catch (NamingException ex) {
+			System.out.println(ex.getMessage());
+			throw new SQLException("No se pudo encontrar el DataSource.");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+			throw new SQLException("No se pudo obtener una conexión.");
 		}
-		
 		
 		return cn;
 		
