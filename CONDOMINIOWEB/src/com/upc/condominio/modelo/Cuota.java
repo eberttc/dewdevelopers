@@ -11,6 +11,7 @@ public class Cuota {
 	private int N_TipPag;
 	private float N_ImpPag;
 	private Date D_FecVen;
+	private Date D_FecPag;
 	
 	private TipoPago O_TipPag;
 	
@@ -84,6 +85,14 @@ public class Cuota {
 
 	public void setO_TipPag(TipoPago o_TipPag) {
 		O_TipPag = o_TipPag;
+	}
+
+	public Date getD_FecPag() {
+		return D_FecPag;
+	}
+
+	public void setD_FecPag(Date d_FecPag) {
+		D_FecPag = d_FecPag;
 	}
 
 }
