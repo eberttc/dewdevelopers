@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
-import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.util.ConexionBD;
 
 public class CuotaDAO  extends BaseDAO {
