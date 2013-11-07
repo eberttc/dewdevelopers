@@ -6,11 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
-
 import com.upc.condominio.modelo.Cuota;
 import com.upc.condominio.negocio.CuotaCore;
 import com.upc.condominio.exceptions.DAOExcepcion;
@@ -19,7 +16,6 @@ public class CuotaTest {
 
 	Cuota cuota = new Cuota();
 	CuotaCore cuotaCore = new CuotaCore();
-	
 	
 	@Test
 	public void insertarTest() throws ParseException {
