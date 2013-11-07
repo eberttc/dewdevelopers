@@ -4,24 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Queja;
-import com.upc.condominio.modelo.Residente;
+//import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.util.ConexionBD;
 
 public class QuejaDAO extends BaseDAO {
 	
+	@SuppressWarnings("resource")
 	public Queja insertar(Queja queja) throws DAOExcepcion {
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		java.util.Date d; 
 		
 		try {
 				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_CODRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
@@ -34,11 +34,8 @@ public class QuejaDAO extends BaseDAO {
 				stmt.setString(3, queja.getstrTipoQueja());
 				stmt.setString(4, queja.getstrMotivoQueja());
 				
-				//
-				d = queja.getdFechaQueja();
-				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
-				stmt.setTimestamp(5, dt);
-				//
+				stmt.setDate(5, queja.getdFechaQueja());
+			
 				stmt.setString(6, queja.getstrEstadoQueja());
 				
 				
