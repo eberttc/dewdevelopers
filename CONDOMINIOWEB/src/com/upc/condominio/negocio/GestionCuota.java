@@ -1,9 +1,5 @@
 package com.upc.condominio.negocio;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,7 +7,7 @@ import com.upc.condominio.dao.CuotaDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
 
-public class CuotaCore {
+public class GestionCuota {
 
 	public String insertar(Cuota cuota) throws DAOExcepcion {
 		
@@ -74,7 +70,7 @@ public class CuotaCore {
 		
 		try{
 			Cuota cuotaAux = new Cuota ();
-			cuotaAux = obtener(cuotaAux.getN_IdCuot());	
+			cuotaAux = obtener(cuota.getN_IdCuot());	
 			
 			if ((cuota.getC_Period()==cuotaAux.getC_Period())
 					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){

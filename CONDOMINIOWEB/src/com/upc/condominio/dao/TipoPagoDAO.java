@@ -13,7 +13,7 @@ import com.upc.condominio.util.ConexionBD;
 
 public class TipoPagoDAO extends BaseDAO {
 
-	public List<TipoPago> ListarTipoPago(String estadoTipoPago) throws DAOExcepcion {
+	public List<TipoPago> listar(String estadoTipoPago) throws DAOExcepcion {
 		
 		List<TipoPago> lstTipoPago = new ArrayList<TipoPago>();
 		Connection conexion = null;

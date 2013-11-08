@@ -22,8 +22,8 @@ public class Cuota {
 	public Cuota(int n_IdCuot, String c_Period, int n_IdVivi,int n_TipPag,float n_ImpPag, Date d_FecVen)
 	{
 		// TODO Auto-generated constructor stub
-		N_IdCuot=n_IdCuot;
-		C_Period=c_Period;
+		N_IdCuot= n_IdCuot;
+		C_Period= c_Period;
 		N_IdVivi= n_IdVivi;
 		N_TipPag= n_TipPag;
 		N_ImpPag= n_ImpPag;

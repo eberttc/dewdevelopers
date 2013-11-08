@@ -13,17 +13,64 @@ import com.upc.condominio.util.ConexionBD;
 
 public class CuotaDAO  extends BaseDAO {
 	
-public Cuota insertar(Cuota cuota) throws DAOExcepcion {
-				
+	public Cuota insertar(Cuota cuota) throws DAOExcepcion {
+					
+			Connection con = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			java.util.Date d; 
+			
+			try {
+					String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_TipPag, N_ImpPag, D_FecVen) " +
+									"VALUES (?,?,?,?,?)";
+					
+					con = ConexionBD.obtenerConexion();
+					stmt = con.prepareStatement(query);
+					stmt.setString(1, cuota.getC_Period());
+					stmt.setInt(2, cuota.getN_IdVivi());
+					stmt.setInt(3, cuota.getN_TipPag());
+					stmt.setDouble(4, cuota.getN_ImpPag());
+					//
+					d = cuota.getD_FecVen();
+					java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+					stmt.setTimestamp(5, dt);
+					//
+					
+					int i = stmt.executeUpdate();
+					if (i != 1) {
+						throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+					}
+		
+					int id = 0;
+					query = "SELECT LAST_INSERT_ID()";
+					stmt = con.prepareStatement(query);
+					rs = stmt.executeQuery();
+					if (rs.next()) {
+						id = rs.getInt(1);
+					}
+					cuota.setN_IdCuot(id);
+	
+			} catch (SQLException e) {
+					cuota = null;
+					System.err.println(e.getMessage());
+					throw new DAOExcepcion(e.getMessage());
+			} finally {
+					this.cerrarResultSet(rs);
+					this.cerrarStatement(stmt);
+					this.cerrarConexion(con);
+			}
+			return cuota;
+		}
+	
+	public Cuota actualizar(Cuota cuota) throws DAOExcepcion {
+		
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		java.util.Date d; 
 		
 		try {
-				String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_TipPag, N_ImpPag, D_FecVen) " +
-								"VALUES (?,?,?,?,?)";
-				
+				String query =	"UPDATE CUOTA SET C_Period=?, N_IdVivi=?, N_TipPag=?, N_ImpPag=?, D_FecVen=? " +
+								"WHERE N_IdCuot=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setString(1, cuota.getC_Period());
@@ -35,165 +82,118 @@ public Cuota insertar(Cuota cuota) throws DAOExcepcion {
 				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
 				stmt.setTimestamp(5, dt);
 				//
+				stmt.setInt(6, cuota.getN_IdCuot());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
-					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+					throw new SQLException("ERROR: NO SE PUDO ACTUALIZAR LA CUOTA");
 				}
-	
-				int id = 0;
-				query = "SELECT LAST_INSERT_ID()";
-				stmt = con.prepareStatement(query);
-				rs = stmt.executeQuery();
-				if (rs.next()) {
-					id = rs.getInt(1);
-				}
-				cuota.setN_IdCuot(id);
-
 		} catch (SQLException e) {
-				cuota = null;
+				cuota = null;	
 				System.err.println(e.getMessage());
 				throw new DAOExcepcion(e.getMessage());
 		} finally {
-				this.cerrarResultSet(rs);
 				this.cerrarStatement(stmt);
 				this.cerrarConexion(con);
 		}
 		return cuota;
 	}
-
-public Cuota actualizar(Cuota cuota) throws DAOExcepcion {
 	
-	Connection con = null;
-	PreparedStatement stmt = null;
-	java.util.Date d; 
-	
-	try {
-			String query =	"UPDATE CUOTA SET C_Period=?, N_IdVivi=?, N_TipPag=?, N_ImpPag=?, D_FecVen=? " +
-							"WHERE N_IdCuot=?";
+	public String eliminar(int idCuot) throws DAOExcepcion {
+		String query = "delete from CUOTA WHERE N_IdCuot=?";
+		Connection con = null;
+		PreparedStatement stmt = null;
+		String vReturn = "NO_OK";
+		try {
 			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, idCuot);
+			int i = stmt.executeUpdate();
+			if (i != 1) {
+				throw new SQLException("No se pudo eliminar el registro de Cuota");
+			}else{
+				vReturn = "OK";
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return vReturn;
+	}
+	
+	public Cuota buscar(Cuota cuota) throws DAOExcepcion {
+		Cuota cuotaBuscada =null;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
+							+ " WHERE C_Period=? AND  N_IdVivi=? " ;
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, cuota.getC_Period());
 			stmt.setInt(2, cuota.getN_IdVivi());
-			stmt.setInt(3, cuota.getN_TipPag());
-			stmt.setDouble(4, cuota.getN_ImpPag());
-			//
-			d = cuota.getD_FecVen();
-			java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
-			stmt.setTimestamp(5, dt);
-			//
-			stmt.setInt(6, cuota.getN_IdCuot());
-			
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("ERROR: NO SE PUDO ACTUALIZAR LA CUOTA");
+			rs = stmt.executeQuery();
+			while (rs.next()) 
+			{
+				cuotaBuscada = new Cuota();
+				cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuotaBuscada.setC_Period(rs.getString("C_Period"));
+				cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
+				cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
+				cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
+				cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
 			}
-	} catch (SQLException e) {
-			cuota = null;	
+		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
-	} finally {
+		} finally {
+			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
-	}
-	return cuota;
-}
-
-public String eliminar(int idCuot) throws DAOExcepcion {
-	String query = "delete from CUOTA WHERE N_IdCuot=?";
-	Connection con = null;
-	PreparedStatement stmt = null;
-	String vReturn = "NO_OK";
-	try {
-		con = ConexionBD.obtenerConexion();
-		stmt = con.prepareStatement(query);
-		stmt.setInt(1, idCuot);
-		int i = stmt.executeUpdate();
-		if (i != 1) {
-			throw new SQLException("No se pudo eliminar el registro de Cuota");
-		}else{
-			vReturn = "OK";
 		}
-	} catch (SQLException e) {
-		System.err.println(e.getMessage());
-		throw new DAOExcepcion(e.getMessage());
-	} finally {
-		this.cerrarStatement(stmt);
-		this.cerrarConexion(con);
+		return cuotaBuscada;
 	}
-	return vReturn;
-}
-
-public Cuota buscar(Cuota cuota) throws DAOExcepcion {
-	Cuota cuotaBuscada =null;
-	Connection con = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
-	try {
-		con = ConexionBD.obtenerConexion();
-		String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
-						+ " WHERE C_Period=? AND  N_IdVivi=? " ;
-		stmt = con.prepareStatement(query);
-		stmt.setString(1, cuota.getC_Period());
-		stmt.setInt(1, cuota.getN_IdVivi());
-		rs = stmt.executeQuery();
-		while (rs.next()) 
-		{
-			cuotaBuscada = new Cuota();
-			cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
-			cuotaBuscada.setC_Period(rs.getString("C_Period"));
-			cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
-			cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
-			cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
-			cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
-			cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
+	
+	public Cuota obtener(int idCuot) throws DAOExcepcion {
+		Cuota cuotaBuscada =null;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
+							+ " WHERE N_IdCuot=?" ;
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, idCuot);
+			rs = stmt.executeQuery();
+			while (rs.next()) 
+			{
+				cuotaBuscada = new Cuota();
+				cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuotaBuscada.setC_Period(rs.getString("C_Period"));
+				cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
+				cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
+				cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
+				cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
 		}
-	} catch (SQLException e) {
-		System.err.println(e.getMessage());
-		throw new DAOExcepcion(e.getMessage());
-	} finally {
-		this.cerrarResultSet(rs);
-		this.cerrarStatement(stmt);
-		this.cerrarConexion(con);
+		return cuotaBuscada;
 	}
-	return cuotaBuscada;
-}
-
-public Cuota obtener(int idCuot) throws DAOExcepcion {
-	Cuota cuotaBuscada =null;
-	Connection con = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
-	try {
-		con = ConexionBD.obtenerConexion();
-		String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
-						+ " WHERE N_IdCuot=?" ;
-		stmt = con.prepareStatement(query);
-		stmt.setInt(1, idCuot);
-		rs = stmt.executeQuery();
-		while (rs.next()) 
-		{
-			cuotaBuscada = new Cuota();
-			cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
-			cuotaBuscada.setC_Period(rs.getString("C_Period"));
-			cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
-			cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
-			cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
-			cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
-			cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
-		}
-	} catch (SQLException e) {
-		System.err.println(e.getMessage());
-		throw new DAOExcepcion(e.getMessage());
-	} finally {
-		this.cerrarResultSet(rs);
-		this.cerrarStatement(stmt);
-		this.cerrarConexion(con);
-	}
-	return cuotaBuscada;
-}
-
-public Collection<Cuota> listar() throws DAOExcepcion {
+	
+	public Collection<Cuota> listar() throws DAOExcepcion {
 	Collection<Cuota> listaCuota = new ArrayList<Cuota>();
 	Connection con = null;
 	PreparedStatement stmt = null;
