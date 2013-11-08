@@ -27,16 +27,16 @@ public class ResidenteDAO extends BaseDAO {
 				
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setString(1, residente.getC_NomRes());
-				stmt.setInt(2, residente.getC_TipDoc());
-				stmt.setString(3, residente.getC_NumDoc());
+				stmt.setString(1, residente.getNombreResidente());
+				stmt.setInt(2, residente.getTipoDocumento());
+				stmt.setString(3, residente.getNumeroDocumento());
 				//
-				d = residente.getD_FecNac();
+				d = residente.getFechaNacimiento();
 				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
 				stmt.setTimestamp(4, dt);
 				//
-				stmt.setString(5, residente.getC_Correo());
-				stmt.setString(6, residente.getC_Clave());
+				stmt.setString(5, residente.getCorreo());
+				stmt.setString(6, residente.getClave());
 				stmt.setInt(7, 1);
 				
 				
@@ -54,7 +54,7 @@ public class ResidenteDAO extends BaseDAO {
 				if (rs.next()) {
 					id = rs.getInt(1);
 				}
-				residente.setN_CodRes(id);
+				residente.setIdResidente(id);
 
 		} catch (SQLException e) {
 				residente = null;
@@ -135,7 +135,7 @@ public class ResidenteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"SELECT R.N_CodRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
+				String query =	"SELECT R.N_IdRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
 								"WHERE R.C_NomRes LIKE ? AND C_ESTREG=1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
@@ -145,12 +145,12 @@ public class ResidenteDAO extends BaseDAO {
 				while (rs.next()) {
 
 					Residente residente = new Residente();
-					residente.setN_CodRes(rs.getInt("N_CodRes"));
-					residente.setC_NomRes(rs.getString("C_NomRes"));
-					residente.setC_TipDoc(rs.getInt("N_TipDoc"));
-					residente.setC_NumDoc(rs.getString("C_NumDoc"));
-					residente.setD_FecNac(rs.getDate("D_FecNac"));
-					residente.setC_Correo(rs.getString("C_Correo"));
+					residente.setIdResidente(rs.getInt("N_IdRes"));
+					residente.setNombreResidente(rs.getString("C_NomRes"));
+					residente.setTipoDocumento(rs.getInt("N_TipDoc"));
+					residente.setNumeroDocumento(rs.getString("C_NumDoc"));
+					residente.setFechaNacimiento(rs.getDate("D_FecNac"));
+					residente.setCorreo(rs.getString("C_Correo"));
 														
 					lista.add(residente);
 				}
@@ -176,20 +176,20 @@ public class ResidenteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"SELECT R.N_CodRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
-								"WHERE R.N_CodRes = ? AND C_ESTREG=1";
+				String query =	"SELECT R.N_IdRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
+								"WHERE R.N_IdRes = ? AND C_ESTREG=1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idResidente);
 				rs = stmt.executeQuery();
 				
 				if (rs.next()) {
-					residente.setN_CodRes(rs.getInt("N_CodRes"));
-					residente.setC_NomRes(rs.getString("C_NomRes"));
-					residente.setC_TipDoc(rs.getInt("N_TipDoc"));
-					residente.setC_NumDoc(rs.getString("C_NumDoc"));
-					residente.setD_FecNac(rs.getDate("D_FecNac"));
-					residente.setC_Correo(rs.getString("C_Correo"));
+					residente.setIdResidente(rs.getInt("N_IdRes"));
+					residente.setNombreResidente(rs.getString("C_NomRes"));
+					residente.setTipoDocumento(rs.getInt("N_TipDoc"));
+					residente.setNumeroDocumento(rs.getString("C_NumDoc"));
+					residente.setFechaNacimiento(rs.getDate("D_FecNac"));
+					residente.setCorreo(rs.getString("C_Correo"));
 			}
 		} catch (SQLException e) {
 			residente = null;
@@ -211,19 +211,19 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 				String query =	"UPDATE RESIDENTES SET C_NOMRES=?, N_TIPDOC=?, C_NUMDOC=?, D_FECNAC=?, C_CORREO=? " +
-								"WHERE N_CODRES=?";
+								"WHERE N_IdRes=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setString(1, residente.getC_NomRes());
-				stmt.setInt(2, residente.getC_TipDoc());
-				stmt.setString(3, residente.getC_NumDoc());
+				stmt.setString(1, residente.getNombreResidente());
+				stmt.setInt(2, residente.getTipoDocumento());
+				stmt.setString(3, residente.getNumeroDocumento());
 				//
-				d = residente.getD_FecNac();
+				d = residente.getFechaNacimiento();
 				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
 				stmt.setTimestamp(4, dt);
 				//
-				stmt.setString(5, residente.getC_Correo());
-				stmt.setInt(6, residente.getN_CodRes());
+				stmt.setString(5, residente.getCorreo());
+				stmt.setInt(6, residente.getIdResidente());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
@@ -249,7 +249,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		String vReturn = "NO_OK";
 		try {
-				String query = "UPDATE RESIDENTES SET C_EstReg = 0 WHERE N_CODRES=?";
+				String query = "UPDATE RESIDENTES SET C_EstReg = 0 WHERE N_IdRes=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idResidente);
