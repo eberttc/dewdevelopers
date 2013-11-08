@@ -42,8 +42,8 @@ public class GestionMensaje {
 	
 }
 	
-	public Collection<Mensaje> listar() throws DAOExcepcion{
+	public Collection<Mensaje> listar(int x) throws DAOExcepcion{
 		MensajeDAO mensajeDao = new MensajeDAO();
-		return mensajeDao.listar();
+		return mensajeDao.listar(x);
 	}
 }

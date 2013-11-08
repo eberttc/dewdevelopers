@@ -20,7 +20,7 @@ public class GestionMensajeTest {
 		GestionMensaje negocio = new GestionMensaje();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertar("Reunion de residentes 2", "Lorem ipsum dolor sit amet consectetur adipiscing elit",fecha);
+			negocio.insertar("Reunion de residentes 2", "Lorem ipsum dolor kide ru soincp tur adipiscing elit",fecha);
 
 			//Categoria nuevo = negocio.obtener(3);
 			//Assert.assertEquals("Categoria de Smartphones", nuevo.getDescripcion());
@@ -30,14 +30,14 @@ public class GestionMensajeTest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void actualizarMensajeTest(){
 		
 		GestionMensaje negocio = new GestionMensaje();
 		Date fecha = new Date(System.currentTimeMillis());
 		
 		try {
-			negocio.actualizar(5,"Reunion de Residenes 3","Lorem ipsum dolor sit amet consectetur adipiscing elit",fecha);
+			negocio.actualizar(1,"Reunion de Residenes 1","Lorem ipsum dolor sit amet consectetur adipiscing elite df",fecha);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Actualización: "+e.getMessage());
@@ -49,24 +49,27 @@ public class GestionMensajeTest {
 	
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			negocio.eliminar(6);
+			negocio.eliminar(2);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Eliminación: "+e.getMessage());
 		}
 	}
 	
-	//@Test
+	@Test
 	public void ListarMensajeTest(){
 		
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			Collection<Mensaje> listado = negocio.listar();
-			System.out.println(listado.size());
+			Collection<Mensaje> listado = negocio.listar(5);
+			//System.out.println(listado.size());
+			System.out.println("TITULO 		  	| MENSAJE 						   | FECHA");
+			System.out.println("---------------------------------------------------------------------------------------------------");
+			
 			for (Mensaje m : listado) {
-				System.out.print(m.getN_idMens()+" | ");
+				
 				System.out.print(m.getC_titulo()+" | ");
 				System.out.print(m.getC_conten()+" | ");
-				System.out.print(m.getD_fecPub()+" | ");
+				System.out.println(m.getD_fecPub()+" | ");
 			}
 			Assert.assertTrue(listado.size()>0);
 		} catch (DAOExcepcion e) {

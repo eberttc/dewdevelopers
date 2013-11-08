@@ -113,22 +113,22 @@ public class MensajeDAO  extends BaseDAO{
 		
 	}
 	
-	public Collection<Mensaje> listar() throws DAOExcepcion{
+	public Collection<Mensaje> listar(int x) throws DAOExcepcion{
 		Collection<Mensaje> cm = new ArrayList<Mensaje>();
 		Connection con=null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			con = ConexionBD.obtenerConexion();
-			String query = "SELECT N_IDMens, C_Titulo, C_Conten, D_FecPub FROM mensaje";
+			con = ConexionBD.obtenerConexion();//SELECT N_IDMens, C_Titulo, C_Conten, D_FecPub FROM mensaje
+			String query = "SELECT C_Titulo,C_Conten,D_FecPub FROM mensajeria m INNER JOIN  mensaje a on m.N_IdMens = a.N_IdMens where m.N_IdRes = ?";
 			stmt = con.prepareStatement(query);
+			stmt.setInt(1, x);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Mensaje m = new Mensaje();
-				m.setN_idMens(rs.getInt(1));
-				m.setC_titulo(rs.getString(2));
-				m.setC_conten(rs.getString(3));
-				m.setD_fecPub(rs.getDate(4));
+				m.setC_titulo(rs.getString(1));
+				m.setC_conten(rs.getString(2));
+				m.setD_fecPub(rs.getDate(3));
 				cm.add(m);
 			}
 			
