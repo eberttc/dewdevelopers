@@ -6,7 +6,7 @@ import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Residente;
 
 
-public class ResidenteCore {
+public class GestionResidente {
 	
 	public String insertar(Residente residente) throws DAOExcepcion {
 		
@@ -15,11 +15,11 @@ public class ResidenteCore {
 		
 		try{
 			
-			v_vReturn = getExisteDocumento(residente.getC_TipDoc(), residente.getC_NumDoc());
+			v_vReturn = getExisteDocumento(residente.getTipoDocumento(), residente.getNumeroDocumento());
 			
 			if (v_vReturn.equals("OK")){
 
-				v_vReturn = getExisteCorreo(residente.getC_Correo());
+				v_vReturn = getExisteCorreo(residente.getCorreo());
 				
 				if (v_vReturn.equals("OK")){
 					residente = dao.insertar(residente);
@@ -118,19 +118,19 @@ public class ResidenteCore {
 		
 		try{
 			Residente residenteAux = new Residente();
-			residenteAux = obtener(residente.getN_CodRes());	
+			residenteAux = obtener(residente.getIdResidente());	
 			
-			if ((residente.getC_TipDoc()==residenteAux.getC_TipDoc()) && (residente.getC_NumDoc().equals(residenteAux.getC_NumDoc()))){
+			if ((residente.getTipoDocumento()==residenteAux.getTipoDocumento()) && (residente.getNumeroDocumento().equals(residenteAux.getNumeroDocumento()))){
 				v_vReturn = "OK";
 			}else{
-				v_vReturn = getExisteDocumento(residente.getC_TipDoc(), residente.getC_NumDoc());
+				v_vReturn = getExisteDocumento(residente.getTipoDocumento(), residente.getNumeroDocumento());
 			} 
 			
 			if (v_vReturn.equals("OK")){
-				if (residente.getC_Correo().equals(residenteAux.getC_Correo())){
+				if (residente.getCorreo().equals(residenteAux.getCorreo())){
 					v_vReturn = "OK";
 				}else{
-					v_vReturn = getExisteCorreo(residente.getC_Correo());	
+					v_vReturn = getExisteCorreo(residente.getCorreo());	
 				}
 			}
 			
