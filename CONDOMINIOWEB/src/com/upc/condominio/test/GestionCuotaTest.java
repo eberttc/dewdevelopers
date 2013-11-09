@@ -23,11 +23,11 @@ public class GestionCuotaTest {
 		Date fechaVenc = new Date(System.currentTimeMillis());
 		Date fechaPago = new Date(System.currentTimeMillis());
 		
-		cuota.setN_IdVivi(8);
+		cuota.setN_IdVivi(2);
 		cuota.setD_FecPag(fechaPago);
-		cuota.setC_Period("201301");
+		cuota.setC_Period("201305");
 		cuota.setD_FecVen(fechaVenc);
-		cuota.setN_ImpPag(145);
+		cuota.setN_ImpPag(135);
 		//cuota.setN_TipPag(1);
 				
 		try {
@@ -53,20 +53,20 @@ public class GestionCuotaTest {
 			}
 	}
 	
-	//@Test
+	@Test
 	public void actualizarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
 		Date fechaVenc = new Date(System.currentTimeMillis());
-		Date fechaPago = new Date(System.currentTimeMillis());
+		//Date fechaPago = new Date(System.currentTimeMillis());
 		
-		cuota.setN_IdCuot(1);
-		cuota.setN_IdVivi(2);
-		cuota.setD_FecPag(fechaPago);
-		cuota.setC_Period("201311");
+		cuota.setN_IdCuot(2);
+		cuota.setN_IdVivi(3);
+		//cuota.setD_FecPag(fechaPago);
+		cuota.setC_Period("201301");
 		cuota.setD_FecVen(fechaVenc);
 		cuota.setN_ImpPag(150);
-		cuota.setN_TipPag(1);
+		//cuota.setN_TipPag(1);
 				
 		try {
 			v_vReturn = gestionCuota.actualizar(cuota);
@@ -116,8 +116,8 @@ public class GestionCuotaTest {
 			}
 		}
 		
-		@Test
-		public void realizarPagoTest() throws ParseException {
+	//@Test
+	public void realizarPagoTest() throws ParseException {
 			
 			String v_vReturn = "NO_OK";
 			Date fechaPago = new Date(System.currentTimeMillis());
