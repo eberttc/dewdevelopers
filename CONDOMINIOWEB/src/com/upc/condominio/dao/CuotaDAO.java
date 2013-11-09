@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.mysql.jdbc.CallableStatement;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
 import com.upc.condominio.util.ConexionBD;
@@ -14,54 +15,52 @@ import com.upc.condominio.util.ConexionBD;
 public class CuotaDAO  extends BaseDAO {
 	
 	public Cuota insertar(Cuota cuota) throws DAOExcepcion {
-					
-			Connection con = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			java.util.Date d; 
-			
-			try {
-					String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_ImpPag, D_FecVen) " +
-									"VALUES (?,?,?,?)";
-					
-					con = ConexionBD.obtenerConexion();
-					stmt = con.prepareStatement(query);
-					stmt.setString(1, cuota.getC_Period());
-					stmt.setInt(2, cuota.getN_IdVivi());
-					//stmt.setInt(3, cuota.getN_TipPag());
-					stmt.setDouble(3, cuota.getN_ImpPag());
-					//
-					d = cuota.getD_FecVen();
-					java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
-					stmt.setTimestamp(4, dt);
-					//
-					
-					int i = stmt.executeUpdate();
-					if (i != 1) {
-						throw new SQLException("ERROR: NO SE PUDO INSERTAR");
-					}
+	
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		java.util.Date d; 
 		
-					int id = 0;
-					query = "SELECT LAST_INSERT_ID()";
-					stmt = con.prepareStatement(query);
-					rs = stmt.executeQuery();
-					if (rs.next()) {
-						id = rs.getInt(1);
-					}
-					cuota.setN_IdCuot(id);
+		try {
+				String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_ImpPag, D_FecVen) " +
+								"VALUES (?,?,?,?)";
+				
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setString(1, cuota.getC_Period());
+				stmt.setInt(2, cuota.getN_IdVivi());
+				stmt.setDouble(3, cuota.getN_ImpPag());
+				//
+				d = cuota.getD_FecVen();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				stmt.setTimestamp(4, dt);
+				//
+				
+				int i = stmt.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+				}
 	
-			} catch (SQLException e) {
-					cuota = null;
-					System.err.println(e.getMessage());
-					throw new DAOExcepcion(e.getMessage());
-			} finally {
-					this.cerrarResultSet(rs);
-					this.cerrarStatement(stmt);
-					this.cerrarConexion(con);
-			}
-			return cuota;
+				int id = 0;
+				query = "SELECT LAST_INSERT_ID()";
+				stmt = con.prepareStatement(query);
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					id = rs.getInt(1);
+				}
+				cuota.setN_IdCuot(id);
+				} catch (SQLException e) {
+				cuota = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
 		}
-	
+		return cuota;
+	}
+
 	public Cuota actualizar(Cuota cuota) throws DAOExcepcion {
 		
 		Connection con = null;
@@ -124,7 +123,7 @@ public class CuotaDAO  extends BaseDAO {
 		return vReturn;
 	}
 	
-	public Cuota buscar(Cuota cuota) throws DAOExcepcion {
+	public Cuota buscarPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
 		Cuota cuotaBuscada =null;
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -257,6 +256,88 @@ public class CuotaDAO  extends BaseDAO {
 				throw new DAOExcepcion(e.getMessage());
 		} finally {
 				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return cuota;
+	}
+	
+	/* Métodos del DAO con llamadas a PROCEDIMIENTOS ALMACENADOS*/
+	
+	public Cuota insertarPA(Cuota cuota) throws DAOExcepcion {
+		
+		Connection con = null;
+		CallableStatement procedAlmacenado = null;
+		ResultSet rs = null;
+		java.util.Date d; 
+		
+		try {
+				con = ConexionBD.obtenerConexion();
+				procedAlmacenado = (CallableStatement) con.prepareCall("{ call usp_cond_mnt_insert_cuota (?,?,?,?) }");
+				
+				procedAlmacenado.setString(1, cuota.getC_Period());
+				procedAlmacenado.setInt(2, cuota.getN_IdVivi());
+				procedAlmacenado.setDouble(3, cuota.getN_ImpPag());
+				//
+				d = cuota.getD_FecVen();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				procedAlmacenado.setTimestamp(4, dt);
+				boolean i = procedAlmacenado.execute();
+				if (i != false) {
+					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+				}
+	
+				int id = 0;
+				String query = "SELECT LAST_INSERT_ID()";
+				PreparedStatement stmt2 = con.prepareStatement(query);
+				rs = stmt2.executeQuery();
+				if (rs.next()) {
+					id = rs.getInt(1);
+				}
+				cuota.setN_IdCuot(id);
+		
+		} catch (SQLException e) {
+				cuota = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(procedAlmacenado);
+				this.cerrarConexion(con);
+		}
+		return cuota;
+	}
+	
+	public Cuota actualizarPA(Cuota cuota) throws DAOExcepcion {
+		
+		Connection con = null;
+		//PreparedStatement stmt = null;
+		CallableStatement procedAlmacenado = null;
+		java.util.Date d; 
+		
+		try {
+				con = ConexionBD.obtenerConexion();
+				procedAlmacenado = (CallableStatement) con.prepareCall("{ call usp_cond_mnt_update_cuota (?,?,?,?,?) }");
+
+				procedAlmacenado.setInt(1, cuota.getN_IdCuot());
+				procedAlmacenado.setString(2, cuota.getC_Period());
+				procedAlmacenado.setInt(3, cuota.getN_IdVivi());
+				procedAlmacenado.setDouble(4, cuota.getN_ImpPag());
+				//
+				d = cuota.getD_FecVen();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				procedAlmacenado.setTimestamp(5, dt);
+				//
+				
+				int i = procedAlmacenado.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO ACTUALIZAR LA CUOTA");
+				}
+		} catch (SQLException e) {
+				cuota = null;	
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarStatement(procedAlmacenado);
 				this.cerrarConexion(con);
 		}
 		return cuota;
