@@ -6,7 +6,7 @@ import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.modelo.Vivienda;
 
-public class ViviendaCore {
+public class GestionVivienda {
 
 	public String insertar(Vivienda vivienda) throws DAOExcepcion {
 		
