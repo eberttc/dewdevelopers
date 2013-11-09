@@ -21,19 +21,19 @@ public class CuotaDAO  extends BaseDAO {
 			java.util.Date d; 
 			
 			try {
-					String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_TipPag, N_ImpPag, D_FecVen) " +
-									"VALUES (?,?,?,?,?)";
+					String query =	"INSERT INTO CUOTA (C_Period, N_IdVivi, N_ImpPag, D_FecVen) " +
+									"VALUES (?,?,?,?)";
 					
 					con = ConexionBD.obtenerConexion();
 					stmt = con.prepareStatement(query);
 					stmt.setString(1, cuota.getC_Period());
 					stmt.setInt(2, cuota.getN_IdVivi());
-					stmt.setInt(3, cuota.getN_TipPag());
-					stmt.setDouble(4, cuota.getN_ImpPag());
+					//stmt.setInt(3, cuota.getN_TipPag());
+					stmt.setDouble(3, cuota.getN_ImpPag());
 					//
 					d = cuota.getD_FecVen();
 					java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
-					stmt.setTimestamp(5, dt);
+					stmt.setTimestamp(4, dt);
 					//
 					
 					int i = stmt.executeUpdate();
@@ -227,4 +227,39 @@ public class CuotaDAO  extends BaseDAO {
 	return listaCuota;
 }
 
+	public Cuota realizarPago(Cuota cuota) throws DAOExcepcion {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		java.util.Date d; 
+		
+		try {
+				String query =	"UPDATE CUOTA SET N_TipPag=?, D_FecPag=? " +
+								"WHERE N_IdCuot=?";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				stmt.setInt(1, cuota.getN_TipPag());
+				
+				//
+				d = cuota.getD_FecPag();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				stmt.setTimestamp(2, dt);
+				//
+				stmt.setInt(3, cuota.getN_IdCuot());
+				
+				int i = stmt.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: NO SE PUDO ACTUALIZAR LA CUOTA");
+				}
+		} catch (SQLException e) {
+				cuota = null;	
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return cuota;
+	}
+	
 }

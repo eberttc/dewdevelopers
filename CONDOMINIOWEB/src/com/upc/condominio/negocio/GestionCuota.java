@@ -118,4 +118,34 @@ public class GestionCuota {
 		return listaCuota;
 	}
 
+	public String realizarPago(Cuota cuota) throws DAOExcepcion {
+		
+		String v_vReturn = "ERROR - Consulte con Administrador";
+		CuotaDAO cuotaDAO = new CuotaDAO();
+		
+		try{
+			Cuota cuotaAux = new Cuota ();
+			cuotaAux = obtener(cuota.getN_IdCuot());	
+			
+			if ((cuota.getC_Period()==cuotaAux.getC_Period())
+					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
+				v_vReturn = "OK";
+			}else{
+				v_vReturn = buscar(cuota);
+			} 
+			
+			if (v_vReturn.equals("OK")){
+				cuota = cuotaDAO.realizarPago(cuota);
+				v_vReturn = "Cuota pagada exitosamente.";
+			}
+			
+		}
+		catch (Exception e) {
+            e.printStackTrace();
+        }
+        return v_vReturn;
+        
+	}
+			
+		
 }
