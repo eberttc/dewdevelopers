@@ -18,7 +18,7 @@ public class ViviendaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"INSERT INTO VIVIENDAS (C_Ubicacion, C_Numero, N_Metraje, C_TipViv, N_CodRes, C_EstReg) " +
+				String query =	"INSERT INTO VIVIENDAS (C_NroEdi, C_NroDpto, N_NumMet, C_TipViv, N_IdRes, C_EstReg) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
@@ -27,7 +27,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
-				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
+				stmt.setInt(5, vivienda.getResidente().getIdResidente());
 				stmt.setInt(6, 1);
 				
 				int i = stmt.executeUpdate();
@@ -66,7 +66,7 @@ public class ViviendaDAO extends BaseDAO {
 		
 		try {
 			String query =	"SELECT COUNT(*) AS CANTIDAD FROM VIVIENDAS V " +
-							"WHERE V.C_Ubicacion = ? AND V.C_Numero = ? AND V.C_TipViv = ? AND V.C_EstReg = 1";
+							"WHERE V.C_NroEdi = ? AND V.C_NroDpto = ? AND V.C_TipViv = ? AND V.N_IdRes = 1";
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, vivienda.getC_Ubicacion());
@@ -108,8 +108,8 @@ public class ViviendaDAO extends BaseDAO {
 				
 				if (rs.next()) {
 					
-					residente.setN_CodRes(rs.getInt("N_CodRes"));
-					residente.setC_NomRes(rs.getString("C_NomRes"));
+					residente.setIdResidente(rs.getInt("N_CodRes"));
+					residente.setNombreResidente(rs.getString("C_NomRes"));
 					
 					vivienda.setResidente(residente);
 					vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
@@ -146,7 +146,7 @@ public class ViviendaDAO extends BaseDAO {
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
 				stmt.setInt(4, vivienda.getC_TipViv());
-				stmt.setInt(5, vivienda.getResidente().getN_CodRes());
+				stmt.setInt(5, vivienda.getResidente().getIdResidente());
 				stmt.setInt(6, vivienda.getN_IdVivi());
 				
 				int i = stmt.executeUpdate();
