@@ -28,7 +28,7 @@ public class Cuota {
 		N_TipPag= n_TipPag;
 		N_ImpPag= n_ImpPag;
 		D_FecVen= d_FecVen;
-		D_FecVen= d_FecVen;
+	//	D_FecVen= d_FecVen;
 	}
 	
 	public int getN_IdCuot() {

@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 //import java.util.Date;
 import java.util.List;
-
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Queja;
 //import com.upc.condominio.modelo.Residente;
@@ -113,7 +113,7 @@ public class QuejaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"SELECT Q.N_IdQueja, Q.CTipoQueja, Q.D_FecQue, Q.C_Estado FROM Quejas Q " +
+				String query =	"SELECT Q.N_IdQueja, Q.C_TipQue, Q.D_FecQue, Q.C_Estado FROM Quejas Q " +
 					"WHERE Q.N_IdQueja = ? ";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
@@ -123,7 +123,7 @@ public class QuejaDAO extends BaseDAO {
 				if (rs.next()) {		
 					
 					queja.setintIdQueja(rs.getInt("N_IdQueja"));
-					queja.setstrTipoQueja(rs.getString("C_TipoQueja"));
+					queja.setstrTipoQueja(rs.getString("C_TipQue"));
 					queja.setdFechaQueja(rs.getDate("D_FecQue"));
 					queja.setstrEstadoQueja(rs.getString("C_Estado"));
 														
@@ -176,5 +176,34 @@ public class QuejaDAO extends BaseDAO {
 		return queja;
 	}
 
-	
+	public Collection<Queja> listar() throws DAOExcepcion {
+		Collection<Queja> c = new ArrayList<Queja>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+//			String query = "select * from bdcondominio.quejas c where c.C_Estado like '%Inves%'";
+			String query = "select * from bdcondominio.quejas c where c.C_Motivo like '%Robo%'";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Queja q = new Queja();
+				q.setintIdQueja(rs.getInt("N_IdQueja"));
+				q.setintIdResidente(rs.getInt("N_CodRes"));
+				q.setstrTipoQueja(rs.getString("C_TipQue"));
+				c.add(q);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return c;
+	}
+
 }

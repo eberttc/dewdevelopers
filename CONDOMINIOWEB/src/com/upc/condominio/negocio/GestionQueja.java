@@ -1,8 +1,13 @@
 package com.upc.condominio.negocio;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.upc.condominio.dao.JuntaDAO;
 import com.upc.condominio.dao.QuejaDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Junta;
 import com.upc.condominio.modelo.Queja;
 
 
@@ -37,5 +42,12 @@ public class GestionQueja {
 			return queja;
 		}
 
-	
+		public Collection<Queja> listarQueja() throws DAOExcepcion{
+			
+			QuejaDAO quejaDao=new  QuejaDAO();	
+			Collection<Queja> c = new ArrayList<Queja>();
+			
+			return quejaDao.listar();
+		
+		}
 }

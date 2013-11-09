@@ -212,7 +212,7 @@ public class CuotaDAO  extends BaseDAO {
 			cuota.setN_TipPag(rs.getInt("N_TipPag"));
 			cuota.setN_ImpPag(rs.getFloat("N_ImpPag"));
 			cuota.setD_FecVen(rs.getDate("D_FecVen"));
-			cuota.setD_FecPag(rs.getDate("D_FecPag"));
+		//	cuota.setD_FecPag(rs.getDate("D_FecPag"));
 			listaCuota.add(cuota);
 		}
 
