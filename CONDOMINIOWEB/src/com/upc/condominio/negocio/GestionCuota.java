@@ -16,10 +16,10 @@ public class GestionCuota {
 		
 		try{
 			
-			v_vReturn = buscar(cuota);
+			v_vReturn = buscarPeriodoVivienda(cuota);
 			
 			if (v_vReturn.equals("OK")){
-				cuota = cuotaDAO.insertar(cuota);
+				cuota = cuotaDAO.insertarPA(cuota);
 				v_vReturn = "Cuota Grabada exitosamente.";
 			}
 		}
@@ -30,14 +30,14 @@ public class GestionCuota {
         
 	}
 	
-	public String buscar(Cuota cuota) throws DAOExcepcion {
+	public String buscarPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
 		
 		String v_vReturn = "ERROR - Consulte con Administrador";
 		Cuota cuotaBuscada = null; 
 
 		try{
 			CuotaDAO cuotaDAO = new CuotaDAO();
-			cuotaBuscada = cuotaDAO.buscar(cuota);
+			cuotaBuscada = cuotaDAO.buscarPeriodoVivienda(cuota);
 			
 			if (cuotaBuscada == null){
 				v_vReturn = "OK";
@@ -73,14 +73,14 @@ public class GestionCuota {
 			cuotaAux = obtener(cuota.getN_IdCuot());	
 			
 			if ((cuota.getC_Period()==cuotaAux.getC_Period())
-					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
+			  &&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
 				v_vReturn = "OK";
 			}else{
-				v_vReturn = buscar(cuota);
+				v_vReturn = buscarPeriodoVivienda(cuota);
 			} 
 			
 			if (v_vReturn.equals("OK")){
-				cuota = cuotaDAO.actualizar(cuota);
+				cuota = cuotaDAO.actualizarPA(cuota);
 				v_vReturn = "Cuota editada exitosamente.";
 			}
 			
@@ -131,7 +131,7 @@ public class GestionCuota {
 					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
 				v_vReturn = "OK";
 			}else{
-				v_vReturn = buscar(cuota);
+				v_vReturn = buscarPeriodoVivienda(cuota);
 			} 
 			
 			if (v_vReturn.equals("OK")){
