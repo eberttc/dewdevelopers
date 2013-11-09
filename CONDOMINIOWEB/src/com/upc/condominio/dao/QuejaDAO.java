@@ -56,8 +56,9 @@ public class QuejaDAO extends BaseDAO {
 
 		} catch (SQLException e) {
 				queja = null;
-				System.err.println(e.getMessage());
+				//System.err.println(e.getMessage());
 				throw new DAOExcepcion(e.getMessage());
+//				System.out.println("NO SE PUDO INSERTAR");
 		} finally {
 				this.cerrarResultSet(rs);
 				this.cerrarStatement(stmt);
@@ -184,14 +185,16 @@ public class QuejaDAO extends BaseDAO {
 		try {
 			con = ConexionBD.obtenerConexion();
 //			String query = "select * from bdcondominio.quejas c where c.C_Estado like '%Inves%'";
-			String query = "select * from bdcondominio.quejas c where c.C_Motivo like '%Robo%'";
+//			String query = "select * from bdcondominio.quejas c where c.C_Motivo like '%Robo%'";
+			String query = "select * from bdcondominio.quejas";
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Queja q = new Queja();
 				q.setintIdQueja(rs.getInt("N_IdQueja"));
 				q.setintIdResidente(rs.getInt("N_CodRes"));
-				q.setstrTipoQueja(rs.getString("C_TipQue"));
+				q.setstrMotivoQueja(rs.getString(4));
+				q.setstrEstadoQueja(rs.getString(6));
 				c.add(q);
 			}
 

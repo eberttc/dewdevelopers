@@ -1,6 +1,8 @@
 package com.upc.condominio.negocio;
 
 import java.sql.Date;
+import java.util.Collection;
+
 import com.upc.condominio.dao.VisitanteDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Visitante;
@@ -26,13 +28,11 @@ public class GestionVisitantes {
 	
 	}
 	
-	public Visitante obtenerVisitante(int codigo) throws DAOExcepcion{
+	public Collection<Visitante> listar(int codigo) throws DAOExcepcion{
 		
 		VisitanteDAO visitanteDao=new  VisitanteDAO();	
-		Visitante visitante=new Visitante();
-		visitante=visitanteDao.obtener(2);
 		
-		return visitante;
+		return visitanteDao.listar(2);
 	}
 
 }

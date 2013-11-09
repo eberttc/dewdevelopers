@@ -5,14 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
 import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Mensaje;
 import com.upc.condominio.modelo.Visitante;
 import com.upc.condominio.util.ConexionBD;
 
 public class VisitanteDAO extends BaseDAO {
 	
-	// Considerar Insertar, Listar y Buscar Visitantes
+	// Considerar Insertar, Listar Visitantes por Residentes
 	
 	@SuppressWarnings("resource")
 	public Visitante insertar(Visitante visitante) throws DAOExcepcion {
@@ -64,7 +67,7 @@ public class VisitanteDAO extends BaseDAO {
 		return visitante;
 	}
 	
-	public List<Visitante> buscarVisitante(String estadoVisitante) throws DAOExcepcion {
+	public List<Visitante> buscarVisitante(int codResidente) throws DAOExcepcion {
 		
 		List<Visitante> lista = new ArrayList<Visitante>();
 		Connection con = null;
@@ -72,22 +75,22 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, V.N_CodRes, V.D_HoraFechaVisit FROM Visitantes V " +
-								"WHERE V.N_Correl LIKE ? ";
+				String query =	"select C_NomRes, C_DniVis, C_NomVis,  D_HoraFechaVisit from visitantes v inner join residentes r on v.N_CodRes = r.N_CodRes " +
+								"where v.N_CodRes = ? ";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setString(1, "%" + estadoVisitante + "%");
+				stmt.setInt(1, codResidente);
 				rs = stmt.executeQuery();
+				String nomResidente = "";
 				
 				while (rs.next()) {
 
 					Visitante visitante = new Visitante();
+					nomResidente = rs.getString("C_NomRes");
 					visitante.setintCorrelativo(rs.getInt("N_Correl"));
 					visitante.setstrDNIVisitante(rs.getString("C_DniVis"));
 					visitante.setstrNombreVisitante(rs.getString("C_NomVis"));
-					visitante.setintCodigoResidente(rs.getInt("N_CodRes"));
 					visitante.setdHoraFechaVisitante(rs.getDate("D_HoraFechaVisit"));
-					
 					lista.add(visitante);
 				}
 		} 
@@ -104,8 +107,8 @@ public class VisitanteDAO extends BaseDAO {
 		return lista;
 	} 	
 
-	public Visitante obtener(int idVisitante) throws DAOExcepcion {
-		
+	public Collection<Visitante> listar(int idVisitante) throws DAOExcepcion {
+		Collection<Visitante> v = new ArrayList<Visitante>();
 		Visitante visitante = new Visitante();
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -126,6 +129,7 @@ public class VisitanteDAO extends BaseDAO {
 					visitante.setstrNombreVisitante(rs.getString("C_NomVis"));
 					visitante.setintCodigoResidente(rs.getInt("N_CodRes"));
 					visitante.setdHoraFechaVisitante(rs.getDate("D_HoraFechaVisit"));
+					v.add(visitante);
 														
 			}
 		} catch (SQLException e) {
@@ -137,7 +141,7 @@ public class VisitanteDAO extends BaseDAO {
 				this.cerrarStatement(stmt);
 				this.cerrarConexion(con);
 		}
-		return visitante;
+		return v;
 	}
 
 	
