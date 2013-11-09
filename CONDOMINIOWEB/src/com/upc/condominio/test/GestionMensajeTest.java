@@ -20,7 +20,7 @@ public class GestionMensajeTest {
 		GestionMensaje negocio = new GestionMensaje();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertar("Reunion de residentes 2", "Lorem ipsum dolor kide ru soincp tur adipiscing elit",fecha);
+			negocio.insertar("Reunion de residentes 3", "Lorem ipsum dolor kide ru soincp tur adipiscing elit",fecha);
 
 			//Categoria nuevo = negocio.obtener(3);
 			//Assert.assertEquals("Categoria de Smartphones", nuevo.getDescripcion());

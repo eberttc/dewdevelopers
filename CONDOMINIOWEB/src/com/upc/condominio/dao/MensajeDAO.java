@@ -119,7 +119,7 @@ public class MensajeDAO  extends BaseDAO{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			con = ConexionBD.obtenerConexion();//SELECT N_IDMens, C_Titulo, C_Conten, D_FecPub FROM mensaje
+			con = ConexionBD.obtenerConexion();
 			String query = "SELECT C_Titulo,C_Conten,D_FecPub FROM mensajeria m INNER JOIN  mensaje a on m.N_IdMens = a.N_IdMens where m.N_IdRes = ?";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, x);

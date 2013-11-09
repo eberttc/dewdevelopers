@@ -8,7 +8,7 @@ import com.upc.condominio.modelo.Reserva;
 
 public class GestionReserva {
 	
-	public Reserva insertar(Date fecReg, int idEsp, int idRes,int idRanHor) throws DAOExcepcion{
+	public void insertar(Date fecReg, int idEsp, int idRes,int idRanHor) throws DAOExcepcion{
 		
 		ReservaDAO dao = new ReservaDAO();
 		Reserva r = new Reserva();
@@ -16,7 +16,13 @@ public class GestionReserva {
 		r.setN_idEspa(idEsp);;
 		r.setN_idRes(idRes);
 		r.setN_idRanHor(idRanHor);
-		return dao.insertar(r);
+		int aux = dao.verificarhorario(fecReg,idEsp,idRanHor);
+
+		if(aux!=1){
+			dao.insertar(r);
+		}else{
+			System.out.println("El espacio "+idEsp+ " de no esta disponible en este horario");
+		}
 	}
 
 	
