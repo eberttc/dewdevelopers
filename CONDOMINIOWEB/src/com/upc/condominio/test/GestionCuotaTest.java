@@ -28,7 +28,6 @@ public class GestionCuotaTest {
 		cuota.setC_Period("201305");
 		cuota.setD_FecVen(fechaVenc);
 		cuota.setN_ImpPag(135);
-		//cuota.setN_TipPag(1);
 				
 		try {
 			v_vReturn = gestionCuota.insertar(cuota);
@@ -44,7 +43,9 @@ public class GestionCuotaTest {
 	public void obtenerTest() {
 					
 			try {
-				cuota = gestionCuota.obtener(1);
+				Cuota cuotaBuscar = new Cuota();
+				cuotaBuscar.setN_IdCuot(3);
+				cuota = gestionCuota.obtener(cuotaBuscar);
 				Assert.assertNotNull(cuota);
 				System.out.print("Periodo: " + cuota.getC_Period() + "; Importe de Pago:" + cuota.getN_ImpPag());
 			} 
@@ -53,20 +54,34 @@ public class GestionCuotaTest {
 			}
 	}
 	
-	@Test
+	//@Test
+	public void obtenerPeriodoViviendaTest() {
+					
+		try {
+			Cuota cuotaBuscar = new Cuota();
+			String buscado = "NO_OK";
+			cuotaBuscar.setC_Period("201301");
+			cuotaBuscar.setN_IdVivi(4);
+			buscado = gestionCuota.obtenerPeriodoVivienda(cuotaBuscar);
+			//Assert.assertEquals("ERROR", buscado.contains("ERROR"));
+			System.out.print("Periodo: " + buscado);
+		} 
+		catch (DAOExcepcion e) {	
+			Assert.fail("ERROR: " + e.getMessage());
+		}
+	}
+	
+	//@Test
 	public void actualizarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
 		Date fechaVenc = new Date(System.currentTimeMillis());
-		//Date fechaPago = new Date(System.currentTimeMillis());
 		
 		cuota.setN_IdCuot(2);
 		cuota.setN_IdVivi(3);
-		//cuota.setD_FecPag(fechaPago);
 		cuota.setC_Period("201301");
 		cuota.setD_FecVen(fechaVenc);
 		cuota.setN_ImpPag(150);
-		//cuota.setN_TipPag(1);
 				
 		try {
 			v_vReturn = gestionCuota.actualizar(cuota);
@@ -81,14 +96,14 @@ public class GestionCuotaTest {
 	//@Test
 	public void eliminarTest() {
 			
-			int nIdCuota;
-			nIdCuota = 1; 
+			Cuota cuota = new Cuota();
+			cuota.setN_IdCuot(2); 
 			
 			String vReturn = "NO_OK";
 			try {
-				vReturn = gestionCuota.eliminar(nIdCuota);
+				vReturn = gestionCuota.eliminar(cuota);
 				Assert.assertEquals("OK", vReturn);
-				System.out.println( "Se eliminó la cuota: " + nIdCuota + " correctamente.");
+				System.out.println( "Se eliminó la cuota: " + cuota.getN_IdCuot() + " correctamente.");
 			} 
 			catch (DAOExcepcion e) {
 				Assert.fail("ERROR: " + e.getMessage());
@@ -97,24 +112,23 @@ public class GestionCuotaTest {
 	}
 	
 	//@Test
-		public void ListarTest(){
-			
-			GestionCuota gestionCuota = new GestionCuota();
-			try {
-				Collection<Cuota> lstCuota = gestionCuota.listar();
-				System.out.println(lstCuota.size());
-				for (Cuota m : lstCuota) {
-					System.out.print(m.getN_IdCuot()+" | ");
-					System.out.print(m.getC_Period()+" | ");
-					System.out.print(m.getN_TipPag()+" | ");
-					System.out.print(m.getN_ImpPag()+" | ");
-				}
-				Assert.assertTrue(lstCuota.size()>0);
-			} catch (DAOExcepcion e) {
-				
-				Assert.fail("Falló el Listado: "+e.getMessage());
+	public void ListarTest(){
+		Cuota pcuota = new Cuota();
+		pcuota.setC_Period("201301");
+		
+		GestionCuota gestionCuota = new GestionCuota();
+		try {
+			Collection<Cuota> lstCuota = gestionCuota.listar(pcuota);
+			System.out.println(lstCuota.size());
+			for (Cuota m : lstCuota) {
+				System.out.println(m.getN_IdCuot()+" | " + m.getC_Period()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_TipPag().getcDescri()+" | ");
 			}
+			Assert.assertTrue(lstCuota.size()>0);
+		} catch (DAOExcepcion e) {
+			
+			Assert.fail("Falló el Listado: "+e.getMessage());
 		}
+	}
 		
 	//@Test
 	public void realizarPagoTest() throws ParseException {
@@ -122,6 +136,8 @@ public class GestionCuotaTest {
 			String v_vReturn = "NO_OK";
 			Date fechaPago = new Date(System.currentTimeMillis());
 			
+			cuota.setN_IdCuot(3);
+			cuota.setN_IdVivi(4);
 			cuota.setN_IdCuot(9);
 			cuota.setD_FecPag(fechaPago);
 			cuota.setN_TipPag(1);
@@ -135,4 +151,5 @@ public class GestionCuotaTest {
 				Assert.fail("ERROR: " + e.getMessage());
 			}
 		}
+
 }
