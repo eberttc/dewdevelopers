@@ -10,6 +10,9 @@ import java.util.Collection;
 import com.mysql.jdbc.CallableStatement;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
+import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.modelo.TipoPago;
+import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.util.ConexionBD;
 
 public class CuotaDAO  extends BaseDAO {
@@ -123,7 +126,41 @@ public class CuotaDAO  extends BaseDAO {
 		return vReturn;
 	}
 	
-	public Cuota buscarPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
+	public Cuota obtener(Cuota cuota) throws DAOExcepcion {
+		Cuota cuotaBuscada =null;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
+							+ " WHERE N_IdCuot=?" ;
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, cuota.getN_IdCuot());
+			rs = stmt.executeQuery();
+			while (rs.next()) 
+			{
+				cuotaBuscada = new Cuota();
+				cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuotaBuscada.setC_Period(rs.getString("C_Period"));
+				cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
+				cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
+				cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
+				cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return cuotaBuscada;
+	}
+	
+	public Cuota obtenerPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
 		Cuota cuotaBuscada =null;
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -157,41 +194,7 @@ public class CuotaDAO  extends BaseDAO {
 		}
 		return cuotaBuscada;
 	}
-	
-	public Cuota obtener(int idCuot) throws DAOExcepcion {
-		Cuota cuotaBuscada =null;
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-			con = ConexionBD.obtenerConexion();
-			String query = "SELECT N_IdCuot,C_Period,N_IdVivi,N_TipPag,N_ImpPag,D_FecVen, D_FecPag FROM Cuota " 
-							+ " WHERE N_IdCuot=?" ;
-			stmt = con.prepareStatement(query);
-			stmt.setInt(1, idCuot);
-			rs = stmt.executeQuery();
-			while (rs.next()) 
-			{
-				cuotaBuscada = new Cuota();
-				cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
-				cuotaBuscada.setC_Period(rs.getString("C_Period"));
-				cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
-				cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
-				cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
-				cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
-				cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
-			}
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
-		} finally {
-			this.cerrarResultSet(rs);
-			this.cerrarStatement(stmt);
-			this.cerrarConexion(con);
-		}
-		return cuotaBuscada;
-	}
-	
+
 	public Collection<Cuota> listar() throws DAOExcepcion {
 	Collection<Cuota> listaCuota = new ArrayList<Cuota>();
 	Connection con = null;
@@ -310,7 +313,6 @@ public class CuotaDAO  extends BaseDAO {
 	public Cuota actualizarPA(Cuota cuota) throws DAOExcepcion {
 		
 		Connection con = null;
-		//PreparedStatement stmt = null;
 		CallableStatement procedAlmacenado = null;
 		java.util.Date d; 
 		
@@ -343,4 +345,200 @@ public class CuotaDAO  extends BaseDAO {
 		return cuota;
 	}
 	
+	public String eliminarPA(Cuota cuota) throws DAOExcepcion {
+
+		Connection con = null;
+		CallableStatement procedAlmacenado = null;
+		String vReturn = "NO_OK";
+		try {
+			con = ConexionBD.obtenerConexion();
+			procedAlmacenado = (CallableStatement) con.prepareCall("{ call usp_cond_mnt_delete_cuota (?) }");
+			procedAlmacenado.setInt(1, cuota.getN_IdCuot());
+			int i = procedAlmacenado.executeUpdate();
+			if (i != 1) {
+				throw new SQLException("No se pudo eliminar el registro de Cuota");
+			}else{
+				vReturn = "OK";
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarStatement(procedAlmacenado);
+			this.cerrarConexion(con);
+		}
+		return vReturn;
+	}
+	
+	public Cuota obtenerPA(Cuota cuota) throws DAOExcepcion {
+		Cuota cuotaBuscada =null;
+		Connection con = null;
+		CallableStatement procedAlmacenado = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			procedAlmacenado = (CallableStatement) con.prepareCall("{ call usp_cond_mnt_find_cuota (?) }");
+			procedAlmacenado.setInt(1, cuota.getN_IdCuot());
+			rs = procedAlmacenado.executeQuery();
+			TipoPago tipoPago = null;
+			Vivienda vivienda = null;
+			while (rs.next()) 
+			{
+				cuotaBuscada = new Cuota();
+				cuotaBuscada.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuotaBuscada.setC_Period(rs.getString("C_Period"));
+				cuotaBuscada.setN_IdVivi(rs.getInt("N_IdVivi"));
+				cuotaBuscada.setN_TipPag(rs.getInt("N_TipPag"));
+				cuotaBuscada.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuotaBuscada.setD_FecVen(rs.getDate("D_FecVen"));
+				cuotaBuscada.setD_FecPag(rs.getDate("D_FecPag"));
+				tipoPago = new TipoPago(rs.getInt("N_TipPag"), rs.getString("C_Descri"),"S");
+				cuotaBuscada.setO_TipPag(tipoPago);
+				vivienda = new Vivienda();
+				vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
+				vivienda.setC_Numero(rs.getString("C_NroDpto"));
+				//vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+				cuotaBuscada.setO_Vivienda(vivienda);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(procedAlmacenado);
+			this.cerrarConexion(con);
+		}
+		return cuotaBuscada;
+	}
+	
+	public Cuota realizarPagoPA(Cuota cuota) throws DAOExcepcion {
+		
+		Connection con = null;
+		CallableStatement procedAlmacenado = null;
+		java.util.Date d; 
+		
+		try {
+				con = ConexionBD.obtenerConexion();
+				procedAlmacenado = (CallableStatement) con.prepareCall("{ call usp_cond_mnt_update_cuota_Pago (?,?,?,?,?) }");
+
+				procedAlmacenado.setInt(1, cuota.getN_IdCuot());
+				procedAlmacenado.setString(2, cuota.getC_Period());
+				procedAlmacenado.setInt(3, cuota.getN_IdVivi());
+				procedAlmacenado.setInt(4, cuota.getN_TipPag());
+				//
+				d = cuota.getD_FecPag();
+				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
+				procedAlmacenado.setTimestamp(5, dt);
+				//
+				int i = procedAlmacenado.executeUpdate();
+				if (i != 1) {
+					throw new SQLException("ERROR: No se pudo actualizar el pago de la cuota");
+				}
+		} catch (SQLException e) {
+				cuota = null;	
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarStatement(procedAlmacenado);
+				this.cerrarConexion(con);
+		}
+		return cuota;
+	}
+	
+	public Cuota obtenerPeriodoViviendaPA(Cuota cuota) throws DAOExcepcion {
+		Cuota cuotaBuscada =null;
+		Connection conexion = null;
+		CallableStatement procedAlmacenado = null;
+		ResultSet resulset = null;
+		try {
+			conexion = ConexionBD.obtenerConexion();
+			procedAlmacenado = (CallableStatement) conexion.prepareCall("{ call usp_cond_mnt_find_cuota_periodo_vivienda (?,?) }");
+			procedAlmacenado.setString(1, cuota.getC_Period());
+			procedAlmacenado.setInt(2, cuota.getN_IdVivi());
+			resulset = procedAlmacenado.executeQuery();
+			TipoPago tipoPago = null;
+			Vivienda vivienda = null;
+			while (resulset.next()) 
+			{
+				cuotaBuscada = new Cuota();
+				cuotaBuscada.setN_IdCuot(resulset.getInt("N_IdCuot"));
+				cuotaBuscada.setC_Period(resulset.getString("C_Period"));
+				cuotaBuscada.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				cuotaBuscada.setN_TipPag(resulset.getInt("N_TipPag"));
+				cuotaBuscada.setN_ImpPag(resulset.getFloat("N_ImpPag"));
+				cuotaBuscada.setD_FecVen(resulset.getDate("D_FecVen"));
+				cuotaBuscada.setD_FecPag(resulset.getDate("D_FecPag"));
+				tipoPago = new TipoPago(resulset.getInt("N_TipPag"), resulset.getString("C_Descri"),"S");
+				cuotaBuscada.setO_TipPag(tipoPago);
+				vivienda = new Vivienda();
+				vivienda.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				vivienda.setC_Numero(resulset.getString("C_NroDpto"));
+				//vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+				cuotaBuscada.setO_Vivienda(vivienda);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(resulset);
+			this.cerrarStatement(procedAlmacenado);
+			this.cerrarConexion(conexion);
+		}
+		return cuotaBuscada;
+	}
+
+	public Collection<Cuota> listarPA(Cuota pcuota) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		Connection conexion = null;
+		CallableStatement procedAlmacenado = null;
+		ResultSet resulset = null;
+		try {
+			conexion = ConexionBD.obtenerConexion();
+			procedAlmacenado = (CallableStatement) conexion.prepareCall("{ call usp_cond_mnt_list_cuota (?) }");
+			procedAlmacenado.setString(1, pcuota.getC_Period());
+			resulset = procedAlmacenado.executeQuery();
+			TipoPago tipoPago = null;
+			Vivienda vivienda = null;
+			Residente residente= null;
+			while (resulset.next()) 
+			{
+				Cuota cuota = new Cuota();
+				cuota = new Cuota();
+				cuota.setN_IdCuot(resulset.getInt("N_IdCuot"));
+				cuota.setC_Period(resulset.getString("C_Period"));
+				cuota.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				cuota.setN_TipPag(resulset.getInt("N_TipPag"));
+				cuota.setN_ImpPag(resulset.getFloat("N_ImpPag"));
+				cuota.setD_FecVen(resulset.getDate("D_FecVen"));
+				cuota.setD_FecPag(resulset.getDate("D_FecPag"));
+				tipoPago = new TipoPago(resulset.getInt("N_TipPag")
+									  , resulset.getString("C_Descri")
+									  ,"S");
+				cuota.setO_TipPag(tipoPago);
+				
+				residente = new Residente();
+				residente.setIdResidente(resulset.getInt("N_IdRes"));
+				residente.setNombreResidente(resulset.getString("C_NomRes"));
+				
+				vivienda = new Vivienda();
+				vivienda.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				vivienda.setC_Numero(resulset.getString("C_NroDpto"));
+				vivienda.setResidente(residente);
+				//vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+				cuota.setO_Vivienda(vivienda);
+				
+				listaCuota.add(cuota);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(resulset);
+			this.cerrarStatement(procedAlmacenado);
+			this.cerrarConexion(conexion);
+		}
+		return listaCuota;
+	}
+
 }
