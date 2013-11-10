@@ -16,7 +16,7 @@ public class GestionCuota {
 		
 		try{
 			
-			v_vReturn = buscarPeriodoVivienda(cuota);
+			v_vReturn = obtenerPeriodoVivienda(cuota);
 			
 			if (v_vReturn.equals("OK")){
 				cuota = cuotaDAO.insertarPA(cuota);
@@ -30,14 +30,14 @@ public class GestionCuota {
         
 	}
 	
-	public String buscarPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
+	public String obtenerPeriodoVivienda(Cuota cuota) throws DAOExcepcion {
 		
 		String v_vReturn = "ERROR - Consulte con Administrador";
 		Cuota cuotaBuscada = null; 
 
 		try{
 			CuotaDAO cuotaDAO = new CuotaDAO();
-			cuotaBuscada = cuotaDAO.buscarPeriodoVivienda(cuota);
+			cuotaBuscada = cuotaDAO.obtenerPeriodoViviendaPA(cuota);
 			
 			if (cuotaBuscada == null){
 				v_vReturn = "OK";
@@ -51,16 +51,16 @@ public class GestionCuota {
         return v_vReturn;
 	}
 	
-	public Cuota obtener(int idCuota) throws DAOExcepcion {
-		Cuota cuota = null;
+	public Cuota obtener(Cuota cuota) throws DAOExcepcion {
+		Cuota cuotaBuscada = null;
 		try{
 			CuotaDAO cuotaDao = new CuotaDAO();
-			cuota = cuotaDao.obtener(idCuota);
+			cuotaBuscada = cuotaDao.obtenerPA(cuota);
 		}
 		catch (Exception e) {
             e.printStackTrace();
         }
-        return cuota;
+        return cuotaBuscada;
 	}
 	
 	public String actualizar(Cuota cuota) throws DAOExcepcion {
@@ -70,13 +70,12 @@ public class GestionCuota {
 		
 		try{
 			Cuota cuotaAux = new Cuota ();
-			cuotaAux = obtener(cuota.getN_IdCuot());	
-			
-			if ((cuota.getC_Period()==cuotaAux.getC_Period())
-			  &&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
+			cuotaAux = obtener(cuota);	
+			if (cuotaAux.getN_TipPag()==0
+			 || cuotaAux.getD_FecPag()==null){
 				v_vReturn = "OK";
 			}else{
-				v_vReturn = buscarPeriodoVivienda(cuota);
+				v_vReturn = obtenerPeriodoVivienda(cuota);
 			} 
 			
 			if (v_vReturn.equals("OK")){
@@ -92,12 +91,12 @@ public class GestionCuota {
         
 	}
 
-	public String eliminar(int idCuota) throws DAOExcepcion {
+	public String eliminar(Cuota cuota) throws DAOExcepcion {
 		
 		String vReturn = "NO_OK";
 		try{
 			CuotaDAO cuotaDao = new CuotaDAO();
-			vReturn = cuotaDao.eliminar(idCuota);
+			vReturn = cuotaDao.eliminarPA(cuota);
 		}
 		catch (Exception e) {
             e.printStackTrace();
@@ -106,11 +105,11 @@ public class GestionCuota {
 		
 	}
 
-	public Collection<Cuota> listar() throws DAOExcepcion {
+	public Collection<Cuota> listar(Cuota pcuota) throws DAOExcepcion {
 		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
 		try {
 			CuotaDAO cuotaDAO = new CuotaDAO();
-			listaCuota = cuotaDAO.listar();
+			listaCuota = cuotaDAO.listarPA(pcuota);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,17 +124,17 @@ public class GestionCuota {
 		
 		try{
 			Cuota cuotaAux = new Cuota ();
-			cuotaAux = obtener(cuota.getN_IdCuot());	
+			cuotaAux = obtener(cuota);	
 			
 			if ((cuota.getC_Period()==cuotaAux.getC_Period())
 					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
 				v_vReturn = "OK";
 			}else{
-				v_vReturn = buscarPeriodoVivienda(cuota);
+				v_vReturn = obtenerPeriodoVivienda(cuota);
 			} 
 			
 			if (v_vReturn.equals("OK")){
-				cuota = cuotaDAO.realizarPago(cuota);
+				cuota = cuotaDAO.realizarPagoPA(cuota);
 				v_vReturn = "Cuota pagada exitosamente.";
 			}
 			
