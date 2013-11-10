@@ -14,21 +14,19 @@ public class Cuota {
 	private Date D_FecPag;
 	
 	private TipoPago O_TipPag;
+	private Vivienda O_Vivienda;
 	
 	public Cuota() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cuota(int n_IdCuot, String c_Period, int n_IdVivi,int n_TipPag,float n_ImpPag, Date d_FecVen)
+	public Cuota(String c_Period, int n_IdVivi,float n_ImpPag, Date d_FecVen)
 	{
 		// TODO Auto-generated constructor stub
-		N_IdCuot= n_IdCuot;
 		C_Period= c_Period;
 		N_IdVivi= n_IdVivi;
-		N_TipPag= n_TipPag;
 		N_ImpPag= n_ImpPag;
 		D_FecVen= d_FecVen;
-	//	D_FecVen= d_FecVen;
 	}
 	
 	public int getN_IdCuot() {
@@ -93,6 +91,14 @@ public class Cuota {
 
 	public void setD_FecPag(Date d_FecPag) {
 		D_FecPag = d_FecPag;
+	}
+
+	public Vivienda getO_Vivienda() {
+		return O_Vivienda;
+	}
+
+	public void setO_Vivienda(Vivienda o_Vivienda) {
+		O_Vivienda = o_Vivienda;
 	}
 
 }
