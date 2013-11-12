@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CONDOMINIOWEB
+Bundle-SymbolicName: CONDOMINIOWEB
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: CONDOMINIOWEB.jar,
+ Apache Software Foundation/apache-tomcat-7.0.34/lib/mysql-connector-java-5.1.6.jar
+Export-Package: com.upc.condominio.core,
+ com.upc.condominio.dao,
+ com.upc.condominio.exceptions,
+ com.upc.condominio.modelo,
+ com.upc.condominio.negocio,
+ com.upc.condominio.test,
+ com.upc.condominio.util
