@@ -9,7 +9,7 @@ import com.upc.condominio.modelo.Visitante;
 
 public class GestionVisitantes {
 
-	public void insertarVisitante(int intCorrelativo,String strDNIVisitante, String strNombreVisitante, int intCodigoResidente, Date dHoraFechaVisitante)
+	public void insertarVisitante(int intCorrelativo,String strDNIVisitante, String strNombreVisitante, String strNombreResidente, Date dHoraFechaVisitante)
 
 			throws DAOExcepcion{
 			
@@ -18,7 +18,7 @@ public class GestionVisitantes {
 			visitante.setintCorrelativo(intCorrelativo);
 			visitante.setstrDNIVisitante(strDNIVisitante);
 			visitante.setstrNombreVisitante(strNombreVisitante);
-			visitante.setintCodigoResidente(intCodigoResidente);
+			visitante.setstrNombreResidente(strNombreResidente);
 			visitante.setdHoraFechaVisitante(dHoraFechaVisitante);
 			
 			

@@ -75,7 +75,7 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"select C_NomRes, C_DniVis, C_NomVis,  D_HoraFechaVisit from visitantes v inner join residentes r on v.N_CodRes = r.N_CodRes " +
+				String query =	"select C_NomRes, C_DniVis, C_NomVis, D_HoraFechaVisit from residentes r inner join visitantes v on r.N_CodRes = v.N_CodRes " +
 								"where v.N_CodRes = ? ";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
@@ -115,7 +115,7 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, V.N_CodRes, V.D_HoraFechaVisit FROM Visitantes V " +
+			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, r.C_NomRes, V.D_HoraFechaVisit FROM Visitantes V  inner join residentes r on r.N_CodRes = v.N_CodRes "  +
 					"WHERE V.N_Correl = ? ";
 					con = ConexionBD.obtenerConexion();
 					stmt = con.prepareStatement(query);
@@ -127,7 +127,7 @@ public class VisitanteDAO extends BaseDAO {
 					visitante.setintCorrelativo(rs.getInt("N_Correl"));
 					visitante.setstrDNIVisitante(rs.getString("C_DniVis"));
 					visitante.setstrNombreVisitante(rs.getString("C_NomVis"));
-					visitante.setintCodigoResidente(rs.getInt("N_CodRes"));
+					visitante.setstrNombreResidente(rs.getString("C_NomRes"));
 					visitante.setdHoraFechaVisitante(rs.getDate("D_HoraFechaVisit"));
 					v.add(visitante);
 														

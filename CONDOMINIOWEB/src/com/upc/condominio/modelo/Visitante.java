@@ -7,19 +7,22 @@ public class Visitante {
 		private String strDNIVisitante;
 		private String strNombreVisitante;
 		private int intCodigoResidente;
+		private String strNombreResidente;
 		private Date dHoraFechaVisitante;
+		
 
 		public Visitante() {
 			
 		}
 		
 		public Visitante(int intCorrelativo, String strDNIVisitante, String strNombreVisitante,
-				int intCodigoResidente, Date dHoraFechaVisitante) {
+				String strNombreResidente, int intCodigoResidente, Date dHoraFechaVisitante) {
 			
 			this.intCorrelativo = intCorrelativo;
 			this.strDNIVisitante = strDNIVisitante;
 			this.strNombreVisitante = strNombreVisitante;
 			this.intCodigoResidente = intCodigoResidente;
+			this.strNombreResidente = strNombreResidente;
 			this.dHoraFechaVisitante = dHoraFechaVisitante;
 		}
 		
@@ -42,12 +45,18 @@ public class Visitante {
 		public void setstrNombreVisitante(String strNombreVisitante) {
 			this.strNombreVisitante = strNombreVisitante;
 		}
-
 		public int getintCodigoResidente() {
 			return intCodigoResidente;
 		}
-		public void setintCodigoResidente(int intCodigoResidente) {
-			this.intCodigoResidente = intCodigoResidente;
+		public void setintCodigoResidente(int getintCodigoResidente) {
+			this.intCodigoResidente = getintCodigoResidente;
+		}
+	
+		public String getstrNombreResidente() {
+			return strNombreResidente;
+		}
+		public void setstrNombreResidente(String strNombreResidente) {
+			this.strNombreResidente = strNombreResidente;
 		}
 
 		public Date getdHoraFechaVisitante() {
