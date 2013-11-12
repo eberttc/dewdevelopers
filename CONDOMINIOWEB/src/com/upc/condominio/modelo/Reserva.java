@@ -4,11 +4,11 @@ import java.sql.Date;
 
 public class Reserva {
 
-	private int n_idRese;
-	private Date d_fecReg;
-	private int n_idEspa;
-	private int n_idRes;
-	private int n_idRanHor;
+	private int idReserva;
+	private Date fecReg;
+	private int idEspacio;
+	private int idResidente;
+	private int idHorario;
 	
 	
 	public Reserva() {
@@ -16,55 +16,54 @@ public class Reserva {
 	}
 
 
-	public int getN_idRese() {
-		return n_idRese;
+	public int getIdReserva() {
+		return idReserva;
 	}
 
 
-	public void setN_idRese(int n_idRese) {
-		this.n_idRese = n_idRese;
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
 	}
 
 
-	public Date getD_fecReg() {
-		return d_fecReg;
+	public Date getFecReg() {
+		return fecReg;
 	}
 
 
-	public void setD_fecReg(Date d_fecReg) {
-		this.d_fecReg = d_fecReg;
+	public void setFecReg(Date fecReg) {
+		this.fecReg = fecReg;
 	}
 
 
-	public int getN_idEspa() {
-		return n_idEspa;
+	public int getIdEspacio() {
+		return idEspacio;
 	}
 
 
-	public void setN_idEspa(int n_idEspa) {
-		this.n_idEspa = n_idEspa;
+	public void setIdEspacio(int idEspacio) {
+		this.idEspacio = idEspacio;
 	}
 
 
-	public int getN_idRes() {
-		return n_idRes;
+	public int getIdResidente() {
+		return idResidente;
 	}
 
 
-	public void setN_idRes(int n_idRes) {
-		this.n_idRes = n_idRes;
+	public void setIdResidente(int idResidente) {
+		this.idResidente = idResidente;
 	}
 
 
-	public int getN_idRanHor() {
-		return n_idRanHor;
+	public int getIdHorario() {
+		return idHorario;
 	}
 
 
-	public void setN_idRanHor(int n_idRanHor) {
-		this.n_idRanHor = n_idRanHor;
+	public void setIdHorario(int idHorario) {
+		this.idHorario = idHorario;
 	}
-	
-	
+
 	
 }

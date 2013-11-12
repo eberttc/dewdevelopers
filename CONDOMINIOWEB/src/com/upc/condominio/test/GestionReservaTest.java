@@ -8,19 +8,21 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Horario;
 import com.upc.condominio.modelo.Mensaje;
+import com.upc.condominio.modelo.Reserva;
 import com.upc.condominio.negocio.GestionMensaje;
 import com.upc.condominio.negocio.GestionReserva;
 
 public class GestionReservaTest {
-
-	@Test
+	Date fecha = new Date(System.currentTimeMillis());
+	//@Test
 	public void insertarReservaTest(){
 		
 		GestionReserva negocio = new GestionReserva();
-		Date fecha = new Date(System.currentTimeMillis());
+		
 		try {
-			negocio.insertar(fecha,4,4,11);
+			negocio.insertar(fecha,3,2,8);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("No se pudo insertar el registro: "+e.getMessage());
@@ -31,18 +33,15 @@ public class GestionReservaTest {
 	@Test
 	public void ListarFechasDisponibles(){
 		
-		GestionMensaje negocio = new GestionMensaje();
+		GestionReserva negocio = new GestionReserva();
 		try {
-			Collection<Mensaje> listado = negocio.listar(5);
-			//System.out.println(listado.size());
-			System.out.println("TITULO 		  	| MENSAJE 						   | FECHA");
+			Collection<Horario> listado = negocio.listarHorariosDisponibles(fecha,3);
+			
+			System.out.println("HORARIOS DISPONIBLES");
 			System.out.println("---------------------------------------------------------------------------------------------------");
 			
-			for (Mensaje m : listado) {
-				
-				System.out.print(m.getC_titulo()+" | ");
-				System.out.print(m.getC_conten()+" | ");
-				System.out.println(m.getD_fecPub()+" | ");
+			for (Horario h : listado) {
+				System.out.println(h.getRango());
 			}
 			Assert.assertTrue(listado.size()>0);
 		} catch (DAOExcepcion e) {

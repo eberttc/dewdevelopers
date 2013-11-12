@@ -37,7 +37,7 @@ public class GestionMensajeTest {
 		Date fecha = new Date(System.currentTimeMillis());
 		
 		try {
-			negocio.actualizar(1,"Reunion de Residenes 1","Lorem ipsum dolor sit amet consectetur adipiscing elite df",fecha);
+			negocio.actualizar(3,"Reunion de Residenes 1","Lorem ipsum dolor sit amet consectetur adipiscing elite",fecha);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Actualización: "+e.getMessage());
@@ -49,20 +49,20 @@ public class GestionMensajeTest {
 	
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			negocio.eliminar(2);
+			negocio.eliminar(3);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Eliminación: "+e.getMessage());
 		}
 	}
 	
 	@Test
-	public void ListarMensajeTest(){
+	public void ListarMensajesTest(){
 		
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			Collection<Mensaje> listado = negocio.listar(5);
+			Collection<Mensaje> listado = negocio.listar(2);
 			//System.out.println(listado.size());
-			System.out.println("TITULO 		  	| MENSAJE 						   | FECHA");
+			System.out.println("TITULO 		      | MENSAJE 						  | FECHA");
 			System.out.println("---------------------------------------------------------------------------------------------------");
 			
 			for (Mensaje m : listado) {

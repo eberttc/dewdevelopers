@@ -9,6 +9,7 @@ import java.util.Collection;
 
 
 
+
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Mensaje;
 import com.upc.condominio.util.ConexionBD;
@@ -29,7 +30,7 @@ public class MensajeDAO  extends BaseDAO{
 			int i = stmt.executeUpdate();
 			if (i != 1) {
 				throw new SQLException("No se pudo insertar");
-			}
+			}else{System.out.println("El registro se insertó con éxito");}
 			/*// Obtener el ultimo id
 			int id = 0;
 			query = "select last_insert_id()";
@@ -66,16 +67,7 @@ public class MensajeDAO  extends BaseDAO{
 			int i = stmt.executeUpdate();
 			if (i != 1) {
 				throw new SQLException("No se pudo insertar");
-			}
-			/*// Obtener el ultimo id
-			int id = 0;
-			query = "select last_insert_id()";
-			stmt = con.prepareStatement(query);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				id = rs.getInt(1);
-			}
-			m.setN_idMens(id);*/
+			}else{System.out.println("El registro se actualizó con éxito");}
 
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -100,7 +92,7 @@ public class MensajeDAO  extends BaseDAO{
 			int i = stmt.executeUpdate();
 			if(i != 1){
 				throw new SQLException("No se pudo Eliminar");
-			}
+			}else{System.out.println("El registro se elimninó con éxito");}
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -120,7 +112,7 @@ public class MensajeDAO  extends BaseDAO{
 		ResultSet rs = null;
 		try {
 			con = ConexionBD.obtenerConexion();
-			String query = "SELECT C_Titulo,C_Conten,D_FecPub FROM mensajeria m INNER JOIN  mensaje a on m.N_IdMens = a.N_IdMens where m.N_IdRes = ?";
+			String query = "SELECT C_Titulo,C_Conten,D_FecPub FROM mensajeria m INNER JOIN  mensaje a on m.N_IdMens = a.N_IdMens where m.N_IdRes = ? ORDER By D_FecPub";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, x);
 			rs = stmt.executeQuery();
