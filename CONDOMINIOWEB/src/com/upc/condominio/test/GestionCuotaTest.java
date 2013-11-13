@@ -16,7 +16,7 @@ public class GestionCuotaTest {
 	Cuota cuota = new Cuota();
 	GestionCuota gestionCuota = new GestionCuota();
 	
-	//@Test
+	@Test
 	public void insertarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
