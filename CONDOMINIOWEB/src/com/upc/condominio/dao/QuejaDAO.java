@@ -24,7 +24,7 @@ public class QuejaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_CODRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
+				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_IDRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
