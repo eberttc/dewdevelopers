@@ -1,11 +1,13 @@
 package com.upc.condominio.dao;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 
 
@@ -82,23 +84,23 @@ public class MensajeDAO  extends BaseDAO{
 
 	public void eliminar(int id_mensaje) throws DAOExcepcion{
 	
-		String query = "DELETE from mensaje where N_IdMens = ?";
+		String sql = "call Eliminar(?)";
 		Connection cn = null;
-		PreparedStatement stmt = null;
+		CallableStatement cs = null;
 		try {
 			cn = ConexionBD.obtenerConexion();
-			stmt = cn.prepareStatement(query);
-			stmt.setInt(1, id_mensaje);
-			int i = stmt.executeUpdate();
+			cs = cn.prepareCall(sql);
+			cs.setInt(1, id_mensaje);
+			int i = cs.executeUpdate();
 			if(i != 1){
-				throw new SQLException("No se pudo Eliminar");
+				throw new SQLException("El Mensaje no se pudo Eliminar por que ya fue comicado a los residentes");
 			}else{System.out.println("El registro se elimninó con éxito");}
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
 		} finally{
-			this.cerrarStatement(stmt);
+			this.cerrarStatement(cs);
 			this.cerrarConexion(cn);
 			
 		}

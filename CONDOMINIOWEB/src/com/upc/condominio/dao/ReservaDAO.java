@@ -33,7 +33,7 @@ public class ReservaDAO extends BaseDAO{
 			int i = stmt.executeUpdate();
 			//System.out.println(i);
 			if(i ==-1){
-				throw new SQLException("El horario no esta disponible");
+				throw new SQLException("El Epacio no esta disponible en el horario solicitado");
 			}else{System.out.println("El registo se insertó con éxito ");}
 			
 		} catch (SQLException e) {

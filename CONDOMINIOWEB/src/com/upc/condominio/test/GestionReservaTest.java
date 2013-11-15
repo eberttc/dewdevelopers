@@ -16,13 +16,14 @@ import com.upc.condominio.negocio.GestionReserva;
 
 public class GestionReservaTest {
 	Date fecha = new Date(System.currentTimeMillis());
-	//@Test
+	
+	@Test
 	public void insertarReservaTest(){
 		
 		GestionReserva negocio = new GestionReserva();
 		
 		try {
-			negocio.insertar(fecha,3,2,8);
+			negocio.insertar(fecha,3,2,1);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("No se pudo insertar el registro: "+e.getMessage());
