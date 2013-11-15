@@ -116,6 +116,30 @@ public class GestionCuota {
 		}
 		return listaCuota;
 	}
+	
+	public Collection<Cuota> listarCuotasNoPagadas() throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			listaCuota = cuotaDAO.listarCuotasNoPagadas();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaCuota;
+	}
+
+	public Collection<Cuota> listarCuotasVencidas() throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			listaCuota = cuotaDAO.listarCuotasVencidas();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaCuota;
+	}
 
 	public String realizarPago(Cuota cuota) throws DAOExcepcion {
 		
