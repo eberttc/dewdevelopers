@@ -228,6 +228,121 @@ public class CuotaDAO  extends BaseDAO {
 	}
 	return listaCuota;
 }
+	public Collection <Cuota>listarCuotasNoPagadas() throws DAOExcepcion {
+		
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,r.N_IdRes,r.C_NomRes "+
+				 " from "+
+				 " cuota c inner join viviendas v on c.N_IdVivi=v.N_IdVivi "+
+				 " inner join residentes r on r.N_IdRes=v.N_IdRes "+
+				 " WHERE c.D_FecPag is null";
+		
+		try {
+			con = ConexionBD.obtenerConexion();			
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) 
+			{
+				//datos de la cuota
+				Cuota cuota = new Cuota();
+				cuota.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuota.setC_Period(rs.getString("C_Period"));
+				cuota.setN_IdVivi(rs.getInt("N_IdVivi"));				
+				cuota.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuota.setD_FecVen(rs.getDate("D_FecVen"));
+				
+				//datos de la vivienda
+				Vivienda v=new Vivienda();
+				v.setN_IdVivi(rs.getInt("N_IdVivi"));
+				v.setC_Numero(rs.getString("C_NroEdi"));
+				
+				
+				//datos del residente
+				Residente r=new Residente();
+				r.setIdResidente(rs.getInt("N_IdRes"));	
+				r.setNombreResidente(rs.getString("C_NomRes"));
+				v.setResidente(r);
+				
+				
+				cuota.setO_Vivienda(v);
+				
+				listaCuota.add(cuota);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return listaCuota;
+		
+		
+		
+	}
+
+	public Collection <Cuota>listarCuotasVencidas() throws DAOExcepcion {
+		
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,r.N_IdRes,r.C_NomRes "+
+				 " from "+
+				 " cuota c inner join viviendas v on c.N_IdVivi=v.N_IdVivi "+
+				 " inner join residentes r on r.N_IdRes=v.N_IdRes "+
+				 " WHERE c.D_FecPag <= now()";
+		
+		try {
+			con = ConexionBD.obtenerConexion();			
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) 
+			{
+				//datos de la cuota
+				Cuota cuota = new Cuota();
+				cuota.setN_IdCuot(rs.getInt("N_IdCuot"));
+				cuota.setC_Period(rs.getString("C_Period"));
+				cuota.setN_IdVivi(rs.getInt("N_IdVivi"));				
+				cuota.setN_ImpPag(rs.getFloat("N_ImpPag"));
+				cuota.setD_FecVen(rs.getDate("D_FecVen"));
+				
+				//datos de la vivienda
+				Vivienda v=new Vivienda();
+				v.setN_IdVivi(rs.getInt("N_IdVivi"));
+				v.setC_Numero(rs.getString("C_NroEdi"));
+				
+				
+				//datos del residente
+				Residente r=new Residente();
+				r.setIdResidente(rs.getInt("N_IdRes"));	
+				r.setNombreResidente(rs.getString("C_NomRes"));
+				v.setResidente(r);
+				
+				
+				cuota.setO_Vivienda(v);
+				
+				listaCuota.add(cuota);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return listaCuota;
+		
+		
+		
+	}
 
 	public Cuota realizarPago(Cuota cuota) throws DAOExcepcion {
 		
