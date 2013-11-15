@@ -25,7 +25,7 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 				
 		try {
-				String query =	"INSERT INTO VISITANTES (N_CORREL, C_DNIVIS, C_NOMVIS, N_CODRES, D_HORAFECHAVISIT) " +
+				String query =	"INSERT INTO VISITANTES (N_CORREL, C_DNIVIS, C_NOMVIS, N_IDRES, D_HORAFECHAVISIT) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
@@ -76,7 +76,7 @@ public class VisitanteDAO extends BaseDAO {
 		
 		try {
 				String query =	"select C_NomRes, C_DniVis, C_NomVis, D_HoraFechaVisit from residentes r inner join visitantes v on r.N_CodRes = v.N_CodRes " +
-								"where v.N_CodRes = ? ";
+								"where v.N_IDRES = ? ";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, codResidente);
@@ -115,7 +115,7 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, r.C_NomRes, V.D_HoraFechaVisit FROM Visitantes V  inner join residentes r on r.N_CodRes = v.N_CodRes "  +
+			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, r.C_NomRes, V.D_HoraFechaVisit FROM Visitantes V  inner join residentes r on r.N_IDRES = v.N_IDRES "  +
 					"WHERE V.N_Correl = ? ";
 					con = ConexionBD.obtenerConexion();
 					stmt = con.prepareStatement(query);
