@@ -16,14 +16,14 @@ public class GestionCuotaTest {
 	Cuota cuota = new Cuota();
 	GestionCuota gestionCuota = new GestionCuota();
 	
-	@Test
+	//@Test
 	public void insertarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
 		Date fechaVenc = new Date(System.currentTimeMillis());
 		Date fechaPago = new Date(System.currentTimeMillis());
 		
-		cuota.setN_IdVivi(2);
+		cuota.setN_IdVivi(1);
 		cuota.setD_FecPag(fechaPago);
 		cuota.setC_Period("201305");
 		cuota.setD_FecVen(fechaVenc);
@@ -130,6 +130,40 @@ public class GestionCuotaTest {
 		}
 	}
 		
+	@Test
+	public void ListarCuotasNoPagadasTest(){
+		
+		GestionCuota gestionCuota = new GestionCuota();
+		try {
+			Collection<Cuota> lstCuota = gestionCuota.listarCuotasNoPagadas();
+			System.out.println(lstCuota.size());
+			for (Cuota m : lstCuota) {
+				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+			}
+			Assert.assertTrue(lstCuota.size()>0);
+		} catch (DAOExcepcion e) {
+			
+			Assert.fail("Falló el Listado: "+e.getMessage());
+		}
+	}
+	
+	@Test
+	public void ListarCuotasVencidasTest(){
+		
+		GestionCuota gestionCuota = new GestionCuota();
+		try {
+			Collection<Cuota> lstCuota = gestionCuota.listarCuotasVencidas();
+			System.out.println(lstCuota.size());
+			for (Cuota m : lstCuota) {
+				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+			}
+			Assert.assertTrue(lstCuota.size()>0);
+		} catch (DAOExcepcion e) {
+			
+			Assert.fail("Falló el Listado: "+e.getMessage());
+		}
+	}
+	
 	//@Test
 	public void realizarPagoTest() throws ParseException {
 			
