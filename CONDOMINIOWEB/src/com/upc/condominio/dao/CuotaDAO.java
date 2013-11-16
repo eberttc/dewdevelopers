@@ -234,7 +234,7 @@ public class CuotaDAO  extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,r.N_IdRes,r.C_NomRes "+
+		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,v.C_NroDpto,r.N_IdRes,r.C_NomRes,r.C_NumDoc "+
 				 " from "+
 				 " cuota c inner join viviendas v on c.N_IdVivi=v.N_IdVivi "+
 				 " inner join residentes r on r.N_IdRes=v.N_IdRes "+
@@ -257,13 +257,14 @@ public class CuotaDAO  extends BaseDAO {
 				//datos de la vivienda
 				Vivienda v=new Vivienda();
 				v.setN_IdVivi(rs.getInt("N_IdVivi"));
-				v.setC_Numero(rs.getString("C_NroEdi"));
-				
+				v.setC_Ubicacion(rs.getString("C_NroEdi"));
+				v.setC_Numero(rs.getString("C_NroDpto"));
 				
 				//datos del residente
 				Residente r=new Residente();
 				r.setIdResidente(rs.getInt("N_IdRes"));	
 				r.setNombreResidente(rs.getString("C_NomRes"));
+				r.setNumeroDocumento(rs.getString("C_NumDoc"));
 				v.setResidente(r);
 				
 				
@@ -292,7 +293,7 @@ public class CuotaDAO  extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,r.N_IdRes,r.C_NomRes "+
+		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,v.C_NroDpto,r.N_IdRes,r.C_NomRes,r.C_NumDoc "+
 				 " from "+
 				 " cuota c inner join viviendas v on c.N_IdVivi=v.N_IdVivi "+
 				 " inner join residentes r on r.N_IdRes=v.N_IdRes "+
@@ -316,13 +317,14 @@ public class CuotaDAO  extends BaseDAO {
 				//datos de la vivienda
 				Vivienda v=new Vivienda();
 				v.setN_IdVivi(rs.getInt("N_IdVivi"));
-				v.setC_Numero(rs.getString("C_NroEdi"));
-				
+				v.setC_Ubicacion(rs.getString("C_NroEdi"));
+				v.setC_Numero(rs.getString("C_NroDpto"));
 				
 				//datos del residente
 				Residente r=new Residente();
 				r.setIdResidente(rs.getInt("N_IdRes"));	
 				r.setNombreResidente(rs.getString("C_NomRes"));
+				r.setNumeroDocumento(rs.getString("C_NumDoc"));
 				v.setResidente(r);
 				
 				
@@ -351,7 +353,7 @@ public class CuotaDAO  extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,r.N_IdRes,r.C_NomRes "+
+		String query="select c.N_IdCuot,c.C_Period,c.N_ImpPag,D_FecVen,v.N_IdVivi,v.C_NroEdi,v.C_NroDpto,r.N_IdRes,r.C_NomRes,r.C_NumDoc "+
 				 " from "+
 				 " cuota c inner join viviendas v on c.N_IdVivi=v.N_IdVivi "+
 				 " inner join residentes r on r.N_IdRes=v.N_IdRes "+
@@ -374,13 +376,14 @@ public class CuotaDAO  extends BaseDAO {
 				//datos de la vivienda
 				Vivienda v=new Vivienda();
 				v.setN_IdVivi(rs.getInt("N_IdVivi"));
-				v.setC_Numero(rs.getString("C_NroEdi"));
-				
+				v.setC_Ubicacion(rs.getString("C_NroEdi"));
+				v.setC_Numero(rs.getString("C_NroDpto"));
 				
 				//datos del residente
 				Residente r=new Residente();
 				r.setIdResidente(rs.getInt("N_IdRes"));	
 				r.setNombreResidente(rs.getString("C_NomRes"));
+				r.setNumeroDocumento(rs.getString("C_NumDoc"));
 				v.setResidente(r);
 				
 				
