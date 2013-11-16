@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Queja;
 import com.upc.condominio.util.ConexionBD;
@@ -36,6 +37,8 @@ public class QuejaDAO extends BaseDAO {
 				int i = stmt.executeUpdate();
 				if (i != 1) {
 					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
+				} else {
+					System.out.println("LA QUEJA FUE REGISTRADA CORRECTAMENTE");
 				}
 	
 				int id = 0;

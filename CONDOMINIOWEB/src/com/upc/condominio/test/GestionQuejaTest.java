@@ -17,12 +17,7 @@ public class GestionQuejaTest {
 		GestionQueja negocio = new GestionQueja();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertarQueja(2, "Grave","Vigilante",fecha,"En Proceso");
-//			negocio.insertarQueja(intIdResidente, strTipoQueja, strMotivoQueja, dFechaQueja, strEstadoQueja);
-
-			//Categoria nuevo = negocio.obtener(3);
-			//Assert.assertEquals("Categoria de Smartphones", nuevo.getDescripcion());
-
+			negocio.insertarQueja(2, "LEVE","VIGILANTE FUMANDO",fecha,"En Investigacion");
 		} catch (DAOExcepcion e) {
 			System.out.print("Fallo la inserción");	
 			Assert.fail("Fallo la inserción" + e.getMessage());
