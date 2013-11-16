@@ -3,18 +3,18 @@ package com.upc.condominio.modelo;
 public class Vivienda {
 
 	private int N_IdVivi;
-	private int C_Ubicacion;	//1=Edificio; 2=Zona
+	private String C_Ubicacion;	//1=Edificio; 2=Zona
 	private String C_Numero;
 	private Double N_Metraje;
-	private int C_TipViv;		//1=Casa; 2=Departamento
+	private String C_TipViv;		//1=Casa; 2=Departamento
 	private int C_EstReg;
 	private Residente residente;
 	
 	public Vivienda() {
 	}
 
-	public Vivienda(int n_IdVivi, int c_Ubicacion, String c_Numero,
-			Double n_Metraje, int c_TipViv, int c_EstReg, Residente residente) {
+	public Vivienda(int n_IdVivi, String c_Ubicacion, String c_Numero,
+			Double n_Metraje, String c_TipViv, int c_EstReg, Residente residente) {
 		super();
 		N_IdVivi = n_IdVivi;
 		C_Ubicacion = c_Ubicacion;
@@ -33,11 +33,11 @@ public class Vivienda {
 		N_IdVivi = n_IdVivi;
 	}
 
-	public int getC_Ubicacion() {
+	public String getC_Ubicacion() {
 		return C_Ubicacion;
 	}
 
-	public void setC_Ubicacion(int c_Ubicacion) {
+	public void setC_Ubicacion(String c_Ubicacion) {
 		C_Ubicacion = c_Ubicacion;
 	}
 
@@ -57,11 +57,11 @@ public class Vivienda {
 		N_Metraje = n_Metraje;
 	}
 
-	public int getC_TipViv() {
+	public String getC_TipViv() {
 		return C_TipViv;
 	}
 
-	public void setC_TipViv(int c_TipViv) {
+	public void setC_TipViv(String c_TipViv) {
 		C_TipViv = c_TipViv;
 	}
 

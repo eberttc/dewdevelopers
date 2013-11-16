@@ -23,15 +23,16 @@ public class ViviendaDAO extends BaseDAO {
 				
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setInt(1, vivienda.getC_Ubicacion());
+				stmt.setString(1, vivienda.getC_Ubicacion());
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
-				stmt.setInt(4, vivienda.getC_TipViv());
+				stmt.setString(4, vivienda.getC_TipViv());
 				stmt.setInt(5, vivienda.getResidente().getIdResidente());
 				stmt.setInt(6, 1);
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
+					vivienda = null;
 					throw new SQLException("ERROR: NO SE PUDO INSERTAR");
 				}
 	
@@ -66,12 +67,13 @@ public class ViviendaDAO extends BaseDAO {
 		
 		try {
 			String query =	"SELECT COUNT(*) AS CANTIDAD FROM VIVIENDAS V " +
-							"WHERE V.C_NroEdi = ? AND V.C_NroDpto = ? AND V.C_TipViv = ? AND V.N_IdRes = 1";
+							"WHERE V.C_NroEdi = ? AND V.C_NroDpto = ? AND V.C_TipViv = ? AND V.N_IdRes = ?";
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
-			stmt.setInt(1, vivienda.getC_Ubicacion());
+			stmt.setString(1, vivienda.getC_Ubicacion());
 			stmt.setString(2, vivienda.getC_Numero());
-			stmt.setInt(3, vivienda.getC_TipViv());
+			stmt.setString(3, vivienda.getC_TipViv());
+			stmt.setInt(4, vivienda.getResidente().getIdResidente());
 			
 			rs = stmt.executeQuery();
 			
@@ -113,10 +115,10 @@ public class ViviendaDAO extends BaseDAO {
 					
 					vivienda.setResidente(residente);
 					vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
-					vivienda.setC_Ubicacion(rs.getInt("C_Ubicacion"));
+					vivienda.setC_Ubicacion(rs.getString("C_Ubicacion"));
 					vivienda.setC_Numero(rs.getString("C_Numero"));
 					vivienda.setN_Metraje(rs.getDouble("N_Metraje"));
-					vivienda.setC_TipViv(rs.getInt("C_TipViv"));
+					vivienda.setC_TipViv(rs.getString("C_TipViv"));
 					
 			}
 		} catch (SQLException e) {
@@ -142,10 +144,10 @@ public class ViviendaDAO extends BaseDAO {
 								"WHERE N_IdVivi=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setInt(1, vivienda.getC_Ubicacion());
+				stmt.setString(1, vivienda.getC_Ubicacion());
 				stmt.setString(2, vivienda.getC_Numero());
 				stmt.setDouble(3, vivienda.getN_Metraje());
-				stmt.setInt(4, vivienda.getC_TipViv());
+				stmt.setString(4, vivienda.getC_TipViv());
 				stmt.setInt(5, vivienda.getResidente().getIdResidente());
 				stmt.setInt(6, vivienda.getN_IdVivi());
 				

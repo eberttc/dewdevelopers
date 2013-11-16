@@ -27,17 +27,17 @@ public class GestionViviendaTest {
 		
 		String v_vReturn = "NO_OK";
 		
-		residente.setIdResidente(4);
+		residente.setIdResidente(5);
 		vivienda.setResidente(residente);
-		vivienda.setC_Ubicacion(1);
-		vivienda.setC_Numero("124");
+		vivienda.setC_Ubicacion("1");
+		vivienda.setC_Numero("125");
 		vivienda.setN_Metraje(121.00);
-		vivienda.setC_TipViv(2);
+		vivienda.setC_TipViv("2");
 				
 		try {
 			v_vReturn = GestionVivienda.insertar(vivienda);
 			System.out.println(v_vReturn);
-			//Assert.assertEquals("VIVIENDA GRABADA EXITOSAMENTE.",v_vReturn);
+			Assert.assertEquals("VIVIENDA GRABADA EXITOSAMENTE.",v_vReturn);
 		} 
 		catch (DAOExcepcion e) {
 			Assert.fail("ERROR: " + e.getMessage());
@@ -63,10 +63,10 @@ public class GestionViviendaTest {
 		String v_vReturn = "NO_OK";
 		
 		vivienda.setN_IdVivi(3);
-		vivienda.setC_Ubicacion(1);
+		vivienda.setC_Ubicacion("1");
 		vivienda.setC_Numero("124");
 		vivienda.setN_Metraje(122.50);
-		vivienda.setC_TipViv(2);
+		vivienda.setC_TipViv("2");
 		residente.setIdResidente(8);
 		vivienda.setResidente(residente);
 		
