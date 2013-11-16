@@ -141,6 +141,18 @@ public class GestionCuota {
 		return listaCuota;
 	}
 
+	public Collection<Cuota> listarCuotasVencidasPorVivienda(int idVivienda) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			listaCuota = cuotaDAO.listarCuotasVencidasXvivienda(idVivienda);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaCuota;
+	}
+
 	public String realizarPago(Cuota cuota) throws DAOExcepcion {
 		
 		String v_vReturn = "ERROR - Consulte con Administrador";
