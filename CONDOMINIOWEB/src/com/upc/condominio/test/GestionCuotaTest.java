@@ -163,6 +163,22 @@ public class GestionCuotaTest {
 			Assert.fail("Falló el Listado: "+e.getMessage());
 		}
 	}
+	@Test
+	public void ListarCuotasVencidasXviviendaTest(){
+		
+		GestionCuota gestionCuota = new GestionCuota();
+		try {
+			Collection<Cuota> lstCuota = gestionCuota.listarCuotasVencidasPorVivienda(1);
+			System.out.println(lstCuota.size());
+			for (Cuota m : lstCuota) {
+				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+			}
+			Assert.assertTrue(lstCuota.size()>0);
+		} catch (DAOExcepcion e) {
+			
+			Assert.fail("Falló el Listado: "+e.getMessage());
+		}
+	}
 	
 	//@Test
 	public void realizarPagoTest() throws ParseException {
