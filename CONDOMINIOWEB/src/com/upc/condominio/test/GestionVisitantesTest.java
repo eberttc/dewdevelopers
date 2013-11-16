@@ -1,16 +1,10 @@
 package com.upc.condominio.test;
 
 import java.util.Collection;
-
 import org.junit.Test;
-
 import junit.framework.Assert;
-
-import com.upc.condominio.dao.VisitanteDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
-import com.upc.condominio.modelo.Queja;
 import com.upc.condominio.modelo.Visitante;
-import com.upc.condominio.negocio.GestionQueja;
 import com.upc.condominio.negocio.GestionVisitantes;
 
 public class GestionVisitantesTest {
@@ -25,19 +19,11 @@ public class GestionVisitantesTest {
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("CodVisitante   NomVisitante     CodResidente        Fecha/Hora");
 				System.out.println("-------------------------------------------------------------------------");
-				
-				/*
-				this.intCorrelativo = intCorrelativo;
-				this.strDNIVisitante = strDNIVisitante;
-				this.strNombreVisitante = strNombreVisitante;
-				this.intCodigoResidente = intCodigoResidente;
-				this.dHoraFechaVisitante = dHoraFechaVisitante;
-				*/
-				
+			
 				for (Visitante visitante : listado) {
 					System.out.print(visitante.getintCorrelativo()+"\t"+"\t");
 					System.out.print(visitante.getstrNombreVisitante()+"\t"+"\t"+"\t");
-					System.out.print(visitante.getstrNombreResidente()+"     \t"+"\t"+"\t");
+					System.out.print(visitante.getstrNombreResidente()+"     \t"+"\t");
 					System.out.print(visitante.getdHoraFechaVisitante()+"\t");
 					System.out.println(" ");
 				}

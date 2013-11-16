@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-//import java.util.Date;
 import java.util.List;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Queja;
-//import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.util.ConexionBD;
 
 public class QuejaDAO extends BaseDAO {
@@ -24,7 +21,7 @@ public class QuejaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_IDRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
+				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_CODRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
@@ -33,12 +30,8 @@ public class QuejaDAO extends BaseDAO {
 				stmt.setInt(2, queja.getintIdResidente());
 				stmt.setString(3, queja.getstrTipoQueja());
 				stmt.setString(4, queja.getstrMotivoQueja());
-				
 				stmt.setDate(5, queja.getdFechaQueja());
-			
 				stmt.setString(6, queja.getstrEstadoQueja());
-				
-				
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {

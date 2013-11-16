@@ -32,7 +32,7 @@ public class GestionVisitantes {
 		
 		VisitanteDAO visitanteDao=new  VisitanteDAO();	
 		
-		return visitanteDao.listar(2);
+		return visitanteDao.listar(codigo);
 	}
 
 }

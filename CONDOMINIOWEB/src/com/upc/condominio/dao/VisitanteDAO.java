@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
-import com.upc.condominio.modelo.Mensaje;
 import com.upc.condominio.modelo.Visitante;
 import com.upc.condominio.util.ConexionBD;
 
@@ -25,7 +24,7 @@ public class VisitanteDAO extends BaseDAO {
 		ResultSet rs = null;
 				
 		try {
-				String query =	"INSERT INTO VISITANTES (N_CORREL, C_DNIVIS, C_NOMVIS, N_IDRES, D_HORAFECHAVISIT) " +
+				String query =	"INSERT INTO VISITANTES (N_CORREL, C_DNIVIS, C_NOMVIS, N_CODRES, D_HORAFECHAVISIT) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
@@ -76,7 +75,7 @@ public class VisitanteDAO extends BaseDAO {
 		
 		try {
 				String query =	"select C_NomRes, C_DniVis, C_NomVis, D_HoraFechaVisit from residentes r inner join visitantes v on r.N_CodRes = v.N_CodRes " +
-								"where v.N_IDRES = ? ";
+								"where v.N_CodRes = ? ";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, codResidente);
@@ -109,31 +108,30 @@ public class VisitanteDAO extends BaseDAO {
 
 	public Collection<Visitante> listar(int idVisitante) throws DAOExcepcion {
 		Collection<Visitante> v = new ArrayList<Visitante>();
-		Visitante visitante = new Visitante();
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, r.C_NomRes, V.D_HoraFechaVisit FROM Visitantes V  inner join residentes r on r.N_IDRES = v.N_IDRES "  +
-					"WHERE V.N_Correl = ? ";
+			String query =	"SELECT V.N_Correl, V.C_DniVis, V.C_NomVis, r.C_NomRes, V.D_HoraFechaVisit FROM Visitantes V  inner join residentes r on r.N_CodRes = v.N_CodRes "  +
+					"WHERE r.N_CodRes = ? ";
 					con = ConexionBD.obtenerConexion();
 					stmt = con.prepareStatement(query);
 					stmt.setInt(1, idVisitante);
 					rs = stmt.executeQuery();
 				
-				if (rs.next()) {		
-					
-					visitante.setintCorrelativo(rs.getInt("N_Correl"));
-					visitante.setstrDNIVisitante(rs.getString("C_DniVis"));
-					visitante.setstrNombreVisitante(rs.getString("C_NomVis"));
-					visitante.setstrNombreResidente(rs.getString("C_NomRes"));
-					visitante.setdHoraFechaVisitante(rs.getDate("D_HoraFechaVisit"));
-					v.add(visitante);
+					while (rs.next()) {
+						Visitante visitante = new Visitante();
+						visitante.setintCorrelativo(rs.getInt("N_Correl"));
+						visitante.setstrDNIVisitante(rs.getString("C_DniVis"));
+						visitante.setstrNombreVisitante(rs.getString("C_NomVis"));
+						visitante.setstrNombreResidente(rs.getString("C_NomRes"));
+						visitante.setdHoraFechaVisitante(rs.getDate("D_HoraFechaVisit"));
+						v.add(visitante);
+					}
 														
-			}
 		} catch (SQLException e) {
-			visitante = null;
+			//visitante = null;
 				System.err.println(e.getMessage());
 				throw new DAOExcepcion(e.getMessage());
 		} finally {

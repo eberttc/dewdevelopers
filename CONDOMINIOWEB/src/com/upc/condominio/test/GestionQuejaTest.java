@@ -11,13 +11,13 @@ import com.upc.condominio.negocio.GestionQueja;
 
 public class GestionQuejaTest {
 
-	@Test
+	//@Test
 	public void insertarTest() {
 
 		GestionQueja negocio = new GestionQueja();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertarQueja(7, "Grave","Vigilante",fecha,"En Proceso");
+			negocio.insertarQueja(2, "Grave","Vigilante",fecha,"En Proceso");
 //			negocio.insertarQueja(intIdResidente, strTipoQueja, strMotivoQueja, dFechaQueja, strEstadoQueja);
 
 			//Categoria nuevo = negocio.obtener(3);
@@ -37,6 +37,7 @@ public class GestionQuejaTest {
 
 		try {
 			Collection<Queja> listado = negocio.listarQueja();
+			
 
 			System.out.println("-------------------------------------------------------------------------");
 			System.out.println("CodQueja   Residente     Motivo-Queja                        Estado-Queja");
