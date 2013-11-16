@@ -162,7 +162,7 @@ public class GestionCuota {
 			Cuota cuotaAux = new Cuota ();
 			cuotaAux = obtener(cuota);	
 			
-			if ((cuota.getC_Period()==cuotaAux.getC_Period())
+			if ((cuota.getC_Period().equals(cuotaAux.getC_Period()) )
 					&&(cuota.getN_IdVivi()==cuotaAux.getN_IdVivi())){
 				v_vReturn = "OK";
 			}else{
