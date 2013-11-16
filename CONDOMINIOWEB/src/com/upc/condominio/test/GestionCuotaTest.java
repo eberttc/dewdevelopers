@@ -136,9 +136,15 @@ public class GestionCuotaTest {
 		GestionCuota gestionCuota = new GestionCuota();
 		try {
 			Collection<Cuota> lstCuota = gestionCuota.listarCuotasNoPagadas();
-			System.out.println(lstCuota.size());
+			System.out.println("Cuotas no pagadas:");
 			for (Cuota m : lstCuota) {
-				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+				System.out.println( "Id Cuota        ==> "+m.getN_IdCuot()+"\n"+
+						"Nombre Residente==> "+m.getO_Vivienda().getResidente().getNombreResidente()+"\n"+
+						"Documento Residente==> "+m.getO_Vivienda().getResidente().getNumeroDocumento()+"\n"+
+			            "Importe Vencido ==> "+m.getN_ImpPag()+"\n"+
+						"Id Vivienda     ==> "+ m.getO_Vivienda().getN_IdVivi()+"\n"+
+						"Nro Edificio    ==> "+ m.getO_Vivienda().getC_Ubicacion()+"\n"+
+						"Nro Dpto        ==> "+ m.getO_Vivienda().getC_Numero()+"\n\n");
 			}
 			Assert.assertTrue(lstCuota.size()>0);
 		} catch (DAOExcepcion e) {
@@ -147,7 +153,7 @@ public class GestionCuotaTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void ListarCuotasVencidasTest(){
 		
 		GestionCuota gestionCuota = new GestionCuota();
@@ -155,7 +161,13 @@ public class GestionCuotaTest {
 			Collection<Cuota> lstCuota = gestionCuota.listarCuotasVencidas();
 			System.out.println(lstCuota.size());
 			for (Cuota m : lstCuota) {
-				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+				System.out.println( "Id Cuota        ==> "+m.getN_IdCuot()+"\n"+
+						"Nombre Residente==> "+m.getO_Vivienda().getResidente().getNombreResidente()+"\n"+
+						"Documento Residente==> "+m.getO_Vivienda().getResidente().getNumeroDocumento()+"\n"+
+			            "Importe Vencido ==> "+m.getN_ImpPag()+"\n"+
+						"Id Vivienda     ==> "+ m.getO_Vivienda().getN_IdVivi()+"\n"+
+						"Nro Edificio    ==> "+ m.getO_Vivienda().getC_Ubicacion()+"\n"+
+						"Nro Dpto        ==> "+ m.getO_Vivienda().getC_Numero()+"\n\n");
 			}
 			Assert.assertTrue(lstCuota.size()>0);
 		} catch (DAOExcepcion e) {
@@ -163,15 +175,21 @@ public class GestionCuotaTest {
 			Assert.fail("Falló el Listado: "+e.getMessage());
 		}
 	}
-	@Test
+	//@Test
 	public void ListarCuotasVencidasXviviendaTest(){
 		
 		GestionCuota gestionCuota = new GestionCuota();
 		try {
 			Collection<Cuota> lstCuota = gestionCuota.listarCuotasVencidasPorVivienda(1);
-			System.out.println(lstCuota.size());
+			System.out.println("Cuotas Vencidas por vivienda");
 			for (Cuota m : lstCuota) {
-				System.out.println(m.getN_IdCuot()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_Vivienda().getC_Numero()+" | ");
+				System.out.println( "Id Cuota        ==> "+m.getN_IdCuot()+"\n"+
+									"Nombre Residente==> "+m.getO_Vivienda().getResidente().getNombreResidente()+"\n"+
+									"Documento Residente==> "+m.getO_Vivienda().getResidente().getNumeroDocumento()+"\n"+
+						            "Importe Vencido ==> "+m.getN_ImpPag()+"\n"+
+									"Id Vivienda     ==> "+ m.getO_Vivienda().getN_IdVivi()+"\n"+
+									"Nro Edificio    ==> "+ m.getO_Vivienda().getC_Ubicacion()+"\n"+
+									"Nro Dpto        ==> "+ m.getO_Vivienda().getC_Numero()+"\n\n");
 			}
 			Assert.assertTrue(lstCuota.size()>0);
 		} catch (DAOExcepcion e) {
