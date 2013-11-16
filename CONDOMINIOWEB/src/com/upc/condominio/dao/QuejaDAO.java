@@ -60,7 +60,7 @@ public class QuejaDAO extends BaseDAO {
 		return queja;
 	}
 	
-	public List<Queja> buscarPorTipoQueja(String estadoQueja) throws DAOExcepcion {
+	public List<Queja> ListarQueja(String estadoQueja) throws DAOExcepcion {
 		
 		List<Queja> lista = new ArrayList<Queja>();
 		Connection con = null;

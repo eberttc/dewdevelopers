@@ -131,7 +131,6 @@ public class VisitanteDAO extends BaseDAO {
 					}
 														
 		} catch (SQLException e) {
-			//visitante = null;
 				System.err.println(e.getMessage());
 				throw new DAOExcepcion(e.getMessage());
 		} finally {

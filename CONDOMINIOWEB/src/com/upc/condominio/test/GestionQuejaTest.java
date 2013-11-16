@@ -30,7 +30,7 @@ public class GestionQuejaTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void listarTest() {
 
 		GestionQueja negocio = new GestionQueja();
@@ -44,10 +44,10 @@ public class GestionQuejaTest {
 			System.out.println("-------------------------------------------------------------------------");
 			
 			for (Queja queja : listado) {
-				System.out.print(queja.getintIdQueja()+"\t"+"\t");
-				System.out.print(queja.getintIdResidente()+"\t");
-				System.out.print(queja.getstrMotivoQueja()+"     \t"+"\t"+"\t");
-				System.out.print(queja.getstrEstadoQueja()+"\t");
+				System.out.print("   "+String.format("%1$-10s",queja.getintIdQueja()));
+				System.out.print(String.format("%1$-10s",queja.getintIdResidente()));
+				System.out.print(String.format("%1$-40s",queja.getstrMotivoQueja()));
+				System.out.print(String.format("%1$-100s",queja.getstrEstadoQueja()));
 				System.out.println(" ");
 			}
 			System.out.println("-------------------------------------------------------------------------");
