@@ -20,20 +20,20 @@ public class GestionResidenteTest {
 	GestionResidente gestionResidente = new GestionResidente();
 	
 	
-	@Test
+	//@Test
 	public void insertarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
 
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		
-		residente.setNombreResidente("TAMARA VALDIVIESO");
+		residente.setNombreResidente("ARIADNA VALDIVIESO");
 		residente.setTipoDocumento(1);
-		residente.setNumeroDocumento("44324513");
+		residente.setNumeroDocumento("44324512");
 		residente.setFechaNacimiento(df.parse("08/11/1984"));
-		residente.setCorreo("palmendi86@GMAIL.COM");
+		residente.setCorreo("ARIADNAVADI@GMAIL.COM");
 		residente.setClave("ADMIN");
-		residente.setEstadoRegistro(1);
+		residente.setEstadoRegistro("1");
 				
 		try {
 			v_vReturn = gestionResidente.insertar(residente);
@@ -50,7 +50,7 @@ public class GestionResidenteTest {
 		
 		try {
 			List<Residente> residenteList = new ArrayList<Residente>();
-	        residenteList = gestionResidente.buscarPorNombre("ADNA");
+	        residenteList = gestionResidente.buscarPorNombre("VALD");
 	        Assert.assertNotNull(residenteList);
 	        
 	        for (Residente residente : residenteList){
@@ -68,7 +68,7 @@ public class GestionResidenteTest {
 	public void obtenerTest() {
 				
 		try {
-			residente = gestionResidente.obtener(8);
+			residente = gestionResidente.obtener(3);
 			Assert.assertNotNull(residente);
 			System.out.print("Nombre: " + residente.getNombreResidente() + "; Correo:" + residente.getCorreo());
 		} 
@@ -84,10 +84,10 @@ public class GestionResidenteTest {
 
 		SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 
-		residente.setIdResidente(8);
+		residente.setIdResidente(3);
 		residente.setNombreResidente("ARIADNA VALDIVIESO");
 		residente.setTipoDocumento(1);
-		residente.setNumeroDocumento("69696969");
+		residente.setNumeroDocumento("69696900");
 		residente.setFechaNacimiento(df.parse("08/11/1984"));
 		residente.setCorreo("AVALDIVIESO@GMAIL.COM");
 		
@@ -102,11 +102,11 @@ public class GestionResidenteTest {
 				
 	}
 		
-	//@Test
+	@Test
 	public void eliminarTest() {
 		
 		int nResidente;
-		nResidente = 8; 
+		nResidente = 1; 
 		
 		String vReturn = "NO_OK";
 		try {

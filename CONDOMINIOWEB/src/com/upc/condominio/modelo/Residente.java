@@ -11,7 +11,7 @@ public class Residente {
 	private String correo;
 	private String numeroDocumento;
 	private String clave;
-	private int estadoRegistro;
+	private String estadoRegistro;
 	
 	public Residente() {
 	}
@@ -19,7 +19,7 @@ public class Residente {
 		
 	public Residente(int idResidente, String nombreResidente,
 			int tipoDocumento, Date fechaNacimiento, String correo,
-			String numeroDocumento, String clave, int estadoRegistro) {
+			String numeroDocumento, String clave, String estadoRegistro) {
 		super();
 		this.idResidente = idResidente;
 		this.nombreResidente = nombreResidente;
@@ -89,11 +89,11 @@ public class Residente {
 		this.clave = clave;
 	}
 
-	public int getEstadoRegistro() {
+	public String getEstadoRegistro() {
 		return estadoRegistro;
 	}
 
-	public void setEstadoRegistro(int estadoRegistro) {
+	public void setEstadoRegistro(String estadoRegistro) {
 		this.estadoRegistro = estadoRegistro;
 	}
 
