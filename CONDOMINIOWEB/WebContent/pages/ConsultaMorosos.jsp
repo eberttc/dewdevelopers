@@ -60,6 +60,14 @@ $(document).ready(function() {
      	}
 		 
 	 };
+	 $("#jqueryDataTable tbody tr").live('click', function (event) {
+		
+         $(this).addClass("success");
+	});
+	 $("#jqueryDataTable tbody tr").live('blur', function (event) {
+		 $(this).removeClass("success");
+        
+	});
 	 
 	
 
@@ -79,9 +87,15 @@ $(document).ready(function() {
       <div class="container">
         <h3>Cuotas Vencidas</h3>
         
-        <hr>
+        
+         
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <hr>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" >
           <h4>Codigo de Vivienda</h4>
         </div>
         <div class="col-md-3">
@@ -100,7 +114,7 @@ $(document).ready(function() {
       <hr>
       <table class="table table-bordered table-hover" id="jqueryDataTable">
         <thead>
-          <tr>
+          <tr class="success">
             <th>Id Cuota</th>
             <th>Nombre Residente</th>
             <th>Dni Residente</th>
@@ -113,7 +127,7 @@ $(document).ready(function() {
         <tbody>
           <c:forEach var="bean" items="${requestScope.lista}" varStatus="i">
           <tr>
-          	<td>${bean.n_IdCuot}</td>
+          	<td >${bean.n_IdCuot}</td>
           	<td>${bean.o_Vivienda.residente.nombreResidente}</td>
           	<td>${bean.o_Vivienda.residente.numeroDocumento}</td>
           	<td>${bean.n_ImpPag}</td>
@@ -124,12 +138,7 @@ $(document).ready(function() {
           </tr>
           </c:forEach>
         </tbody>
-      </table>     
-      </div>
-    </div>
-    <div class="container">
-      <!-- Example row of columns -->
-      
+      </table>  
       <footer></footer>
     </div>
     <!-- /container -->
