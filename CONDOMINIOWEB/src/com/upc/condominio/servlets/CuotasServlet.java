@@ -59,64 +59,22 @@ public class CuotasServlet extends HttpServlet {
 		String opcion=request.getParameter("opcion")==null?"":request.getParameter("opcion");
 		String txtcodigo=request.getParameter("codigo")==null?"":request.getParameter("codigo");
 		
-		HttpSession session=request.getSession();
 		List<Cuota> c=new ArrayList<Cuota>();
 		GestionCuota cuota=new GestionCuota();
-		String mensaje="";
-		if(opcion.equals("1")){
-			
-		try {
-				c=(List<Cuota>) cuota.listarCuotasVencidas();
-				 				
-		
-			} catch (DAOExcepcion e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			
-		}else{
-			
-			try {
-				
-				if(!txtcodigo.equals(""))
+		try{
+			//trae todas las cuotas vencidas
+			if(opcion.equals("1"))								
+				c=(List<Cuota>) cuota.listarCuotasVencidas();				 								
+			else								
+				if(!txtcodigo.equals(""))//busca cuotas vencidas por codigo de vivienda
 					c=(List<Cuota>) cuota.listarCuotasVencidasPorVivienda(new Integer(txtcodigo).intValue());
 				
-				 				
 		
-			} catch (DAOExcepcion e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}catch(Exception e){
+		
 			
 		}
-		
-
-		StringBuffer myData=new StringBuffer();
-
-		
-		
-		
-		for(int i=0;i<c.size();i++){
-			Cuota bean=c.get(i);
-			
-			myData.append("[");
-			
-			myData.append("\""+bean.getN_IdCuot()+"\",");
-			myData.append("\""+bean.getO_Vivienda().getResidente().getNombreResidente()+"\",");
-			myData.append("\""+bean.getO_Vivienda().getResidente().getNumeroDocumento()+"\",");
-			myData.append("\""+bean.getN_ImpPag()+"\",");
-			myData.append("\""+bean.getN_IdVivi()+"\",");
-			myData.append("\""+bean.getO_Vivienda().getC_Numero()+"\",");
-			myData.append("\""+bean.getO_Vivienda().getC_Ubicacion()+"\"");
-			
-			myData.append("]");
-			 if(i < c.size() - 1)
-				 myData.append(",");
-			
-		}
-		session.setAttribute("listado",myData.toString());
+								
 		request.setAttribute("lista",c);
 		request.getRequestDispatcher("/pages/ConsultaMorosos.jsp").forward(request, response);
 		
