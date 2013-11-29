@@ -1,3 +1,5 @@
+
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,28 +63,60 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+   	   
+		function valida(){
+			
+			var f=document.forms[0];
+			
+			if(f.txtUser.value==""){
+				alert("Ingrese Usuraio");
+				return false;
+			}
+
+			if(f.txtPass.value==""){
+				alert("Ingrese PASSWORD");
+				return false;
+			}
+
+			
+			f.method="post";
+			f.submit();
+		
+		}
+
+		function cambiaTipo(){
+			    var f=document.forms[0];
+				
+			    if(f.chkUsuario.checked){
+					f.hidTipo.value="A";
+				}else
+					f.hidTipo.value="R";
+				
+			}
+			
+    </script>
   </head>
 
   <body>
-
     <div class="container">
-   
-   
-   	<form class="form-signin" action="LoginServlet" method="post">
-        <h2 class="form-signin-heading">Bienvenid@</h2>
-        <input type="text" class="form-control" placeholder="Usuario" autofocus name="usuario">
-        <input type="password" class="form-control" placeholder="Clave" name="clave">        
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-        <span style="color: red;">${MENSAJE }</span>
+ 	  
+      <form class="form-signin" action="LoginServlet" method="post" >
+        <h2 class="form-signin-heading"></h2>
+        <c:if test="${not empty MENSAJE }">
+        	<div class="alert alert-danger">${MENSAJE}</div>
+        </c:if>
+        <input type="hidden"  name="hidTipo"/>
+        <input type="text" name="txtUser" class="form-control" placeholder="Usuario">
+        <input type="password" name="txtPass" class="form-control" placeholder="Password">
+        <label class="checkbox">
+          <input type="checkbox" name="chkUsuario" onclick="cambiaTipo();"> Si eres Administrativo selecciona esta opcion
+        </label>
+        <input class="btn btn-lg btn-primary btn-block"  value ="Entrar" type="button" onclick="javascript:valida();" />
       </form>
-	
+	  <c:remove var="MENSAJE" scope="request" />
     </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.10.2.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
