@@ -75,5 +75,11 @@ public class GestionJunta {
 			return juntaDao.listar();
 		
 		}
+		public Collection<Directivos> listarDirectivos() throws DAOExcepcion{
+			
+			JuntaDAO juntaDao=new  JuntaDAO();						
+			return juntaDao.listarDirectivos();
+		
+		}
 
 }
