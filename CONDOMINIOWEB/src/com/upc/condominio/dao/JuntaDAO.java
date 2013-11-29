@@ -267,5 +267,35 @@ public class JuntaDAO extends BaseDAO {
 		return c;
 	}
 
+	public Collection<Directivos> listarDirectivos()  throws DAOExcepcion{
+		Collection<Directivos> c = new ArrayList<Directivos>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			
+			String query = "select * from directivos";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Directivos bean = new Directivos();
+				bean.setIntCodigoDirectivo(rs.getInt(1));
+				bean.setStrNombreDirectivo(rs.getString(2));
+				bean.setStrCargo(rs.getString(3));				
+				c.add(bean);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return c;
+	}
+
 
 }
