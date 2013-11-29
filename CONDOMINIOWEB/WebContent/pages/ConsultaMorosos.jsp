@@ -2,8 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -11,7 +11,7 @@
   
  
  	<!-- Bootstrap core CSS -->
-    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
+     <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="<%=request.getContextPath()%>/css/bootswatch.min.css" rel="stylesheet" media="screen">
     <link href="<%=request.getContextPath()%>/css/jquery.dataTables.css" rel="stylesheet">
       <link href="<%=request.getContextPath()%>/css/DT_bootstrap.css" rel="stylesheet">
@@ -31,12 +31,11 @@ String listado=session.getAttribute("listado")==null?"":session.getAttribute("li
 %>
 
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
 
 $(document).ready(function() {
 
 	
-	 
 	 
 	 $("#chktodos").click(function(){
 		 
@@ -60,14 +59,7 @@ $(document).ready(function() {
      	}
 		 
 	 };
-	 $("#jqueryDataTable tbody tr").live('click', function (event) {
-		
-         $(this).addClass("success");
-	});
-	 $("#jqueryDataTable tbody tr").live('blur', function (event) {
-		 $(this).removeClass("success");
-        
-	});
+	
 	 
 	
 
@@ -81,18 +73,14 @@ $(document).ready(function() {
   
   <jsp:include page="/pages/header.jsp" />
   <form id="frmMorosos" action="CuotasServlet">
-  <input type="hidden" id="hidopcion"  name="opcion">
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+  <input type="hidden" id="hidopcion"  name="opcion">  
     <div class="jumbotron">
       <div class="container">
         <h3>Cuotas Vencidas</h3>
-        
-        
-         
+
       </div>
     </div>
     <div class="container">
-      <!-- Example row of columns -->
       <hr>
       <div class="row">
         <div class="col-md-3" >
@@ -141,8 +129,7 @@ $(document).ready(function() {
       </table>  
       <footer></footer>
     </div>
-    <!-- /container -->
-    
+  
     </form>
   </body>
 	
