@@ -64,7 +64,8 @@ public class ReservaDAO extends BaseDAO{
 			
 			while (rs.next()) {
 				Horario h = new Horario();
-				h.setRango(rs.getString(1));
+				h.setIdHorario(rs.getInt(1));
+				h.setRango(rs.getString(2));
 				cr.add(h);
 			}
 			

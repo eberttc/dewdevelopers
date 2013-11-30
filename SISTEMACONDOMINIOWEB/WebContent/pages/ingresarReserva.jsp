@@ -16,6 +16,31 @@
         padding-bottom: 20px;
       }
     </style>
+    <script language="javascript" src="ajax.js"></script>
+<script language="javascript">
+oAjax = creaAjax();
+
+function listarHorarioDisponible(archivo,ec,fecha,divid){
+	alert(ec+fecha);
+	myRand = parseInt(Math.random()*999999999999999);
+	var modurl = archivo +"?rand=" + myRand + vars; 
+	oAjax.open("GET", modurl, true);
+	mydiv = divid;
+	oAjax.onreadystatechange = articulo_respuesta;
+	oAjax.send(null);
+}
+
+function articulo_respuesta() {
+	if (oAjax.readyState == 4) {
+		if(oAjax.status == 200) {
+			var miTexto = oAjax.responseText;
+			document.getElementById(mydiv).innerHTML = (miTexto);
+		}
+	}else{
+		document.getElementById(mydiv).innerHTML = "<img src='carga_barra.gif'>";
+	}
+}
+</script>
   </head>
   
   <body>
@@ -86,10 +111,10 @@
       <div class="row">
         <div class="col-lg-4">
           <form method="POST" Action="">
-            <div class="col-md-4" style="width:190px">Fecha:<input type="date"  class="form-control" name="fecha_res" placeholder="dd/mm/yyyy" size="150">
+            <div class="col-md-4" style="width:190px">Fecha:<input id="fecha_res" type="date"  class="form-control" name="fecha_res" placeholder="dd/mm/yyyy" size="150">
             </div>
             <div class="col-md-4">Espacio:
-              <select class="form-control" style="width:290px" onchange="listar()">
+              <select class="form-control" style="width:290px" onchange="listarHorarioDisponible('listarHorarios.jsp','&ec='+this.value,'&fecha='+document.getElementById('fecha_res').value,'div_resultado')">
 <% 
   GestionEspacioComun negocio = new GestionEspacioComun();
 	try {
