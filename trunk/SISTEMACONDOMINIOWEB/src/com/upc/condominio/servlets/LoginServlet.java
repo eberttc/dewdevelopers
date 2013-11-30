@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.exceptions.LoginExcepcion;
+import com.upc.condominio.modelo.Usuario;
+import com.upc.condominio.negocio.GestionUsuarios;
+
 
 /**
  * Servlet implementation class for Servlet: LoginServlet
@@ -49,6 +54,25 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 			HttpServletResponse response) throws ServletException, IOException {
 
 
+		String usuario = request.getParameter("txtUser");
+		String clave = request.getParameter("txtPass");
+		String tipoUsuraio="R";
+		
+		/*GestionUsuarios negocio = new GestionUsuarios();
+
+		try {
+			Usuario vo = negocio.validarUsuario(usuario, clave,tipoUsuraio);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("USUARIO_ACTUAL", vo);
+			
+			response.sendRedirect("/pages/principal.jsp");
+			return;
+		} catch (DAOExcepcion e) {
+			request.setAttribute("MENSAJE", "Hubo un error al procesar la operación: " + e.getMessage());	
+		} catch (LoginExcepcion e) {			
+			request.setAttribute("MENSAJE", "Usuario y/o clave incorrectos");
+		}*/
 		RequestDispatcher rd = request.getRequestDispatcher("/pages/principal.jsp");
 		rd.forward(request, response);
 	}
