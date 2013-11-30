@@ -19,13 +19,13 @@ import com.upc.condominio.negocio.GestionReserva;
 public class GestionReservaTest {
 	Date fecha = new Date(System.currentTimeMillis());
 	
-	//@Test
+	@Test
 	public void insertarReservaTest(){
 		
 		GestionReserva negocio = new GestionReserva();
 		
 		try {
-			negocio.insertar(fecha,3,2,1);
+			negocio.insertar(fecha,1,1,10);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("No se pudo insertar el registro: "+e.getMessage());
@@ -33,15 +33,13 @@ public class GestionReservaTest {
 		
 	}
 
-	@Test
+	//@Test
 	public void ListarFechasDisponibles(){
 		
 		GestionReserva negocio = new GestionReserva();
-		/*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             
-		Date fecha1 = df.parse("2013-11-11");*/
 		try {
-			Collection<Horario> listado = negocio.listarHorariosDisponibles(fecha,3);
+			Collection<Horario> listado = negocio.listarHorariosDisponibles(fecha,1);
 			
 			System.out.println("HORARIOS DISPONIBLES");
 			System.out.println("---------------------------------------------------------------------------------------------------");
@@ -50,7 +48,6 @@ public class GestionReservaTest {
 				System.out.println(h.getIdHorario());
 				System.out.println(h.getRango());
 			}
-			Assert.assertTrue(listado.size()>0);
 		} catch (DAOExcepcion e) {
 			
 			Assert.fail("Falló el Listado: "+e.getMessage());

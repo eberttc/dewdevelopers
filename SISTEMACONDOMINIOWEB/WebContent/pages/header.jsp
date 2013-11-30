@@ -73,7 +73,7 @@
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mensajeria <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Registrar Mensajes</a></li>	              
-	              <li><a href="#">Ver Mensaje</a></li>	              
+	              <li><a href="MensajesServlet?CodUsuario=2">Ver Mensajes</a></li>	              
 	                           	             	             
 	            </ul>
 	          </li>

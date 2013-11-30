@@ -55,7 +55,7 @@ public class GestionMensajeTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void ListarMensajesTest(){
 		
 		GestionMensaje negocio = new GestionMensaje();
