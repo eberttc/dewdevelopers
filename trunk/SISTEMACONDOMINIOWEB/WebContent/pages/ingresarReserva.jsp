@@ -1,4 +1,5 @@
-<!doctype html>
+<%@page import="com.upc.condominio.negocio.GestionEspacioComun,com.upc.condominio.modelo.EspacioComun,com.upc.condominio.exceptions.DAOExcepcion,java.util.*" %>
+
 
 <html>
   
@@ -88,10 +89,19 @@
             </div>
             <div class="col-md-4">Espacio:
               <select class="form-control">
-                <option>Sala de Reuni&oacute;n</option>
-                <option>Campo de Futbol</option>
-                <option>Area Recreativa</option>
+<% 
+  GestionEspacioComun negocio = new GestionEspacioComun();
+	try {
+		Collection<EspacioComun> listado = negocio.listarEspacios();
+		
+		for (EspacioComun m : listado) {%>
+			 <option value="<%out.println(m.getIdespacio()); %>"><%=m.getNombreEspacio()%></option>
+		<%} 
+	} catch (DAOExcepcion e) {
+      out.print("Falló el Listado: "+e.getMessage());
+    } %>
               </select>
+             
             </div>
             <div class="filtros"></div>
             <table class="table">
