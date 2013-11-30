@@ -1,4 +1,5 @@
-<%@page import="com.upc.condominio.negocio.GestionEspacioComun,com.upc.condominio.modelo.EspacioComun,com.upc.condominio.exceptions.DAOExcepcion,java.util.*" %>
+<%@page import="com.upc.condominio.negocio.GestionEspacioComun,com.upc.condominio.negocio.GestionReserva,
+				com.upc.condominio.modelo.EspacioComun,com.upc.condominio.modelo.Horario,com.upc.condominio.exceptions.DAOExcepcion,java.util.*" %>
 
 
 <html>
@@ -85,17 +86,17 @@
       <div class="row">
         <div class="col-lg-4">
           <form method="POST" Action="">
-            <div class="col-md-4">Fecha:<input type="date"  class="form-control" name="fecha_res" placeholder="dd/mm/yyyy" size="150">
+            <div class="col-md-4" style="width:190px">Fecha:<input type="date"  class="form-control" name="fecha_res" placeholder="dd/mm/yyyy" size="150">
             </div>
             <div class="col-md-4">Espacio:
-              <select class="form-control">
+              <select class="form-control" style="width:290px" onchange="listar()">
 <% 
   GestionEspacioComun negocio = new GestionEspacioComun();
 	try {
 		Collection<EspacioComun> listado = negocio.listarEspacios();
 		
 		for (EspacioComun m : listado) {%>
-			 <option value="<%out.println(m.getIdespacio()); %>"><%=m.getNombreEspacio()%></option>
+			 <option value="<%out.println(m.getIdespacio());%>"><%=m.getNombreEspacio()%></option>
 		<%} 
 	} catch (DAOExcepcion e) {
       out.print("Falló el Listado: "+e.getMessage());
@@ -115,13 +116,25 @@
                 </tr>
               </thead>
               <tbody>
+<%
+/*GestionReserva gr = new GestionReserva();
+ 		try {
+    			Collection<Horario> listado = gr.listarHorariosDisponibles("2013-10-12",3);
+    			
+    			for (Horario h : listado) {
+    				System.out.println(h.getRango());
+    			}
+    		} catch (DAOExcepcion e) {
+    			
+    			out.print("Falló el Listado: "+e.getMessage());
+    		}*/ %>
                 <tr>
                   <td>1</td>
                   <td>8:00 - 9:00</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>89:00 - 10:00</td>
+                  <td>9:00 - 10:00</td>
                 </tr>
               </tbody>
             </table>

@@ -17,7 +17,7 @@ import com.upc.condominio.negocio.GestionReserva;
 public class GestionReservaTest {
 	Date fecha = new Date(System.currentTimeMillis());
 	
-	@Test
+	//@Test
 	public void insertarReservaTest(){
 		
 		GestionReserva negocio = new GestionReserva();
