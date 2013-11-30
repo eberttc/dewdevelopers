@@ -2,12 +2,20 @@ package com.upc.condominio.modelo;
 
 public class Horario {
 
-	private int idReserva;
+	private int idHorario;
 	private String rango;
 	private String estado;
 	
 	public Horario() {
 
+	}
+
+	public int getIdHorario() {
+		return idHorario;
+	}
+
+	public void setIdHorario(int idHorario) {
+		this.idHorario = idHorario;
 	}
 
 	public String getRango() {
@@ -25,6 +33,7 @@ public class Horario {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	
 	
 	

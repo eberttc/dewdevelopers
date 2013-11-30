@@ -1,6 +1,8 @@
 package com.upc.condominio.test;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 import junit.framework.Assert;
@@ -35,6 +37,9 @@ public class GestionReservaTest {
 	public void ListarFechasDisponibles(){
 		
 		GestionReserva negocio = new GestionReserva();
+		/*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            
+		Date fecha1 = df.parse("2013-11-11");*/
 		try {
 			Collection<Horario> listado = negocio.listarHorariosDisponibles(fecha,3);
 			
@@ -42,6 +47,7 @@ public class GestionReservaTest {
 			System.out.println("---------------------------------------------------------------------------------------------------");
 			
 			for (Horario h : listado) {
+				System.out.println(h.getIdHorario());
 				System.out.println(h.getRango());
 			}
 			Assert.assertTrue(listado.size()>0);
