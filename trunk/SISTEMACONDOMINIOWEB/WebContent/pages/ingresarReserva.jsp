@@ -16,28 +16,28 @@
         padding-bottom: 20px;
       }
     </style>
-    <script language="javascript" src="ajax.js"></script>
+    <script language="javascript" src="../js/ajax.js"></script>
 <script language="javascript">
 oAjax = creaAjax();
 
 function listarHorarioDisponible(archivo,ec,fecha,divid){
-	alert(ec+fecha);
+	//	alert(ec+fecha);
 	myRand = parseInt(Math.random()*999999999999999);
-	var modurl = archivo +"?rand=" + myRand + vars; 
+	var modurl = archivo +"?rand=" + myRand + ec+fecha	; 
 	oAjax.open("GET", modurl, true);
 	mydiv = divid;
-	oAjax.onreadystatechange = articulo_respuesta;
+	oAjax.onreadystatechange = listarHorarioDisponibleRespuesta;
 	oAjax.send(null);
 }
 
-function articulo_respuesta() {
-	if (oAjax.readyState == 4) {
+function listarHorarioDisponibleRespuesta() {
+	if (oAjax.readyState == 4) {	
 		if(oAjax.status == 200) {
 			var miTexto = oAjax.responseText;
 			document.getElementById(mydiv).innerHTML = (miTexto);
 		}
 	}else{
-		document.getElementById(mydiv).innerHTML = "<img src='carga_barra.gif'>";
+		document.getElementById(mydiv).innerHTML = "<div>esperando...</div>";
 	}
 }
 </script>
@@ -141,26 +141,9 @@ function articulo_respuesta() {
                 </tr>
               </thead>
               <tbody>
-<%
-/*GestionReserva gr = new GestionReserva();
- 		try {
-    			Collection<Horario> listado = gr.listarHorariosDisponibles("2013-10-12",3);
-    			
-    			for (Horario h : listado) {
-    				System.out.println(h.getRango());
-    			}
-    		} catch (DAOExcepcion e) {
-    			
-    			out.print("Falló el Listado: "+e.getMessage());
-    		}*/ %>
-                <tr>
-                  <td>1</td>
-                  <td>8:00 - 9:00</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>9:00 - 10:00</td>
-                </tr>
+                <tr id="div_resultado">
+                  <td></td>
+                </tr>  
               </tbody>
             </table>
             <div class="col-md-4">
