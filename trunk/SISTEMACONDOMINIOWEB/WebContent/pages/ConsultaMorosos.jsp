@@ -12,14 +12,8 @@
  
  	<!-- Bootstrap core CSS -->
      <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="<%=request.getContextPath()%>/css/bootswatch.min.css" rel="stylesheet" media="screen">
-    <link href="<%=request.getContextPath()%>/css/jquery.dataTables.css" rel="stylesheet">
-      <link href="<%=request.getContextPath()%>/css/DT_bootstrap.css" rel="stylesheet">
-  
-    
-    
+ 
  	<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
- 	<script src="<%=request.getContextPath()%>/js/jquery.dataTables.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
      
@@ -107,9 +101,11 @@ $(document).ready(function() {
             <th>Nombre Residente</th>
             <th>Dni Residente</th>
             <th>Importe a pagar</th>
+             <th>Fecha Vencimiento</th>
             <th>Id Vivienda</th>
             <th>Ubicacion</th>
             <th>Edificio</th>
+          
           </tr>
         </thead>
         <tbody>
@@ -119,10 +115,12 @@ $(document).ready(function() {
           	<td>${bean.o_Vivienda.residente.nombreResidente}</td>
           	<td>${bean.o_Vivienda.residente.numeroDocumento}</td>
           	<td>${bean.n_ImpPag}</td>
+          	<td>${bean.d_FecVen}</td>
           	<td>${bean.o_Vivienda.n_IdVivi}</td>
           	<td>${bean.o_Vivienda.c_Ubicacion}</td>
           	<td>${bean.o_Vivienda.c_Numero}</td>
-          		           	        
+          	          	
+          	          		           	        
           </tr>
           </c:forEach>
         </tbody>
