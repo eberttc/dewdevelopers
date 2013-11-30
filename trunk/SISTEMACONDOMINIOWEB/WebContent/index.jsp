@@ -112,7 +112,7 @@
         <label class="checkbox">
           <input type="checkbox" name="chkUsuario" onclick="cambiaTipo();"> Si eres Administrativo selecciona esta opcion
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+        <input class="btn btn-lg btn-primary btn-block"  value ="Entrar" type="submit"  />
       </form>
 	  <c:remove var="MENSAJE" scope="request" />
     </div> <!-- /container -->
