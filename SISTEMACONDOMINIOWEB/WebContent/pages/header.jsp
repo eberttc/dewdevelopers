@@ -28,7 +28,7 @@
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimientos <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Vivienda</a></li>	              
-	              <li><a href="#">Residente</a></li>	              	             	             
+	              <li><a href="ResidenteServlet?Param=">Residente</a></li>	              	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
