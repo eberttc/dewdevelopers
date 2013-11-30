@@ -34,7 +34,7 @@
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuotas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
-	              <li><a href="#">Colocacion de Cuotas</a></li>	              
+	              <li><a href="CuotaListar.jsp">Colocacion de Cuotas</a></li>	              
 	              <li><a href="#">Pago cuotas</a></li>	              	             	             
 	              <li><a href="#">Consulta Morosas</a></li>	              	             	             
 	              <li><a href="CuotasServlet?opcion=1">Consulta de Cuotas Vencidas</a></li>	              	             	             
