@@ -17,7 +17,7 @@ public class GestionQuejaTest {
 		GestionQueja negocio = new GestionQueja();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertarQueja(2, "LEVE","VIGILANTE FUMANDO",fecha,"En Investigacion");
+			negocio.insertarQueja(2, "GRAVE","VIGILANTE FALTA RESPETO",fecha,"En Investigacion");
 		} catch (DAOExcepcion e) {
 			System.out.print("Fallo la inserción");	
 			Assert.fail("Fallo la inserción" + e.getMessage());
