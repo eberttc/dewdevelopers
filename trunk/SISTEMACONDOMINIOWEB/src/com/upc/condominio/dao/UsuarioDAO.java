@@ -43,10 +43,19 @@ public class UsuarioDAO extends BaseDAO {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				vo.setIdUsuario(rs.getString("1"));
-				vo.setClave    (rs.getString("2"));
-				vo.setNombres  (rs.getString("3"));									
-				vo.setTipoUsuario(tipoUsuraio);
+				if(tipoUsuraio.equals("R")){
+					vo.setIdUsuario(rs.getString("C_Correo"));
+					vo.setClave    (rs.getString("C_Clave"));
+					vo.setNombres  (rs.getString("C_NomRes"));									
+					vo.setTipoUsuario(tipoUsuraio);
+				}else{
+					
+					vo.setIdUsuario(rs.getString("N_IdUsua"));
+					vo.setClave    (rs.getString("C_Clave"));
+					vo.setNombres  (rs.getString("C_NomUsua"));									
+					vo.setTipoUsuario(tipoUsuraio);
+				}
+				
 			} else {
 				throw new LoginExcepcion("No existe");
 			}
