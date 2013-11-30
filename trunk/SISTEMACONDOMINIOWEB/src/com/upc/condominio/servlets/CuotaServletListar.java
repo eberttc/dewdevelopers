@@ -33,33 +33,38 @@ public class CuotaServletListar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		processRequest(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// Variable periodo en formato AÑO-Mes . Ejemplo : 201301 (Año 2013, mes Enero)
-		String periodo=request.getParameter("periodo")==null?"":request.getParameter("periodo");
-		
-		GestionCuota gestionCuota = new GestionCuota();
-		List<Cuota> lstCuota = new ArrayList<Cuota>();
-		Cuota cuota = new Cuota();
-		cuota.setC_Period(periodo);
-		
-		try{
-			//trae todas las cuotas Generadas y por Generar del periodo ingresado
-			lstCuota=(List<Cuota>) gestionCuota.listar(cuota);				 								
-		
-		}catch(Exception e){
-		
-			
-		}
-								
-		request.setAttribute("listaCuota",lstCuota);
-		request.getRequestDispatcher("/pages/CuotaListar.jsp").forward(request, response);
+
+		processRequest(request,response);
 		
 	}
 
+	private void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// Variable periodo en formato AÑO-Mes . Ejemplo : 201301 (Año 2013, mes Enero)
+				String periodo=request.getParameter("periodo")==null?"":request.getParameter("periodo");
+				
+				GestionCuota gestionCuota = new GestionCuota();
+				List<Cuota> lstCuota = new ArrayList<Cuota>();
+				Cuota cuota = new Cuota();
+				cuota.setC_Period(periodo);
+				
+				try{
+					//trae todas las cuotas Generadas y por Generar del periodo ingresado
+					lstCuota=(List<Cuota>) gestionCuota.listar(cuota);				 								
+				
+				}catch(Exception e){
+				
+					
+				}
+										
+				request.setAttribute("listaCuota",lstCuota);
+				request.getRequestDispatcher("CuotaListar.jsp").forward(request, response);
+	}
 }
