@@ -7,7 +7,7 @@
     <meta name="author" content="">
 <!--     <link rel="shortcut icon" href="../../assets/ico/favicon.png"> -->
 
-    <title>Trastienda</title>
+    <title>Condominio</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -27,7 +27,7 @@
 	   
 	   <!-- Jumbotron -->
 	   <div class="jumbotron">     
-	   		<h4>Bienvenid@ <b>${sessionScope.USUARIO_ACTUAL.nombres } ${sessionScope.USUARIO_ACTUAL.paterno }</b></h4>	     
+	   		<h4>Bienvenid@ <b>${sessionScope.USUARIO_ACTUAL.nombres }</b></h4>	     
 	   </div>
 	   
 	   <div class="row">
@@ -47,7 +47,7 @@
 	   <!-- Site footer -->
 	   <div class="footer">
 	   	 <p>&nbsp;</p>
-	     <p>&copy; RCondezo 2014 </p>
+	     <p>&copy;Developers 2014 </p>
 	   </div>
 	   
 	 </div> <!-- /container -->
