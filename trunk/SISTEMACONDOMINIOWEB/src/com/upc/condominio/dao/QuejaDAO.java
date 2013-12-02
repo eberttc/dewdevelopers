@@ -27,12 +27,12 @@ public class QuejaDAO extends BaseDAO {
 				
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setInt(1, queja.getintIdQueja());
-				stmt.setInt(2, queja.getintIdResidente());
-				stmt.setString(3, queja.getstrTipoQueja());
-				stmt.setString(4, queja.getstrMotivoQueja());
+				stmt.setInt(1, queja.getIntIdQueja());
+				stmt.setInt(2, queja.getIntIdResidente());
+				stmt.setString(3, queja.getStrTipoQueja());
+				stmt.setString(4, queja.getStrMotivoQueja());
 				stmt.setDate(5, queja.getdFechaQueja());
-				stmt.setString(6, queja.getstrEstadoQueja());
+				stmt.setString(6, queja.getStrEstadoQueja());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
@@ -48,7 +48,7 @@ public class QuejaDAO extends BaseDAO {
 				if (rs.next()) {
 					id = rs.getInt(1);
 				}
-				queja.setintIdQueja(id);
+				queja.setIntIdQueja(id);
 
 		} catch (SQLException e) {
 				queja = null;
@@ -81,10 +81,10 @@ public class QuejaDAO extends BaseDAO {
 				while (rs.next()) {
 
 					Queja queja = new Queja();
-					queja.setintIdQueja(rs.getInt("N_IdQueja"));
-					queja.setstrTipoQueja(rs.getString("CTipoQueja"));
+					queja.setIntIdQueja(rs.getInt("N_IdQueja"));
+					queja.setStrTipoQueja(rs.getString("CTipoQueja"));
 					queja.setdFechaQueja(rs.getDate("D_FecQue"));
-					queja.setstrEstadoQueja(rs.getString("C_Estado"));
+					queja.setStrEstadoQueja(rs.getString("C_Estado"));
 														
 					lista.add(queja);
 				}
@@ -119,10 +119,10 @@ public class QuejaDAO extends BaseDAO {
 				
 				if (rs.next()) {		
 					
-					queja.setintIdQueja(rs.getInt("N_IdQueja"));
-					queja.setstrTipoQueja(rs.getString("C_TipQue"));
+					queja.setIntIdQueja(rs.getInt("N_IdQueja"));
+					queja.setStrTipoQueja(rs.getString("C_TipQue"));
 					queja.setdFechaQueja(rs.getDate("D_FecQue"));
-					queja.setstrEstadoQueja(rs.getString("C_Estado"));
+					queja.setStrEstadoQueja(rs.getString("C_Estado"));
 														
 			}
 		} catch (SQLException e) {
@@ -148,15 +148,15 @@ public class QuejaDAO extends BaseDAO {
 								"WHERE N_CODRES=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
-				stmt.setInt(1, queja.getintIdResidente());
-				stmt.setString(2, queja.getstrTipoQueja());
-				stmt.setString(3, queja.getstrMotivoQueja());
+				stmt.setInt(1, queja.getIntIdResidente());
+				stmt.setString(2, queja.getStrTipoQueja());
+				stmt.setString(3, queja.getStrMotivoQueja());
 				//
 				d = queja.getdFechaQueja();
 				java.sql.Timestamp dt = new java.sql.Timestamp(d.getTime());
 				stmt.setTimestamp(4, dt);
 				//
-				stmt.setString(5, queja.getstrEstadoQueja());
+				stmt.setString(5, queja.getStrEstadoQueja());
 				
 				int i = stmt.executeUpdate();
 				if (i != 1) {
@@ -187,10 +187,10 @@ public class QuejaDAO extends BaseDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Queja q = new Queja();
-				q.setintIdQueja(rs.getInt("N_IdQueja"));
-				q.setintIdResidente(rs.getInt("N_CodRes"));
-				q.setstrMotivoQueja(rs.getString(4));
-				q.setstrEstadoQueja(rs.getString(6));
+				q.setIntIdQueja(rs.getInt("N_IdQueja"));
+				q.setIntIdResidente(rs.getInt("N_CodRes"));
+				q.setStrMotivoQueja(rs.getString(4));
+				q.setStrEstadoQueja(rs.getString(6));
 				c.add(q);
 			}
 
