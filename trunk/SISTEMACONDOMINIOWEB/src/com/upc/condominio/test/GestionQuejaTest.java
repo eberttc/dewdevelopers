@@ -39,10 +39,10 @@ public class GestionQuejaTest {
 			System.out.println("-------------------------------------------------------------------------");
 			
 			for (Queja queja : listado) {
-				System.out.print("   "+String.format("%1$-10s",queja.getintIdQueja()));
-				System.out.print(String.format("%1$-10s",queja.getintIdResidente()));
-				System.out.print(String.format("%1$-40s",queja.getstrMotivoQueja()));
-				System.out.print(String.format("%1$-100s",queja.getstrEstadoQueja()));
+				System.out.print("   "+String.format("%1$-10s",queja.getIntIdQueja()));
+				System.out.print(String.format("%1$-10s",queja.getIntIdResidente()));
+				System.out.print(String.format("%1$-40s",queja.getStrMotivoQueja()));
+				System.out.print(String.format("%1$-100s",queja.getStrEstadoQueja()));
 				System.out.println(" ");
 			}
 			System.out.println("-------------------------------------------------------------------------");
