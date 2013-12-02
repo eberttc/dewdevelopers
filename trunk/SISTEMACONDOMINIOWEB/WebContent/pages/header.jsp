@@ -44,13 +44,14 @@
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quejas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Registro de Quejas</a></li>	              
-	                           	             	             
+	              <li><a href="ConsultaQuejasServlet?opcion=1">Listado de Quejas</a></li>	                                         	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visitas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Registro de visitas</a></li>	              
+	              <li><a href="#">Listado de visitas</a></li>	              
 	                           	             	             
 	            </ul>
 	          </li>
