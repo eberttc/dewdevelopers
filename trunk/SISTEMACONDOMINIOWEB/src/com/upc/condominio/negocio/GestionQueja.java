@@ -17,11 +17,11 @@ public class GestionQueja {
 				
 		
 				Queja queja=new Queja();
-				queja.setintIdResidente(intIdResidente);
-				queja.setstrTipoQueja(strTipoQueja);
-				queja.setstrMotivoQueja(strMotivoQueja);
+				queja.setIntIdResidente(intIdResidente);
+				queja.setStrTipoQueja(strTipoQueja);
+				queja.setStrMotivoQueja(strMotivoQueja);
 				queja.setdFechaQueja(dFechaQueja);
-				queja.setstrEstadoQueja(strEstadoQueja);
+				queja.setStrEstadoQueja(strEstadoQueja);
 				
 				
 				QuejaDAO quejaDao=new  QuejaDAO();	
