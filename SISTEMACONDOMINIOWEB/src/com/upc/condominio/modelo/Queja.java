@@ -25,46 +25,55 @@ public class Queja {
 		this.dFechaQueja = dFechaQueja;
 		this.strEstadoQueja = strEstadoQueja;
 	}
-	
-	public int getintIdQueja() {
+
+	public int getIntIdQueja() {
 		return intIdQueja;
 	}
-	public void setintIdQueja(int intIdQueja) {
+
+	public void setIntIdQueja(int intIdQueja) {
 		this.intIdQueja = intIdQueja;
 	}
-	public int getintIdResidente() {
+
+	public int getIntIdResidente() {
 		return intIdResidente;
 	}
-	public void setintIdResidente(int intIdResidente) {
+
+	public void setIntIdResidente(int intIdResidente) {
 		this.intIdResidente = intIdResidente;
 	}
-	
-	public String getstrTipoQueja() {
+
+	public String getStrTipoQueja() {
 		return strTipoQueja;
 	}
-	public void setstrTipoQueja(String strTipoQueja) {
+
+	public void setStrTipoQueja(String strTipoQueja) {
 		this.strTipoQueja = strTipoQueja;
 	}
 
-	public String getstrMotivoQueja() {
+	public String getStrMotivoQueja() {
 		return strMotivoQueja;
 	}
-	public void setstrMotivoQueja(String strMotivoQueja) {
+
+	public void setStrMotivoQueja(String strMotivoQueja) {
 		this.strMotivoQueja = strMotivoQueja;
 	}
 
 	public Date getdFechaQueja() {
 		return dFechaQueja;
 	}
+
 	public void setdFechaQueja(Date dFechaQueja) {
 		this.dFechaQueja = dFechaQueja;
 	}
 
-	public String getstrEstadoQueja() {
+	public String getStrEstadoQueja() {
 		return strEstadoQueja;
 	}
-	public void setstrEstadoQueja(String strEstadoQueja) {
+
+	public void setStrEstadoQueja(String strEstadoQueja) {
 		this.strEstadoQueja = strEstadoQueja;
 	}
+	
+	
 	
 }
