@@ -58,7 +58,10 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 		String clave = request.getParameter("txtPass");
 		String tipoUsuraio="R";
 		
-		/*GestionUsuarios negocio = new GestionUsuarios();
+		System.out.print("usuario"+usuario);
+		System.out.print("clave"+clave);
+		System.out.print("tipoUsuraio"+tipoUsuraio);
+		GestionUsuarios negocio = new GestionUsuarios();
 
 		try {
 			Usuario vo = negocio.validarUsuario(usuario, clave,tipoUsuraio);
@@ -66,14 +69,16 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 			HttpSession session = request.getSession();
 			session.setAttribute("USUARIO_ACTUAL", vo);
 			
-			response.sendRedirect("/pages/principal.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/pages/principal.jsp");
+			rd.forward(request, response);
 			return;
 		} catch (DAOExcepcion e) {
 			request.setAttribute("MENSAJE", "Hubo un error al procesar la operación: " + e.getMessage());	
 		} catch (LoginExcepcion e) {			
 			request.setAttribute("MENSAJE", "Usuario y/o clave incorrectos");
-		}*/
-		RequestDispatcher rd = request.getRequestDispatcher("/pages/principal.jsp");
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	}
 }
