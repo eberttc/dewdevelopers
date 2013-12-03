@@ -59,6 +59,12 @@ public class FormatoFecha implements Serializable {
 						"/"+strCadena.substring(8,10);
 		return strResultado;
 	}
+	public static String obtenerFechaInv2(String strCadena){
+		String strResultado;
+		strResultado =strCadena.substring(8,10)+"/"+strCadena.substring(5,7)+
+						"/"+ strCadena.substring(0,4);
+		return strResultado;
+	}
 
 	public static String obtenerHora(){
 		int intHora  = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
