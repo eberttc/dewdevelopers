@@ -21,6 +21,7 @@
         padding-bottom: 20px;
       }                                                                                          
 	
+
     </style>
   
   
@@ -33,7 +34,6 @@
             "dialogWidth:600px;center:yes;help:no;resizable:no;status:no");    		    		
     	}
 
-    	
     	
     	function validar(){
     		var f=document.forms[0];
@@ -168,7 +168,9 @@
         function grabar(){
         	var fecha=new Date();
         	var f=document.forms[0];
+        	
         	if(validar()){
+        		$('#hidepage').show();
 				var url="<%=request.getContextPath()%>/RegistrarJuntaServlet?fecha="+fecha+"&opcion=2";
 				f.hidDirectivos.value=obtenerDatos();
 				f.target="junta";
@@ -195,8 +197,20 @@
 
      		return datos;
         }
-       
-        
+
+      
+      
+         
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+			
+    	  $('#hidepage').hide();
+    	  $('#example').tooltip();
+
+    	 
+          
+   });
     </script>
     
 </head>
@@ -205,10 +219,11 @@
 <body>
 	
     <!-- Main jumbotron for a primary marketing message or call to action -->
-   
       <div class="container">
+      
         <div class="text-center">
-        <h3><strong >Registro de Junta</strong></h3>          
+        <h3><strong >Registro de Junta</strong></h3> 
+      	        
         </div>
         <br>
         <div class="row">
@@ -216,8 +231,12 @@
            <div class="col-sm-6"> 
         	 <div class="well">
         		<form class="form-horizontal">
-         		 <input type="hidden" name="hidDirectivos">	           		 				
-		         	 <div class="form-group">		          			          	 
+         		 <input type="hidden" name="hidDirectivos">	  
+         		  <div id="hidepage" style="position: absolute;left:320px;top:290px;width: 150;height: 20">
+						 <img  src="<%=request.getContextPath()%>/css/progress_bar.gif" >
+					</div>          		 				
+		         	 <div class="form-group">	
+		         		          			          	 
 		          		 <div class="col-sm-12"> 
 		          				          		
 			          		<c:choose>
@@ -238,6 +257,7 @@
 			          		</c:choose>
 		          		
 		          		 </div>
+		          		 
 		          	</div>
            
           		 
@@ -291,8 +311,9 @@
 			            </div>
 			            <div class="col-sm-5">
 			            <c:if test="${requestScope.mensaje!='1'}">
-			            	  <input class="btn btn-primary" value="Agregar" type="button" onclick="mostrarDirigente();"/>			              			               
-			             </c:if>
+			            	  <input class="btn btn-primary"  id="example" data-toggle="tooltip" data-original-title="Agrege a los directivos que dirigiran la reunion"
+			            	   data-placement="right" value="Agregar" type="button" onclick="mostrarDirigente();"/>			              			               
+			             </c:if> 
 			            </div>			           			
 			          </div>
 			           <br>
@@ -325,12 +346,14 @@
 					            </div>
 					          </div>	
 				          </c:if>	
-			          </div>	          		 			          		           		        
+			          </div>			         
+			          	          		 			          		           		        
               </form>
          	</div>
          </div>
           <div class="col-sm-3"></div>
-       </div>      
+       </div>     
+       
      </div>
 </body>
 </html>
