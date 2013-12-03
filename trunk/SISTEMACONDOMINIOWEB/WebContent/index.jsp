@@ -9,7 +9,7 @@
     <meta name="author" content="">
 <!--     <link rel="shortcut icon" href="../../assets/ico/favicon.png"> -->
 
-    <title>Sistema de Condominios</title>
+    <title>Trastienda</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -63,27 +63,69 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-   	   
-		function valida(){
-			
-			var f=document.forms[0];
-			
-			if(f.txtUser.value==""){
-				alert("Ingrese Usuraio");
-				return false;
-			}
+  
+  </head>
 
-			if(f.txtPass.value==""){
-				alert("Ingrese PASSWORD");
-				return false;
-			}
-
-			
-			f.method="post";
-			f.submit();
+  <body>
+    <div class="container">
+ 	  
+      <form class="form-signin" action="LoginServlet" method="post" >
+        <h2 class="form-signin-heading"></h2>
+        <c:if test="${not empty MENSAJE}">
+        	<div class="alert alert-warning alert-dismissable">
+        			${MENSAJE}
+        	</div>
+        </c:if>
+        <input type="hidden"  value="R" name="hidTipo" id="hidTipo"/>
+        <input type="text" value="carlos10@gmail.com" name="txtUser" id="txtUser" class="form-control" placeholder="Usuario">
+        <input type="password" name="txtPass" id="txtPass" class="form-control" value="123456" placeholder="Password">
+        <label class="checkbox">
+          <input type="checkbox" name="chkUsuario" id="chkUsuario"> Si eres Administrativo selecciona esta opcion
+        </label>
+        	<input class="btn btn-lg btn-primary btn-block" id="btningresar" value ="Entrar" type="submit"  />
+        	
 		
-		}
+        
+      </form>
+	  <c:remove var="MENSAJE" scope="request" />
+    </div> <!-- /container -->
+
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap-3.0.0.js"></script>
+      <script type="text/javascript">
+   	   
+    
+    $(document).ready(function () {
+    	
+    	
+    	$("#btningresar").click(function()			
+    			{
+			
+					
+					if($("#txtUser").val()==""){
+						alert("Ingrese Usuraio");
+						return false; 
+					}
+		
+					if($("#txtPass").val()==""){
+						alert("Ingrese Password");
+						return false;
+					}
+
+				});
+    	
+    	$("#chkUsuario").click(function(){
+    		
+    		if($(this).prop('checked')){
+    			$("#hidTipo").val("A");
+    		}
+    		else{
+    			$("#hidTipo").val("R");
+    		}	
+    		
+    	});
 
 		function cambiaTipo(){
 			    var f=document.forms[0];
@@ -94,32 +136,7 @@
 					f.hidTipo.value="R";
 				
 			}
-			
+    });	
     </script>
-  </head>
-
-  <body>
-    <div class="container">
- 	  
-      <form class="form-signin" action="LoginServlet" method="post" >
-        <h2 class="form-signin-heading"></h2>
-        <c:if test="${not empty MENSAJE }">
-        	<div class="alert alert-danger">${MENSAJE}</div>
-        </c:if>
-        <input type="hidden"  name="hidTipo"/>
-        <input type="text" name="txtUser" class="form-control" placeholder="Usuario">
-        <input type="password" name="txtPass" class="form-control" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" name="chkUsuario" onclick="cambiaTipo();"> Si eres Administrativo selecciona esta opcion
-        </label>
-        <input class="btn btn-lg btn-primary btn-block"  value ="Entrar" type="submit"  />
-      </form>
-	  <c:remove var="MENSAJE" scope="request" />
-    </div> <!-- /container -->
-
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap-3.0.0.js"></script>
   </body>
 </html>
