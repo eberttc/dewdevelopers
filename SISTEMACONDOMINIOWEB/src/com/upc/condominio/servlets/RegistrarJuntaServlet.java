@@ -2,6 +2,7 @@ package com.upc.condominio.servlets;
 
 import java.io.IOException;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,37 +53,35 @@ public class RegistrarJuntaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		
+   		String opcion=request.getParameter("opcion")==null?"":request.getParameter("opcion");
    		String strfecha=request.getParameter("txtfecha")==null?"":request.getParameter("txtfecha");
 		String strHora=request.getParameter("txtHora")==null?"":request.getParameter("txtHora");
 		String strTema=request.getParameter("txtTema")==null?"":request.getParameter("txtTema");
 		String strAcuerdo=request.getParameter("txtAcuerdo")==null?"":request.getParameter("txtAcuerdo");
-		String datos=request.getParameter("hidDirectivos")==null?"":request.getParameter("hidDirectivos");
-		
-		String opcion=request.getParameter("opcion")==null?"":request.getParameter("opcion");
-				
-		System.out.println("RegistrarJuntaServlet.processRequest()-->"+opcion);
-		System.out.println("RegistrarJuntaServlet.processRequest()-->"+strfecha);
-		System.out.println("RegistrarJuntaServlet.processRequest()-->"+datos);
-		System.out.println("RegistrarJuntaServlet.processRequest()-->"+strTema);
-		System.out.println("RegistrarJuntaServlet.processRequest()-->"+strAcuerdo);
-		
-		
+		String datos=request.getParameter("hidDirectivos")==null?"":request.getParameter("hidDirectivos");		
+			
+		List<Directivos> listado = null;
 		String page="";		
 		List<Directivos> c=new ArrayList<Directivos>();
 		GestionJunta negocioJunta=new GestionJunta();
+		Date fechaJunta = null;
+		
+		
+		
 		try{
 			//trae todas las cuotas vencidas
 			if(opcion.equals("1")){		
-				
-				c=(List<Directivos>) negocioJunta.listarDirectivos();
 				page="/pages/BuscarDirigente.jsp";
+				c=(List<Directivos>) negocioJunta.listarDirectivos();				
 				request.setAttribute("lista",c);
-				
+								
+			//registra juntas	
 			}else if(opcion.equals("")){
+				
 				page="/pages/RegistrarJunta.jsp";
 				
 				String[] lstDirectivos;
-				List<Directivos> listado=new ArrayList<Directivos>();
+				listado=new ArrayList<Directivos>();
 				
 				lstDirectivos=datos.split("-/-");
 				for (int i = 0; i < lstDirectivos.length; i++) {
@@ -90,14 +89,25 @@ public class RegistrarJuntaServlet extends HttpServlet {
 					Directivos d=new Directivos(new Integer(directivos[0].toString()).intValue(),directivos[1].toString(),"",0,directivos[2].toString());					
 					listado.add(d);						
 				}
-				
-				Junta junta=negocioJunta.insertarJunta(strTema, strAcuerdo,FormatoFecha.stringToSqlDate(FormatoFecha.obtenerFechaInv2(strfecha)),strHora, listado);
+				fechaJunta=FormatoFecha.stringToSqlDate(FormatoFecha.obtenerFechaInv2(strfecha));
+				Junta junta=negocioJunta.insertarJunta(strTema, strAcuerdo,fechaJunta,strHora, listado);
 				request.setAttribute("mensaje","1");													
-				request.setAttribute("beanJunta",junta);													
-				}
+				request.setAttribute("beanJunta",junta);	
+				
+				
+			}else if(opcion.equals("3")){
+				
+				page="/pages/BuscarDirigente.jsp";
+				String codigo=request.getParameter("codigo").trim().equals("")?"-1":request.getParameter("codigo").trim();								
+				c=(List<Directivos>) negocioJunta.BuscarDirectivos(Integer.parseInt(codigo));				
+				request.setAttribute("lista",c);
+				
+			}
 						
 		}catch(DAOExcepcion e){
-			request.setAttribute("mensaje",e.getMessage());		
+			request.setAttribute("mensaje",e.getMessage());	
+			Junta junta=new Junta(0, fechaJunta, strHora, strTema, strAcuerdo, listado);
+			request.setAttribute("beanJunta",junta);
 		}
 										
 		request.getRequestDispatcher(page).forward(request, response);
