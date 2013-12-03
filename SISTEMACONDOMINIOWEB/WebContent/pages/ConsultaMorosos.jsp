@@ -19,10 +19,7 @@
      
   
 </head>
-<%
-String listado=session.getAttribute("listado")==null?"":session.getAttribute("listado").toString();
 
-%>
 
 
 <script type="text/javascript">
@@ -66,7 +63,7 @@ $(document).ready(function() {
   <body>
   
   <jsp:include page="/pages/header.jsp" />
-  <form id="frmMorosos" action="CuotasServlet">
+  <form id="frmMorosos" action="${pageContext.request.contextPath}/CuotasServlet">
   <input type="hidden" id="hidopcion"  name="opcion">  
     <div class="jumbotron">
       <div class="container">
