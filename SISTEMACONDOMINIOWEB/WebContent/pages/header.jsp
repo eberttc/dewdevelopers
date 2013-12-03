@@ -34,32 +34,31 @@
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuotas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
-	              <li><a href="CuotaListar.jsp">Colocacion de Cuotas</a></li>	              
+	               <li><a href="CuotaListar.jsp">Colocacion de Cuotas</a></li>	                        
 	              <li><a href="#">Pago cuotas</a></li>	              	             	             
 	              <li><a href="#">Consulta Morosas</a></li>	              	             	             
-	              <li><a href="CuotasServlet?opcion=1">Consulta de Cuotas Vencidas</a></li>	              	             	             
+	              <li><a href="<%=request.getContextPath()%>/CuotasServlet?opcion=1" target="_top">Consulta de Cuotas Vencidas</a></li>	              	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quejas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Registro de Quejas</a></li>	              
-	              <li><a href="ConsultaQuejasServlet?opcion=1">Listado de Quejas</a></li>	                                         	             	             
+	              <li><a href="ConsultaQuejasServlet?opcion=1">Listado de Quejas</a></li>	                                         	             	                       	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visitas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Registro de visitas</a></li>	              
-	              <li><a href="#">Listado de visitas</a></li>	              
-	                           	             	             
+	              <li><a href="#">Listado de visitas</a></li>	                        	             	             
 	            </ul>
 	          </li>
 	          
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juntas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
-	              <li><a href="#">Registro Juntas</a></li>	              
+	              <li><a href="<%=request.getContextPath()%>/pages/RegistrarJunta.jsp" target="_top">Registro Juntas</a></li>	              
 	                           	             	             
 	            </ul>
 	          </li>
