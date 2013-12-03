@@ -1,6 +1,7 @@
 package com.upc.condominio.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import com.upc.condominio.util.ConexionBD;
 public class JuntaDAO extends BaseDAO {
 
 
-	public Junta insertar(Junta junta) throws DAOExcepcion {
+	public int insertar(Junta junta) throws DAOExcepcion {
 		
 		String query1 = "insert into junta(D_FecJun,C_HorJun,C_TemJun,C_AcuJun) values (?,?,?,?)";
 
@@ -35,7 +36,7 @@ public class JuntaDAO extends BaseDAO {
 			stmt = con.prepareStatement(query1, Statement.RETURN_GENERATED_KEYS);
 		
 			stmt.setDate(1,junta.getdFechaJunta());
-			stmt.setString(2,junta.gettHoraJunta());
+			stmt.setString(2,junta.gettHoraJunta()+":00");
 			stmt.setString(3,junta.getStrTemaJunta());
 			stmt.setString(4,junta.getStrAcuerdoJunta());
 		
@@ -77,7 +78,7 @@ public class JuntaDAO extends BaseDAO {
 				con.rollback();
 			}
 			
-			junta.setIntCodigoJunta(idJunta);
+			
 
 		} catch (SQLException e) {
 			try {
@@ -99,7 +100,7 @@ public class JuntaDAO extends BaseDAO {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-	return junta;
+	return idJunta;
 	}
 
 	public Junta obtener(int idJunta) throws DAOExcepcion {
@@ -267,6 +268,39 @@ public class JuntaDAO extends BaseDAO {
 		return c;
 	}
 
+	public Collection<Junta> buscarPorFechaHora(Date fecha,String hora) throws DAOExcepcion {
+		Collection<Junta> c = new ArrayList<Junta>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			
+			String query = "select * from junta where D_FecJun=? and C_HorJun=?";
+			stmt = con.prepareStatement(query);
+			stmt.setDate(1, fecha);
+			stmt.setString(2, hora);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Junta junta = new Junta();
+				junta.setIntCodigoJunta(rs.getInt(1));
+				junta.setdFechaJunta(rs.getDate(2));
+				junta.settHoraJunta(rs.getString(3));
+				junta.setStrTemaJunta(rs.getString(4));
+				junta.setStrAcuerdoJunta(rs.getString(5));
+				c.add(junta);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return c;
+	}
 	public Collection<Directivos> listarDirectivos()  throws DAOExcepcion{
 		Collection<Directivos> c = new ArrayList<Directivos>();
 		Connection con = null;
