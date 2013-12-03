@@ -98,20 +98,11 @@
 			
     		var table = document.getElementById("myTable");
     		for (var i = 1, row; row = table.rows[i]; i++) {
-    		   //iterate through rows
-    		   //rows would be accessed using the "row" variable assigned in the for loop
-    		  /* 
-    		 		 alert("id-"+id);
-    		  		 alert("row.cells[0]->"+row.cells[0].innerHTML);
-    		  */
+    		   
     		   if(row.cells[0].innerHTML==id){
 					return true;
 	        	}
     		   
-    		   /*for (var j = 0, col; col = row.cells[j]; j++) {
-    		     //iterate through columns
-    		     //columns would be accessed using the "col" variable assigned in the for loop
-    		   } */ 
     		}
     		return false;    		
         }
