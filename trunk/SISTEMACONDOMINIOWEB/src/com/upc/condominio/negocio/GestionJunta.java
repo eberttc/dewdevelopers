@@ -17,21 +17,31 @@ public class GestionJunta {
 	
 
 	  
-		public void insertarJunta(String acuerdo,String tema,Date fecha,List<Directivos> listaDirectivos)
+		public Junta insertarJunta(String acuerdo,String tema,Date fecha,String strHora, List<Directivos> listaDirectivos)
 				throws DAOExcepcion{
 				
-		
+				
+				
+				//verifica que no exista reuniones en esa fecha y hora
+				
+				JuntaDAO juntaDao=new  JuntaDAO();	
+				Collection<Junta> c = new ArrayList<Junta>();
+				c=juntaDao.buscarPorFechaHora(fecha,strHora+":00");
+				if(c.size()>0)
+					throw new DAOExcepcion("Existe una Junta registrada en esa fecha");
+				
+				
 				Junta junta=new Junta();
 				junta.setdFechaJunta(fecha);
 				junta.setStrAcuerdoJunta(acuerdo);
 				junta.setStrTemaJunta(tema);
-				junta.settHoraJunta(FormatoFecha.obtenerHora());
+				junta.settHoraJunta(strHora);
 				junta.setLstDirectivos(listaDirectivos);
 				
+				int idJunta=juntaDao.insertar(junta);
+				junta.setIntCodigoJunta(idJunta);
 				
-				JuntaDAO juntaDao=new  JuntaDAO();	
-				
-				juntaDao.insertar(junta);
+				return junta;
 		
 		}
 		
