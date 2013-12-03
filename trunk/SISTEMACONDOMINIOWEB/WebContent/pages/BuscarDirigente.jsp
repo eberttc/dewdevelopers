@@ -56,6 +56,8 @@ $(document).ready(function () {
 
 
   <body>
+  <form action="<%=request.getContextPath()%>/RegistrarJuntaServlet?" method="post">
+  <input type="hidden" name="opcion" value="3">
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
@@ -70,7 +72,7 @@ $(document).ready(function () {
           <p>Codigo</p>
         </div>
         <div class="col-md-8">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" name="codigo">
         </div>
         <div class="col-md-2">
           <button class="btn btn-primary" onclick="buscar();">Buscar
@@ -108,6 +110,7 @@ $(document).ready(function () {
       </div>
       <!-- /container -->
     </div>
+    </form>
   </body>
 
 </html>
