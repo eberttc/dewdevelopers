@@ -33,7 +33,7 @@ public class GestionaJuntasTest {
 		
 		negocio.insertarJunta("Se compraran 2 equipos de seguridad",
 							  "Compra de Equipos", 
-							   fecha, 
+							   fecha,"5:00", 
 							   lstDirectivos);
 	   }catch(DAOExcepcion e){
 			Assert.fail("Fallo la inserción: " + e.getMessage());			
