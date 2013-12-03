@@ -205,4 +205,37 @@ public class QuejaDAO extends BaseDAO {
 		return c;
 	}
 
+/*	public Collection<Queja> listarQuejaPorTipo() throws DAOExcepcion {
+		Collection<Queja> c = new ArrayList<Queja>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+//			String query = "select * from bdcondominio.quejas c where c.C_Estado like '%Inves%'";
+			String query = "select * from bdcondominio.quejas c where c.C_TipQue like '%?%'";
+//			String query = "select * from bdcondominio.quejas";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Queja q = new Queja();
+				q.setIntIdQueja(rs.getInt("N_IdQueja"));
+				q.setIntIdResidente(rs.getInt("N_CodRes"));
+				q.setStrMotivoQueja(rs.getString(4));
+				q.setStrEstadoQueja(rs.getString(6));
+				c.add(q);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return c;
+	} */
+	
+	
 }

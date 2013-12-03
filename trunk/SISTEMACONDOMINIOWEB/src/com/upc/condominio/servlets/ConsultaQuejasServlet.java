@@ -55,8 +55,8 @@ public class ConsultaQuejasServlet extends HttpServlet {
 		List<Queja> q=new ArrayList<Queja>();
 		GestionQueja queja=new GestionQueja();
 		try{
-			//trae todas las cuotas vencidas
-				q=(List<Queja>) queja.listarQueja();				 								
+			//trae todas las quejas
+			q=(List<Queja>) queja.listarQueja();				 								
 		}catch(Exception e){
 		
 			
