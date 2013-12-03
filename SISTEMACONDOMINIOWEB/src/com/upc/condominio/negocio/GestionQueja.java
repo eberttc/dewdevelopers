@@ -47,4 +47,12 @@ public class GestionQueja {
 			return quejaDao.listar();
 		
 		}
+/*		public Collection<Queja> listarQuejaPorTipo() throws DAOExcepcion{
+			
+			QuejaDAO quejaDao=new  QuejaDAO();	
+			Collection<Queja> c = new ArrayList<Queja>();
+			
+			return quejaDao.listarQuejaPorTipo();
+		
+		} */
 }
