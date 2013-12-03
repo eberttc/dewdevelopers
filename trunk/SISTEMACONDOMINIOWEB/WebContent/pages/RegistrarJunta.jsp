@@ -10,19 +10,17 @@
 
  	<!-- Bootstrap core CSS -->
      <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
-     <link href="<%=request.getContextPath()%>/css/datepicker.css" rel="stylesheet">
-  
- 	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
  	 
- 	<script src="<%=request.getContextPath()%>/js/bootstrap-datepicker.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
+ 	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
+ 	 <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 	  	 	    
+     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
+     
      <style type="text/css">
       body {
         padding-top: 50px;
         padding-bottom: 20px;
       }                                                                                          
-
+	
     </style>
   
   
@@ -35,32 +33,39 @@
             "dialogWidth:600px;center:yes;help:no;resizable:no;status:no");    		    		
     	}
 
+    	
+    	
     	function validar(){
     		var f=document.forms[0];
     		
 
 			if(document.getElementById("fecha").value==""){
-					alert("ingrese fecha");
+					//alert("ingrese fecha");
+					bootbox.alert("Ingrese fecha");	
 					return false;
 			}
 			if(f.txtHora.value==""){
-				alert("ingrese hora");
-				return false;
+				//alert("ingrese hora");
+				  bootbox.alert("ingrese hora");
+				  return false;
 			}
 
 			if(f.txtTema.value==""){
-				alert("ingrese tema");
-				return false;
+				//alert("ingrese tema");
+				bootbox.alert("ingrese tema");
+				 return false;
 			}
 			if(f.txtAcuerdo.value==""){
-				alert("ingrese acuerdo");
-				return false;
+				//alert("ingrese acuerdo");
+				bootbox.alert("ingrese acuerdo");
+			    return false;
 			}
 
 			var table = document.getElementById("myTable");
 									
             if(table.rows.length<2){
-   				 alert("Debe registrar los directivos");
+   				 //alert("Debe registrar los directivos");
+   				 bootbox.alert("Debe registrar los directivos");
    				 return false;
    			 }
 
@@ -75,11 +80,13 @@
      		}
 
        		if(count>1){
-				alert("Solo se debe aignar una persona para presidir la reunion");
+				//alert("Solo se debe aignar una persona para presidir la reunion");
+				bootbox.alert("Solo se debe aignar una persona para presidir la reunion");
 				return false;
             }
        		if(count<1){
-				alert("Debe asigar a un directivo para que diriga la reunion");
+				//alert("Debe asigar a un directivo para que diriga la reunion");
+				bootbox.alert("Debe asigar a un directivo para que diriga la reunion");
 				return false;
             }
 
@@ -113,7 +120,9 @@
     	function agregarDirectivo(id,nombre){
 
         	if(validarDirectivo(id)){
-				alert("Ya se agrego directivo");
+				//alert("Ya se agrego directivo");
+				bootbox.alert("Ya se agrego directivo");
+				
 				return false;
 
             }
@@ -133,9 +142,37 @@
             var element1 = document.createElement("input");
             element1.type = "checkbox";
             element1.name="chkbox[]";            
-            cell3.appendChild(element1);         
+            cell3.appendChild(element1);
+
+            var cell4 = row.insertCell(3);           
+            var element2 = document.createElement("a");
+            var linkText = document.createTextNode("Quitar");
+            element2.appendChild(linkText);
+            element2.href = "javaScript:quitar('"+id+"')";                    
+            cell4.appendChild(element2);       
+
+              
     		
     	}
+
+    	function quitar(id){
+
+    		try {
+    			var table = document.getElementById("myTable");    			
+				  
+				for (var i = 1, row; row = table.rows[i]; i++) {
+		    		 
+		    		   if(row.cells[0].innerHTML==id){
+		    			   table.deleteRow(i);  
+			        	}
+		    		   
+		    		   
+		    		}					
+    			}catch(e) {
+    				alert(e);
+    			}
+    			
+        }
 		window.name="junta";
         function grabar(){
         	var fecha=new Date();
@@ -167,9 +204,10 @@
 
      		return datos;
         }
-        
+       
         
     </script>
+    
 </head>
 <jsp:include page="/pages/header.jsp" />
 <c:set value="${requestScope.beanJunta}"  var="beanJunta" />
@@ -182,104 +220,100 @@
         <h3><strong >Registro de Junta</strong></h3>          
         </div>
         <br>
-        <form class="form-horizontal">
-          <input type="hidden" name="hidDirectivos">	
+        <div class="row">
+          <div class="col-sm-3"></div>
+           <div class="col-sm-6"> 
+        	 <div class="well">
+        		<form class="form-horizontal">
+         		 <input type="hidden" name="hidDirectivos">	           		 				
+		         	 <div class="form-group">		          			          	 
+		          		 <div class="col-sm-12"> 
+		          				          		
+			          		<c:choose>
+			          			 <c:when test="${requestScope.mensaje=='1'}">
+							     	 <div class="alert  alert-success">							     	
+							     		 Registro satisfactoriamente
+							     	 </div>
+							     </c:when>
+							      <c:when test="${not empty mensaje}">
+								      <div class="alert alert-dismissable alert-danger">
+								       <button type="button" class="close" data-dismiss="alert">×</button>
+								       ${requestScope.mensaje}</div>          						  
+								  </c:when>
+							   	 <c:otherwise>
+							     </c:otherwise>
+			          			
+								
+			          		</c:choose>
+		          		
+		          		 </div>
+		          	</div>
            
-		  <div style="display: none" class="alert">
-		   	   <a class="close" data-dismiss="alert"></a>		   		
-		  </div>
-          <div class="form-group">
-          	<div class="row">
-          		<div class="col-sm-3"></div>
-          		
-          		<div class="col-sm-6">
-	          		<c:choose>
-	          			 <c:when test="${requestScope.mensaje=='1'}">
-					     	 <div class="alert alert-success">Registro satisfactoriamente</div>
-					     </c:when>
-					      <c:when test="${not empty mensaje}">
-						      <div class="alert alert-danger">${requestScope.mensaje}</div>          						  
-						  </c:when>
-					   	 <c:otherwise>
-					     </c:otherwise>
-	          			
-						
-	          		</c:choose>
-          		</div>
-          		<div class="col-sm-3"></div>
-          	</div>
-           <div class="row">
-          		 <div class="col-sm-3"></div>
-          		 <div class="col-sm-6">
           		 
-          		  <div class="row">
+          		 
+          		 <div class="form-group">
 			              <div class="col-sm-2">
 			                <label class="form-label">Fecha</label>
 			              </div>
 			              <div class="col-sm-4">
-			             <input type="date" class="form-control input-sm" name="txtfecha" id="fecha" value="<c:out value='${beanJunta.dFechaJunta}'/>" >
+			             <input type="date" class="form-control input-sm" required name="txtfecha" id="fecha" value="<c:out value='${beanJunta.dFechaJunta}'/>" >
 			            
 			              </div>
-			              <div class="col-sm-2">
+			              <div class="col-sm-1">
 			                <label class="form-label">Hora</label>
 			              </div>
-			              <div class="col-sm-4">
-			              	<div class="col-sm-6">
-			              	   <input type="number" min="6" max="23" class="form-control input-sm" value="<c:out value='${beanJunta.tHoraJunta}'/>"  name="txtHora" style="width: 77px; ">
+			              <div class="col-sm-5">
+			              	<div class="col-sm-4">
+			              	   <input type="number" min="6" max="23" required class="form-control input-sm" value="<c:out value='${beanJunta.tHoraJunta}'/>" name="txtHora" style="width: 55px; ">
 			              	</div>
-			              	<div class="col-sm-6">
+			              	<div class="col-sm-8">
 			              		:00 Hrs
 			              	</div>
 			             
 			              </div>
-			            </div>
+			     </div>
 			           <br>
-			            <div class="row">
+			            <div class="form-group">
 			              <div class="col-sm-2">
 			                <label class="form-label">Temas</label>
 			              </div>
 			              <div>
 			                <div class="col-sm-10">
-			                  <textarea class="form-control input-sm" rows="3" name="txtTema"><c:out value='${beanJunta.strTemaJunta}'/></textarea>
+			                  <textarea class="form-control input-sm" required placeholder="Tema" rows="3" name="txtTema"><c:out value='${beanJunta.strTemaJunta}'/></textarea>
 			                </div>
 			              </div>
 			            </div>
 			             <br>
-			            <div class="row">
+			            <div class="form-group">
 			              <div class="col-sm-2">
 			                <label class="form-label">Acuerdos</label>
 			              </div>
 			              <div class="col-sm-10">
-			                <textarea class="form-control input-sm" rows="3" name="txtAcuerdo"><c:out value='${beanJunta.strAcuerdoJunta}'/></textarea>
+			                <textarea class="form-control input-sm"  required placeholder="Acuerdo" rows="3" name="txtAcuerdo"><c:out value='${beanJunta.strAcuerdoJunta}'/></textarea>
 			              </div>
 			            </div>
 			          
 			          <br>
-			          <div class="row">
+			          <div class="form-group">
 			            <div class="col-sm-2">
 			              <label class="form-label">Directivos</label>
 			            </div>
 			            <div class="col-sm-5">
 			            <c:if test="${requestScope.mensaje!='1'}">
-			            	  <input class="btn btn-primary" value="Agregar"  onclick="mostrarDirigente();"/>			              			               
+			            	  <input class="btn btn-primary" value="Agregar" type="button" onclick="mostrarDirigente();"/>			              			               
 			             </c:if>
-			            </div>
-			            <div class="col-sm-5">
-			             <c:if test="${requestScope.mensaje!='1'}">
-			             	 <input class="btn btn-primary" value="Quitar" type="button"/>
-			              </c:if>			           
-			            </div>
-			
+			            </div>			           			
 			          </div>
 			           <br>
-			          <div class="row">
+			          <div class="form-group">
 			            <div class="col-md-12">
-			              <table class="table table-bordered table-hover" id="myTable">
+			              <table class="table table-striped table-bordered table-hover" id="myTable">
 			                <thead>
 			                  <tr>
 			                    <th>Codigo</th>
 			                    <th>Nombre</th>
-			                    <th>Dirige</th>                    
+			                    <th>Dirige</th>
+			                    <th></th>                    
 			                  </tr>
 			                </thead>
 			               <c:forEach var="bean" items="${beanJunta.lstDirectivos}" varStatus="i">
@@ -292,22 +326,20 @@
 			              </table>
 			            </div>
 			          </div>
-			           <c:if test="${requestScope.mensaje!='1'}">
-				          <div class="row">
-				            <div class="col-md-12" align="center">
-				              <input class="btn btn-primary" type="button" onclick="grabar();" value="grabar">			              			             
-				            </div>
-				          </div>	
-			          </c:if>		          		 			          		 
-          		 </div>
-          		 <div class="col-sm-3"></div>
-          
-          </div>
-         
-          </div>
-        </form>
-      </div>
-     
- 
+			          <div class="form-group">
+				           <c:if test="${requestScope.mensaje!='1'}">
+					          <div class="row">
+					            <div class="col-md-12" align="center">
+					              <input class="btn btn-primary" type="button" onclick="grabar();" value="grabar">			              			             
+					            </div>
+					          </div>	
+				          </c:if>	
+			          </div>	          		 			          		           		        
+              </form>
+         	</div>
+         </div>
+          <div class="col-sm-3"></div>
+       </div>      
+     </div>
 </body>
 </html>
