@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>RegistrarJunta</title>
+<title>Buscar Directivos</title>
 
  	<!-- Bootstrap core CSS -->
      <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -56,6 +56,7 @@ $(document).ready(function () {
 
 
   <body>
+  
   <form action="<%=request.getContextPath()%>/RegistrarJuntaServlet?" method="post">
   <input type="hidden" name="opcion" value="3">
     <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -103,6 +104,11 @@ $(document).ready(function () {
             </table>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12" align="center">
+          	 <input class="btn btn-primary"  type="button" onclick="window.close();" value="Cerrar">	
+          </div>          
+          </div>
         <hr>
         <footer>
           <p>&copy; Company 2013</p>
