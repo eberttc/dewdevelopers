@@ -91,5 +91,13 @@ public class GestionJunta {
 			return juntaDao.listarDirectivos();
 		
 		}
+		public Collection<Directivos> BuscarDirectivos(int codigo) throws DAOExcepcion{
+			
+			JuntaDAO juntaDao=new  JuntaDAO();						
+			return juntaDao.BuscarDirectivos(codigo);
+		
+		}
+		
+		
 
 }
