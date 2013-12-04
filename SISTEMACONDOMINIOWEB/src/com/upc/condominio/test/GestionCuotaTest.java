@@ -5,10 +5,12 @@ import java.text.ParseException;
 import java.util.Collection;
 
 import junit.framework.Assert;
+
 import org.junit.Test;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
+import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.negocio.GestionCuota;
 
 public class GestionCuotaTest {
@@ -16,7 +18,7 @@ public class GestionCuotaTest {
 	Cuota cuota = new Cuota();
 	GestionCuota gestionCuota = new GestionCuota();
 	
-	@Test
+	//@Test
 	public void insertarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
@@ -129,6 +131,25 @@ public class GestionCuotaTest {
 			Assert.fail("Falló el Listado: "+e.getMessage());
 		}
 	}
+	
+	@Test
+	public void ListarViviendaSinCuotaTest(){
+			Cuota pcuota = new Cuota();
+			pcuota.setC_Period("201301");
+			
+			GestionCuota gestionCuota = new GestionCuota();
+			try {
+				Collection<Vivienda> lstVivienda = gestionCuota.listarViviendaSinCuota(pcuota);
+				System.out.println(lstVivienda.size());
+				for (Vivienda m : lstVivienda) {
+					System.out.println(m.getN_IdVivi()+" | " + m.getC_Numero()+" | "+m.getResidente().getNombreResidente()+" | "+m.getC_Ubicacion() +" | ");
+				}
+				Assert.assertTrue(lstVivienda.size()>0);
+			} catch (DAOExcepcion e) {
+				
+				Assert.fail("Falló el Listado: "+e.getMessage());
+			}
+		}
 		
 	//@Test
 	public void ListarCuotasNoPagadasTest(){
