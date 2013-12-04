@@ -1,5 +1,8 @@
 package com.upc.condominio.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.upc.condominio.dao.ResidenteDAO;
 import com.upc.condominio.dao.ViviendaDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
@@ -65,6 +68,19 @@ public class GestionVivienda {
 				
 	}
 	
+	public List<Vivienda> listar() throws DAOExcepcion {
+		List<Vivienda> lista =null;
+		try{
+			ViviendaDAO dao = new ViviendaDAO();
+		    lista = dao.listar();
+		}
+		catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+		
+	}
+
 	public String actualizar(Vivienda vivienda) throws DAOExcepcion {
 		
 		String v_vReturn = "ERROR - Consulte con Administrador";
