@@ -3,9 +3,14 @@ package com.upc.condominio.negocio;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
+import com.sun.org.apache.bcel.internal.generic.IDIV;
 import com.upc.condominio.dao.CuotaDAO;
+import com.upc.condominio.dao.ViviendaDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
+import com.upc.condominio.modelo.Vivienda;
 
 public class GestionCuota {
 
@@ -115,6 +120,34 @@ public class GestionCuota {
 			e.printStackTrace();
 		}
 		return listaCuota;
+	}
+	
+	public Collection<Vivienda> listarViviendaSinCuota(Cuota pcuota) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		Collection<Vivienda> listaVivienda = new ArrayList<Vivienda>();
+		Collection<Vivienda> listaViviendaNueva = new ArrayList<Vivienda>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			ViviendaDAO viviendaDAO = new ViviendaDAO();
+			listaCuota = cuotaDAO.listarPA(pcuota);
+			listaVivienda= viviendaDAO.listar();
+			int idvivienda = 0;
+			for(Cuota cuota : listaCuota)
+			{
+				if(cuota.getN_ImpPag()==0)
+				{
+					idvivienda = cuota.getN_IdVivi();
+					for(Vivienda vivienda : listaVivienda)
+						if(vivienda.getN_IdVivi()==idvivienda)
+							listaViviendaNueva.add(vivienda);
+				}
+					
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaViviendaNueva;
 	}
 	
 	public Collection<Cuota> listarCuotasNoPagadas() throws DAOExcepcion {
