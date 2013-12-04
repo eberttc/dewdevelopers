@@ -11,6 +11,7 @@
   </head>
   
   <body>
+  	<jsp:include page="/pages/header.jsp" />
     <form>
       
       <div class="container">
@@ -19,37 +20,37 @@
             <tr>
               <td>Fecha de Queja:</td>
               <td>
-                <input class="form-control" type= "date">
+                <input class="form-control" type= "date" id="txtFecha" name="txtFecha" required autofocus />
               </td>
             </tr>
             <tr>
               <td>Tipo de Queja:</td>
               <td>
-                <select class="form-control">
-                  <option>Leve</option>
-                  <option>Grave</option>
-                  <option>Muy Grave</option>
+                <select class="form-control" id="txtTipoQueja" name="txtTipoQueja">
+                  <option value="1">Leve</option>
+                  <option value="2">Grave</option>
+                  <option value="3">Muy Grave</option>
                 </select>
               </td>
             </tr>
             <tr>
-              <td>Motivo: </td>
+              <td>Motivo:</td>
               <td>
-                <input class="form-control" type="text">
+                <input class="form-control" type="text" id="txtMotivo" name="txtMotivo" required autofocus>
               </td>
             </tr>
             <tr>
               <td>Detalle de la Queja:</td>
               <td>
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" id="txtDetalle" name="txtDetalle" required autofocus></textarea>
               </td>
             </tr>
             <tr>
               <td></td>
               <td>
                 <div class="btn-group">
-                  <a class="btn btn-default">Enviar</a>
-                  <a class="btn btn-default">Cancelar</a>
+                  <a class="btn btn-default" id="botonEnviar" type="submit">:: Enviar </a>
+                  <a class="btn btn-default" id="botonCancelar" type="calcel">:: Cancelar </a>
                 </div>
               </td>
             </tr>
