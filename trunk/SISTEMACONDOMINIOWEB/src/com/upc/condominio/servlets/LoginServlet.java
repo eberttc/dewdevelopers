@@ -1,6 +1,7 @@
 package com.upc.condominio.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +57,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 
 		String usuario = request.getParameter("txtUser");
 		String clave = request.getParameter("txtPass");
-		String tipoUsuraio="R";
+		String tipoUsuraio= request.getParameter("hidTipo");;
 		
 		System.out.print("usuario"+usuario);
 		System.out.print("clave"+clave);
@@ -65,10 +66,10 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 
 		try {
 			Usuario vo = negocio.validarUsuario(usuario, clave,tipoUsuraio);
-			
+			List menu=negocio.obtienePermisos(vo);
 			HttpSession session = request.getSession();
 			session.setAttribute("USUARIO_ACTUAL", vo);
-			
+			session.setAttribute("MENU", menu);
 			RequestDispatcher rd = request.getRequestDispatcher("/pages/principal.jsp");
 			rd.forward(request, response);
 			return;
