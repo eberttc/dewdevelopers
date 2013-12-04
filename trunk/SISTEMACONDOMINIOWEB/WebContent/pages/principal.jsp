@@ -21,26 +21,17 @@
 
   <body>
         
-	  <jsp:include page="/pages/header.jsp" />
+	  <jsp:include page="/pages/header1.jsp" />
       
 	 <div class="container"> 
 	   
 	   <!-- Jumbotron -->
 	   <div class="jumbotron">     
-	   		<h4>Bienvenid@ <b>${sessionScope.USUARIO_ACTUAL.nombres }</b></h4>	     
+	   		<h4>Bienvenido <b>${sessionScope.USUARIO_ACTUAL.nombres }</b></h4>	     
 	   </div>
 	   
 	   <div class="row">
-        <div class="col-lg-4">
-          <h4>Mantenimiento de Roles</h4>
-          <p>Desde esta opción usted podrá crear, modificar, buscar y eliminar los roles de la base de datos. </p>
-          <p><a class="btn btn-primary" href="roles_buscar.jsp">Ver detalles &raquo;</a></p>
-        </div>
-        <div class="col-lg-4">
-          <h4>Mantenimiento de Productos</h4>
-          <p>Desde esta opción usted podrá crear, modificar, buscar y eliminar los productos de la base de datos. </p>
-          <p><a class="btn btn-primary" href="#">Ver detalles &raquo;</a></p>
-       </div>
+      
       </div>
       
 	
