@@ -1,5 +1,7 @@
 package com.upc.condominio.negocio;
 
+import java.util.List;
+
 import com.upc.condominio.dao.UsuarioDAO;
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.exceptions.LoginExcepcion;
@@ -12,6 +14,12 @@ public class GestionUsuarios {
 			throws DAOExcepcion, LoginExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
 		return dao.validar(idUsuario, clave,tipoUsuraio);
+	}
+	
+	public List obtienePermisos(Usuario usu) 	throws DAOExcepcion{
+		UsuarioDAO dao = new UsuarioDAO();
+		
+		return dao.obtienePermisos(usu);				
 	}
 
 }
