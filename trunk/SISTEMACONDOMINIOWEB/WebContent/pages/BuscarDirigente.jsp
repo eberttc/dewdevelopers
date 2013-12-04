@@ -48,6 +48,7 @@ $(document).ready(function () {
 	 	
 	 }
 
+	 $('#dirigentes').tooltip();
 
 });
 </script>
@@ -84,15 +85,16 @@ $(document).ready(function () {
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <table class="table table-bordered table-hover" id="dirigentes">
+            <table class="table table-bordered table-hover" id="dirigentes"  data-toggle="tooltip" 
+            data-original-title="Para elejir haga doble click sobre la fila"  data-placement="top">
               <thead>
-                <tr>
+                <tr class="btn-primary">
                   <th>Codigo</th>
                   <th>Nombre</th>
                   <th>Cargo</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                <c:forEach var="bean" items="${requestScope.lista}" varStatus="i">
 		          <tr>
 		          	<td id="codigo">${bean.intCodigoDirectivo}</td>
