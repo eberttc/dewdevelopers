@@ -270,12 +270,12 @@
           
    });
     </script>
-    
+   
 </head>
-<jsp:include page="/pages/header.jsp" />
-<c:set value="${requestScope.beanJunta}"  var="beanJunta" />
+
 <body>
-	
+	<jsp:include page="/pages/header1.jsp" />
+	 <c:set value="${requestScope.beanJunta}"  var="beanJunta" />
     <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="container">
       
