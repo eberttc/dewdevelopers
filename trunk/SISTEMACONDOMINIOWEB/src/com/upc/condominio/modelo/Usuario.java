@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Usuario {
 
-	private String idUsuario;
+	private int idUsuario;
 	private String clave;
 	private String nombres;
 	private String correo;
@@ -14,10 +14,7 @@ public class Usuario {
 		
 	}
 
-	
-	
-
-	public Usuario(String idUsuario, String clave, String nombres, String correo,String tipoUsuario) {
+	public Usuario(int idUsuario, String clave, String nombres, String correo,String tipoUsuario) {
 		
 		this.idUsuario = idUsuario;
 		this.clave = clave;
@@ -29,11 +26,11 @@ public class Usuario {
 
 
 
-	public String getIdUsuario() {
+	public int getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(String idUsuario) {
+	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

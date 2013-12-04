@@ -19,13 +19,13 @@ import com.upc.condominio.negocio.GestionReserva;
 public class GestionReservaTest {
 	Date fecha = new Date(System.currentTimeMillis());
 	
-	@Test
+	//@Test
 	public void insertarReservaTest(){
 		
 		GestionReserva negocio = new GestionReserva();
 		
 		try {
-			negocio.insertar(fecha,1,1,10);
+			negocio.insertar(fecha,2,2,5);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("No se pudo insertar el registro: "+e.getMessage());
@@ -33,7 +33,7 @@ public class GestionReservaTest {
 		
 	}
 
-	//@Test
+	@Test
 	public void ListarFechasDisponibles(){
 		
 		GestionReserva negocio = new GestionReserva();
@@ -47,6 +47,7 @@ public class GestionReservaTest {
 			for (Horario h : listado) {
 				System.out.println(h.getIdHorario());
 				System.out.println(h.getRango());
+				System.out.println(h.getDisponibilidad());
 			}
 		} catch (DAOExcepcion e) {
 			
