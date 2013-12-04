@@ -16,11 +16,11 @@ import com.upc.condominio.negocio.GestionMensaje;
 
 
 
-@WebServlet("/MensajesServlet")
-public class MensajesServlet extends HttpServlet {
+@WebServlet("/MensajeServlet")
+public class MensajeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public MensajesServlet() {
+    public MensajeServlet() {
         super();
 
     }

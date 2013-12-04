@@ -1,5 +1,6 @@
 package com.upc.condominio.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.Callable;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Horario;
@@ -21,26 +23,26 @@ public class ReservaDAO extends BaseDAO{
 		
 		String sql = "CALL InsertarReserva(?,?,?,?)";
 		Connection cn = null;
-		PreparedStatement stmt = null;
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		try {
 			cn = ConexionBD.obtenerConexion();
-			stmt = cn.prepareCall(sql);
-			stmt.setDate(1, r.getFecReg());
-			stmt.setInt(2, r.getIdEspacio());
-			stmt.setInt(3, r.getIdResidente());
-			stmt.setInt(4, r.getIdHorario());
-			int i = stmt.executeUpdate();
+			cs = cn.prepareCall(sql);
+			cs.setDate(1, r.getFecReg());
+			cs.setInt(2, r.getIdEspacio());
+			cs.setInt(3, r.getIdResidente());
+			cs.setInt(4, r.getIdHorario());
+			int i = cs.executeUpdate();
 			//System.out.println(i);
 			if(i ==-1){
-				throw new SQLException("El Epacio no esta disponible en el horario solicitado");
+				throw new SQLException("error dao");
 			}else{System.out.println("El registo se insertó con éxito ");}
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
-			this.cerrarStatement(stmt);
+			this.cerrarStatement(cs);
 			this.cerrarConexion(cn);
 			
 		}
@@ -66,6 +68,7 @@ public class ReservaDAO extends BaseDAO{
 				Horario h = new Horario();
 				h.setIdHorario(rs.getInt(1));
 				h.setRango(rs.getString(2));
+				h.setDisponibilidad(rs.getInt(3));
 				cr.add(h);
 			}
 			

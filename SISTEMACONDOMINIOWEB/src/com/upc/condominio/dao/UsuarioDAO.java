@@ -15,10 +15,10 @@ import com.upc.condominio.util.ConexionBD;
 
 public class UsuarioDAO extends BaseDAO {
 
-	public Usuario validar(String idUsuario, String clave, String tipoUsuraio)
+	public Usuario validar(String correo, String clave, String tipoUsuraio)
 			throws DAOExcepcion, LoginExcepcion {
 		
-		String query1 = "select C_Correo, C_Clave, C_NomRes"			
+		String query1 = "select N_IdRes, C_Correo, C_Clave, C_NomRes"			
 						+ " from residentes where C_Correo=? and C_Clave=?";
 		
 		String query2 = "select N_IdUsua, C_Clave, C_NomUsua"			
@@ -38,21 +38,22 @@ public class UsuarioDAO extends BaseDAO {
 			else
 				stmt = con.prepareStatement(query2);
 			
-			stmt.setString(1, idUsuario);
+			stmt.setString(1, correo);
 			stmt.setString(2, clave);
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
 				if(tipoUsuraio.equals("R")){
-					vo.setIdUsuario(rs.getString("C_Correo"));
-					vo.setClave    (rs.getString("C_Clave"));
-					vo.setNombres  (rs.getString("C_NomRes"));									
+					vo.setIdUsuario(rs.getInt("N_IdRes"));
+					vo.setCorreo(rs.getString("C_Correo"));
+					vo.setClave(rs.getString("C_Clave"));
+					vo.setNombres(rs.getString("C_NomRes"));									
 					vo.setTipoUsuario(tipoUsuraio);
 				}else{
 					
-					vo.setIdUsuario(rs.getString("N_IdUsua"));
-					vo.setClave    (rs.getString("C_Clave"));
-					vo.setNombres  (rs.getString("C_NomUsua"));									
+					vo.setIdUsuario(rs.getInt("N_IdUsua"));
+					vo.setClave(rs.getString("C_Clave"));
+					vo.setNombres(rs.getString("C_NomUsua"));									
 					vo.setTipoUsuario(tipoUsuraio);
 				}
 				

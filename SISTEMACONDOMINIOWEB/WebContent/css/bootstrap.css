@@ -5615,9 +5615,9 @@ a.thumbnail.active {
 
 .alert {
   padding: 15px;
-  margin-bottom: 21px;
+  margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: 4px;
 }
 
 .alert h4 {
@@ -5650,59 +5650,59 @@ a.thumbnail.active {
 }
 
 .alert-success {
-  color: #ffffff;
-  background-color: #3fb618;
-  border-color: #4e9f15;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 
 .alert-success hr {
-  border-top-color: #438912;
+  border-top-color: #c9e2b3;
 }
 
 .alert-success .alert-link {
-  color: #e6e6e6;
+  color: #356635;
 }
 
 .alert-info {
-  color: #ffffff;
-  background-color: #9954bb;
-  border-color: #7643a8;
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
 }
 
 .alert-info hr {
-  border-top-color: #693c96;
+  border-top-color: #a6e1ec;
 }
 
 .alert-info .alert-link {
-  color: #e6e6e6;
+  color: #2d6987;
 }
 
 .alert-warning {
-  color: #ffffff;
-  background-color: #ff7518;
-  border-color: #ff4309;
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
 }
 
 .alert-warning hr {
-  border-top-color: #ee3800;
+  border-top-color: #f7e1b5;
 }
 
 .alert-warning .alert-link {
-  color: #e6e6e6;
+  color: #a47e3c;
 }
 
 .alert-danger {
-  color: #ffffff;
-  background-color: #ff0039;
-  border-color: #f0005e;
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
 
 .alert-danger hr {
-  border-top-color: #d60054;
+  border-top-color: #e4b9c0;
 }
 
 .alert-danger .alert-link {
-  color: #e6e6e6;
+  color: #953b39;
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -6294,9 +6294,10 @@ a.list-group-item.active:focus .list-group-item-text {
   border-radius: 0;
 }
 
+
 .close {
   float: right;
-  font-size: 22.5px;
+  font-size: 21px;
   font-weight: bold;
   line-height: 1;
   color: #000000;
@@ -7577,9 +7578,6 @@ td.visible-print {
   border-radius: 0;
 }
 
-.close {
-  opacity: 1;
-}
 
 .progress {
   height: 8px;

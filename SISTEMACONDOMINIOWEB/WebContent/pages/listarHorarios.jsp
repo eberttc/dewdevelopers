@@ -3,17 +3,21 @@ com.upc.condominio.exceptions.DAOExcepcion,java.util.*,java.text.*,com.upc.condo
 <%
 
 
-String fecha_s = request.getParameter("fecha");
-java.sql.Date fecha = FormatoFecha.stringToSqlDateYYYYMMDD(fecha_s);
+java.sql.Date fecha = FormatoFecha.stringToSqlDateYYYYMMDD(request.getParameter("fecha"));
 int cod = Integer.parseInt(request.getParameter("ec"));
 GestionReserva negocio = new GestionReserva();
 try {
 	Collection<Horario> listado = negocio.listarHorariosDisponibles(fecha,cod);
 	
-	for (Horario h : listado) {%>	
+	for (Horario h : listado) {
+		String estado = null;
+		String css = null;
+		if(h.getDisponibilidad()==1){estado="disabled";css="color:#ccc";}
+	%>
+		
 		<tr>
-		<td width="10"><input type="checkbox" value="true" name="horario" value="<%=h.getIdHorario()%>"></td>
-        <td><%=h.getRango() %></td>
+		<td width="10"><input id="fc_horario" type="radio" name="fc_horario" value="<%=h.getIdHorario()%>" <%=estado %> required="required"></td>
+        <td style=<%=css %>><%=h.getRango() %></td>
         </tr>
 	<%}
 } catch (DAOExcepcion e) {

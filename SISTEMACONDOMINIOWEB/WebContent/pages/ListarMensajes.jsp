@@ -13,7 +13,7 @@
 <div><%@ include file="header.jsp" %></div>
 <h3>BANDEJA DE ENTRADA</h3></h3>
         <p></p>
-        <table class="table" border="1">
+        <table class="table" >
   <thead>
     <tr>
       <th>#</th>
