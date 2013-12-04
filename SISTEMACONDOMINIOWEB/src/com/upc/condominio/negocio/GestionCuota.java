@@ -185,6 +185,18 @@ public class GestionCuota {
 		}
 		return listaCuota;
 	}
+	
+	public Collection<Cuota> listarCuotasVencidasPorResidente(int idResidente) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			listaCuota = cuotaDAO.listarCuotasVencidasXResidente(idResidente);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaCuota;
+	}
 
 	public String realizarPago(Cuota cuota) throws DAOExcepcion {
 		
