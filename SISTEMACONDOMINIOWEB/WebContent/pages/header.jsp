@@ -28,7 +28,7 @@
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimientos <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
 	              <li><a href="#">Vivienda</a></li>	              
-	              <li><a href="ResidenteServlet?Param=">Residente</a></li>	              	             	             
+	              <li><a href="<%=request.getContextPath()%>/ResidenteServlet?Param=" target="_top">Residente</a></li>	              	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
@@ -38,6 +38,7 @@
 	              <li><a href="#">Pago cuotas</a></li>	              	             	             
 	              <li><a href="#">Consulta Morosas</a></li>	              	             	             
 	              <li><a href="<%=request.getContextPath()%>/CuotasServlet?opcion=1" target="_top">Consulta de Cuotas Vencidas</a></li>	              	             	             
+	              <li><a href="<%=request.getContextPath()%>/CuotasServlet?" target="_top">Mis Cuotas Vencidas</a></li>	              	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
@@ -80,7 +81,7 @@
 	          
 	         
         
-	          <li><a href="LogoutServlet">Salir</a></li>
+	          <li><a href="<%=request.getContextPath()%>/LogoutServlet" target="_top">Salir</a></li>
 	        </ul>
 	      </div><!--/.nav-collapse -->
 	    </div>
