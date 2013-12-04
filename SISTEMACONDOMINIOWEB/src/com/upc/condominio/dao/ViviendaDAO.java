@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.modelo.Vivienda;
@@ -57,6 +60,51 @@ public class ViviendaDAO extends BaseDAO {
 		return vivienda;
 	}
 
+	public List<Vivienda> listar() throws DAOExcepcion {
+		
+		List<Vivienda> lista = new ArrayList<Vivienda>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String query =	"SELECT V.N_IdVivi, V.C_NroEdi, V.C_NroDpto, V.N_NumMet, V.C_TipViv, R.N_IdRes, R.C_NomRes " +
+					"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_IdRes = R.N_IdRes " +
+					"WHERE V.C_EstReg ='S'";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+
+					Residente residente = new Residente();
+					Vivienda vivienda= new Vivienda();
+					
+					residente.setIdResidente(rs.getInt("N_IdRes"));
+					residente.setNombreResidente(rs.getString("C_NomRes"));
+					
+					vivienda.setResidente(residente);
+					vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
+					vivienda.setC_Ubicacion(rs.getString("C_NroDpto"));
+					vivienda.setC_Numero(rs.getString("C_NroEdi"));
+					vivienda.setN_Metraje(rs.getDouble("N_NumMet"));
+					vivienda.setC_TipViv(rs.getString("C_TipViv"));
+														
+					lista.add(vivienda);
+				}
+		} 
+		catch (SQLException e) {
+				lista = null;
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} 
+		finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return lista;
+	}
 	
 	public int getExisteVivienda(Vivienda vivienda) throws DAOExcepcion {
 		
