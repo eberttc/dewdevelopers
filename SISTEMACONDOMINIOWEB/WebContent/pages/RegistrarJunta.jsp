@@ -37,18 +37,27 @@
     	
     	function validar(){
     		var f=document.forms[0];
-    		
+    		var horas=f.txtHora.value;
 
 			if(document.getElementById("fecha").value==""){
 					//alert("ingrese fecha");
 					bootbox.alert("Ingrese fecha");	
 					return false;
 			}
-			if(f.txtHora.value==""){
+			
+			if(!comparar_Fecha(document.getElementById("fecha").value)){
+				bootbox.alert("Fecha Invalida,Elija una fecha Posterior");	
+				return false;
+			}
+			
+			if(f.txtHora.value==""||f.txtHora.value<6){
 				//alert("ingrese hora");
-				  bootbox.alert("ingrese hora");
+				  bootbox.alert("Hora invalida");
 				  return false;
 			}
+			
+			
+			
 
 			if(f.txtTema.value==""){
 				//alert("ingrese tema");
@@ -197,6 +206,55 @@
 
      		return datos;
         }
+        
+     
+
+        function comparar_Fecha(String1){
+        	
+        	
+        	//fecha actual
+        	var now = new Date();
+            var month = (now.getMonth() + 1);               
+            var day = now.getDate();
+            var year=now.getFullYear();
+            if(month < 10) 
+                month = "0" + month;
+            if(day < 10) 
+                day = "0" + day;
+            
+           
+        	//Se obtiene el día, mes y año de las dos fechas
+        	anyo1  = String1.substring(0,4);
+        	mes1  = String1.substring(5,7);
+        	dia1 = String1.substring(8,10);
+        	
+        	//Se convierten en enteros para operar
+        	dia1  = parseInt(dia1,10);        	
+        	mes1  = parseInt(mes1,10);        
+        	anyo1 = parseInt(anyo1,10);
+        
+        	day  = parseInt(day,10);        	
+        	month  = parseInt(month,10);        
+        	year = parseInt(year,10);
+        
+        	
+            //Si el año de la primera fecha es mayor se devuelve false
+        	if (anyo1 > year)
+        	    return false;
+        	
+            //Si los años son iguales, pero el mes de la 1º es mayor se devuelve false
+        	if ((anyo1 == year) && (mes1 < month))
+        	    return false;
+        	
+            //Si los años y meses son iguales, pero el día del 1º es mayor se devuelve false
+        	if ((anyo1 == year) && (mes1 == month) && (dia1 < day))
+        	    return false;
+            
+            //Si ha pasado todas las validaciones devuelve true
+            return true;
+        }
+        
+        
 
       
       
@@ -267,7 +325,7 @@
 			                <label class="form-label">Fecha</label>
 			              </div>
 			              <div class="col-sm-4">
-			             <input type="date" class="form-control input-sm" required name="txtfecha" id="fecha" value="<c:out value='${beanJunta.dFechaJunta}'/>" >
+			             <input type="date" class="form-control input-sm" required name="txtfecha" min="" id="fecha" value="<c:out value='${beanJunta.dFechaJunta}'/>" >
 			            
 			              </div>
 			              <div class="col-sm-1">
