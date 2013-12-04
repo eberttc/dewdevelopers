@@ -32,7 +32,7 @@ $(document).ready(function() {
 	
   <body>
   
-  <jsp:include page="/pages/header.jsp" />
+  <jsp:include page="/pages/header1.jsp" />
   <form id="frmMorosos" action="${pageContext.request.contextPath}/CuotasServlet">
   <input type="hidden" id="hidopcion"  name="opcion">  
     <div class="jumbotron">
