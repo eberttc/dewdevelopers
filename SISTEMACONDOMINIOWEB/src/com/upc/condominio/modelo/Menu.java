@@ -1,6 +1,8 @@
 package com.upc.condominio.modelo;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
 
 		private int    codigoMenu;
 		private String nombre;
