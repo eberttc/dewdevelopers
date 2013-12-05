@@ -24,7 +24,7 @@ public class VisitanteDAO extends BaseDAO {
 				
 		try {
 				String query =	"INSERT INTO VISITANTES (N_CORREL, C_DNIVIS, C_NOMVIS, N_IDRES, D_HORAFECHAVISIT) " +
-								"VALUES (?,?,?,?,?,?)";
+								"VALUES (?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
@@ -32,8 +32,8 @@ public class VisitanteDAO extends BaseDAO {
 				stmt.setString(2, visitante.getStrDNIVisitante());
 				stmt.setString(3, visitante.getStrNombreVisitante());
 				stmt.setInt(4, visitante.getIntCodigoResidente());
-				stmt.setString(5, visitante.getStrNombreResidente());
-				stmt.setDate(6, new java.sql.Date(visitante.getdHoraFechaVisitante().getTime()) );
+				
+				stmt.setDate(5, new java.sql.Date(visitante.getdHoraFechaVisitante().getTime()) );
 				
 			
 				
