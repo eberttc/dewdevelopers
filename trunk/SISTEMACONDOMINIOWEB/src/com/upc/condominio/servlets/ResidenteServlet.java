@@ -1,6 +1,7 @@
 package com.upc.condominio.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -82,9 +83,9 @@ public class ResidenteServlet extends HttpServlet {
 				String nombre = request.getParameter("nombre");
 				String paginaDestino = "";
 				String vReturn = "";
-				SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-
+				
 				//Variables con datos de la página
 				String idResidente = request.getParameter("txtID");
 				String nombreResidente = request.getParameter("txtNombre");
@@ -93,7 +94,7 @@ public class ResidenteServlet extends HttpServlet {
 				String correo = request.getParameter("txtCorreo");
 				String numeroDocumento = request.getParameter("txtNuDocumento");
 				//String clave = request.getParameter("clave");
-				
+				String mensaje="";
 				//Variables del negocio
 				GestionResidente residenteCore = new GestionResidente();
 								
@@ -107,6 +108,8 @@ public class ResidenteServlet extends HttpServlet {
 						
 					}else if (param.equals("insertar")) {
 
+						
+						
 						Residente residente = new Residente();
 						residente.setNombreResidente(nombreResidente);
 						residente.setTipoDocumento(Integer.parseInt(tipoDocumento));
@@ -117,7 +120,19 @@ public class ResidenteServlet extends HttpServlet {
 										
 						vReturn = residenteCore.insertar(residente);
 						
-						paginaDestino = "/pages/Satisfactorio.jsp";
+						if(vReturn.equals("RESIDENTE GRABADO EXITOSAMENTE.")){
+							paginaDestino = "/pages/Satisfactorio.jsp";
+						}else{
+
+							request.setAttribute("txtNombre",nombreResidente);
+							request.setAttribute("txtTipoDocumento",tipoDocumento);
+							request.setAttribute("txtFeNac",fechaNacimiento);
+							request.setAttribute("txtCorreo",correo);
+							request.setAttribute("txtNuDocumento",numeroDocumento);
+							request.setAttribute("vreturn", vReturn);
+							mensaje="1";
+							paginaDestino = "/pages/ResidenteNuevo.jsp";
+						}
 						
 					}else if (param.equals("buscar")) {
 						
@@ -140,9 +155,12 @@ public class ResidenteServlet extends HttpServlet {
 						vReturn = residenteCore.actualizar(residente);
 						
 						paginaDestino = "/pages/Satisfactorio.jsp";
-					}else
+					}else{
+						
 						paginaDestino = "/pages/ResidenteBuscar.jsp";
+					}
 					
+					request.setAttribute("mensaje", mensaje);
 					RequestDispatcher rd = request.getRequestDispatcher(paginaDestino);
 		        	rd.forward(request, response);
 		        	
