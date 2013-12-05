@@ -59,9 +59,10 @@ public class LoginServlet extends javax.servlet.http.HttpServlet implements
 		String clave = request.getParameter("txtPass");
 		String tipoUsuraio= request.getParameter("hidTipo");;
 		
-		System.out.print("usuario"+usuario);
-		System.out.print("clave"+clave);
-		System.out.print("tipoUsuraio"+tipoUsuraio);
+		System.out.println("usuario"+usuario);
+		System.out.println("clave"+clave);
+		System.out.println("tipoUsuraio"+tipoUsuraio);
+		
 		GestionUsuarios negocio = new GestionUsuarios();
 
 		try {

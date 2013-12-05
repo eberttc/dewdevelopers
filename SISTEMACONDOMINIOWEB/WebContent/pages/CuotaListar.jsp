@@ -16,7 +16,21 @@
  	<script src="<%=request.getContextPath()%>/js/jquery.dataTables.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
-  
+<script language="Javascript">
+	function OnButton1()
+	{
+		document.form1.action = "CuotaServlet?paramOpcion=buscar";
+    	document.form1.submit();      
+
+    	return true;
+	}
+	function OnButton2()
+	{
+    	document.form1.action = "CuotaServlet?paramOpcion=nuevo";
+    	document.form1.submit();             	
+    	return true;
+	}
+	</script>
 </head>
 <%
 String listado=session.getAttribute("listaCuota")==null?"":session.getAttribute("listaCuota").toString();
@@ -41,21 +55,21 @@ $(document).ready(function() {
     </div>
   </fieldset>  
   <fieldset class="form-horizontal well">
-  	<form id="form1" name="form1" method="post" action="CuotaServletListar?paramOpcion=buscar">
+  	<form id="form1" name="form1" method="post" > <!-- action="CuotaServlet?paramOpcion=buscar;CuotaServlet?paramOpcion=nuevo" -->
         <p>Periodo a buscar [YYYYMM]:
         <label>
         	<input type="text" name="txtperiodo" id="txtperiodo" placeholder="201301"  class="form-control" />
 		</label>
 		    
         <label>
-        <input type="submit" class="btn btn-primary" value="Buscar" />
+        <input type="submit" class="btn btn-primary" id="btnBuscar" value="Buscar" onclick="OnButton1();"/>
         </label>
-                     
+          <input type="submit" class="btn btn-primary"  id="btnNuevo" value="Nuevo" onclick="OnButton2();"/>	            
         </p>
       </form>
-      <form id="form2" name="form2" method="post" action=CuotaServletListar?paramOpcion=nuevo>
-		    <button id="button" type="submit" class="btn btn-primary">Nuevo</button>		
-		</form>
+     <!-- <form id="form2" name="form2" method="post" action=CuotaServlet?paramOpcion=nuevo>
+		   	
+		</form> -->
   </fieldset>
 
   <fieldset  class="form-horizontal well">
@@ -91,8 +105,8 @@ $(document).ready(function() {
 	     <td><% out.print(x.getD_FecVen()); %></td>
 	     <td><% out.print(x.getO_TipPag().getcDescri()); %></td>
 	     <td><% out.print(x.getD_FecPag()); %></td>
-	    <td><a href="<%=request.getContextPath() %>/CuotaServletEditar?id=<%=x.getN_IdCuot() %>">Editar</a> - <a href="<%=request.getContextPath()%>
-	/RolCuotaServletEliminar?id=<%=x.getN_IdCuot()%>" onclick="return confirm('¿Está seguro que desea eliminar Cuota');">Eliminar</a></td>
+	    <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Editar</a> - <a href="<%=request.getContextPath()%>
+	/CuotaServlet?id=<%=x.getN_IdCuot()%>" onclick="return confirm('¿Está seguro que desea eliminar Cuota');">Eliminar</a></td>
 	  </tr>
 	<% }  
 	  } %>

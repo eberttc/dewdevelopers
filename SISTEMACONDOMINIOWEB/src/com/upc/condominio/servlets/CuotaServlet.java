@@ -18,19 +18,20 @@ import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
 import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.negocio.GestionCuota;
+import com.upc.condominio.util.FormatoFecha;
 
 
 /**
- * Servlet implementation class CuotaServletListar
+ * Servlet implementation class CuotaServlet
  */
-@WebServlet("/CuotaServletListar")
-public class CuotaServletListar extends HttpServlet {
+@WebServlet("/CuotaServlet")
+public class CuotaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CuotaServletListar() {
+    public CuotaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,6 +41,7 @@ public class CuotaServletListar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Variables del servlet
+		System.out.println("<get> paramOpcion : UN INGRESO DE DOGET</h3>");
 		String paramOpcion = request.getParameter("paramOpcion");
 		String paramPeriodo = request.getParameter("paramPeriodo");
 		String paramIdCuota = request.getParameter("paramIdCuota");
@@ -102,64 +104,60 @@ public class CuotaServletListar extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		System.out.println("<get> paramOpcion : UN INGRESO DE DOPOST</h3>");
 		// Variable periodo en formato AÑO-Mes . Ejemplo : 201301 (Año 2013, mes Enero)
-				String periodo = request.getParameter("periodo")==null?"":request.getParameter("periodo");
 				String paramPeriodo =(String) request.getAttribute("paramPeriodo");
 				String paramOpcion = request.getParameter("paramOpcion");
 				String vReturn = "";
 				
-				String idVivienda = request.getParameter("idvivienda");
-				String importe =request.getParameter("importepago");
-				String strfechaPeriodo = request.getParameter("fechaVcto");
+				String strPeriodo = request.getParameter("txtperiodo")==null?"":request.getParameter("txtperiodo");
+				String strperiodo=request.getParameter("periodo");
+				String strVivienda=request.getParameter("slcvivienda");
+				String strImporte =request.getParameter("importepago");
+				String strfechaVcto = request.getParameter("fechaVcto");
 				String paginaDestino = "";
 				
-				System.out.println("<Post> paramOpcion :"+paramOpcion+ "</h3>");
-				System.out.println("<Post> PERIODO :"+periodo + "</h3>");
-				System.out.println("<Post> VIVIENDA :"+idVivienda+ "</h3>");
-				System.out.println("<Post> IMPORTE :"+importe + "</h3>");
-				System.out.println("<Post> FECHA VENCIMTO :"+strfechaPeriodo + "</h3>");
-				System.out.println("<Post> paramPeriodo :"+paramPeriodo + "</h3>");
+				System.out.println("<Post> paramOpcion :"+paramOpcion + "</h3>");
+				System.out.println("<Post> PERIODO :"+ strPeriodo + "</h3>");
+				System.out.println("<Post> strperiodo :"+ strperiodo + "</h3>");
+				System.out.println("<Post> VIVIENDA :"+ strVivienda + "</h3>");
+				System.out.println("<Post> IMPORTE :"+ strImporte + "</h3>");
+				System.out.println("<Post> FECHA VENCIMTO :"+ strfechaVcto + "</h3>");
+				System.out.println("<Post> paramPeriodo :"+ paramPeriodo + "</h3>");
 				
 				GestionCuota gestionCuota = new GestionCuota();
-				
-				
+
 				try {
 					if (paramOpcion.equals("nuevo")) { //cargar los combos
 							
 						Collection<Vivienda> listaVivienda = new ArrayList<Vivienda>();
 						Cuota cuota = new Cuota();
-						cuota.setC_Period(paramPeriodo);
+						cuota.setC_Period(strPeriodo); //paramPeriodo
 						listaVivienda = gestionCuota.listarViviendaSinCuota(cuota);
+
 						System.out.println("<post> listaVivienda COUNT :"+ String.format("", listaVivienda.size())) ; 
 						for(Vivienda vivi: listaVivienda)
 						{
-							System.out.println("<post> paramOpcion :"+vivi.getC_Numero() + " - "+ vivi.getC_Ubicacion() + "</h3>");
+							System.out.println("<post> paramOpcion : ID: "+vivi.getN_IdVivi()+" - " +vivi.getC_Numero() + " - "+ vivi.getC_Ubicacion() + "</h3>");
 						}
 						request.setAttribute("prmlistaVivienda", listaVivienda);
-						//if(periodo.length()>0)
-						//{
-							request.setAttribute("paramPeriodo", periodo);
-							
-							paginaDestino = "/pages/CuotaRegistrar.jsp";
-						//}
+						request.setAttribute("paramPeriodo", strPeriodo);
+						paginaDestino = "/pages/CuotaRegistrar.jsp";
 					}else if (paramOpcion.equals("insertar")) {
+						
 						Cuota cuota = new Cuota();
-						
-						String strVivienda=request.getParameter("slcvivienda");
-						System.out.println("<post> strVivienda : "+ strVivienda);
-						
-						Date fechaVenc = new Date(System.currentTimeMillis()); // Fecha Actauk del sistenma
-						cuota.setC_Period(periodo);
-						cuota.setN_IdVivi(Integer.parseInt(idVivienda));
-						
-						cuota.setN_ImpPag( Float.parseFloat(importe));
+						Date fechaVenc = FormatoFecha.stringToSqlDateYYYYMMDD(strfechaVcto);
+						cuota.setC_Period(strperiodo);
+						cuota.setN_IdVivi(Integer.parseInt(strVivienda));
+						cuota.setN_ImpPag( Float.parseFloat(strImporte));
 						cuota.setD_FecVen(fechaVenc);
-						
 						vReturn = gestionCuota.insertar(cuota);
-						
 						paginaDestino = "/pages/CuotaListar.jsp";
+						
 					}else if (paramOpcion.equals("buscar")) {
+						
 						Cuota cuota = new Cuota();
+						cuota.setC_Period(strPeriodo);
 						Collection<Cuota> listaCuota = gestionCuota.listar(cuota);
 		                request.setAttribute("listaCuota", listaCuota);
 		                                
