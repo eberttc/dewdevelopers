@@ -31,7 +31,7 @@ public class GestionQuejaTest {
 		GestionQueja negocio = new GestionQueja();
 
 		try {
-			Collection<Queja> listado = negocio.listarQueja();
+			Collection<Queja> listado = negocio.listarQueja("lev");
 			
 
 			System.out.println("-------------------------------------------------------------------------");

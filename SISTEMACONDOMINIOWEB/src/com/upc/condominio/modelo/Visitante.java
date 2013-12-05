@@ -25,47 +25,55 @@ public class Visitante {
 			this.strNombreResidente = strNombreResidente;
 			this.dHoraFechaVisitante = dHoraFechaVisitante;
 		}
-		
-		public int getintCorrelativo() {
+
+		public int getIntCorrelativo() {
 			return intCorrelativo;
 		}
-		public void setintCorrelativo(int getintCorrelativo) {
-			this.intCorrelativo = getintCorrelativo;
+
+		public void setIntCorrelativo(int intCorrelativo) {
+			this.intCorrelativo = intCorrelativo;
 		}
-		public String getstrDNIVisitante() {
+
+		public String getStrDNIVisitante() {
 			return strDNIVisitante;
 		}
-		public void setstrDNIVisitante(String strDNIVisitante) {
+
+		public void setStrDNIVisitante(String strDNIVisitante) {
 			this.strDNIVisitante = strDNIVisitante;
 		}
-		
-		public String getstrNombreVisitante() {
+
+		public String getStrNombreVisitante() {
 			return strNombreVisitante;
 		}
-		public void setstrNombreVisitante(String strNombreVisitante) {
+
+		public void setStrNombreVisitante(String strNombreVisitante) {
 			this.strNombreVisitante = strNombreVisitante;
 		}
-		public int getintCodigoResidente() {
+
+		public int getIntCodigoResidente() {
 			return intCodigoResidente;
 		}
-		public void setintCodigoResidente(int getintCodigoResidente) {
-			this.intCodigoResidente = getintCodigoResidente;
+
+		public void setIntCodigoResidente(int intCodigoResidente) {
+			this.intCodigoResidente = intCodigoResidente;
 		}
-	
-		public String getstrNombreResidente() {
+
+		public String getStrNombreResidente() {
 			return strNombreResidente;
 		}
-		public void setstrNombreResidente(String strNombreResidente) {
+
+		public void setStrNombreResidente(String strNombreResidente) {
 			this.strNombreResidente = strNombreResidente;
 		}
 
 		public Date getdHoraFechaVisitante() {
 			return dHoraFechaVisitante;
 		}
+
 		public void setdHoraFechaVisitante(Date dHoraFechaVisitante) {
 			this.dHoraFechaVisitante = dHoraFechaVisitante;
 		}
-
-
+		
+	
 	
 }

@@ -1,6 +1,7 @@
 package com.upc.condominio.negocio;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.upc.condominio.dao.VisitanteDAO;
@@ -9,16 +10,15 @@ import com.upc.condominio.modelo.Visitante;
 
 public class GestionVisitantes {
 
-	public void insertarVisitante(int intCorrelativo,String strDNIVisitante, String strNombreVisitante, String strNombreResidente, Date dHoraFechaVisitante)
+	public void insertarVisitante(String strDNIVisitante, String strNombreVisitante, int intIdResidente, Date dHoraFechaVisitante)
 
 			throws DAOExcepcion{
 			
 	
 			Visitante visitante=new Visitante();
-			visitante.setintCorrelativo(intCorrelativo);
-			visitante.setstrDNIVisitante(strDNIVisitante);
-			visitante.setstrNombreVisitante(strNombreVisitante);
-			visitante.setstrNombreResidente(strNombreResidente);
+			visitante.setStrDNIVisitante(strDNIVisitante);
+			visitante.setStrNombreVisitante(strNombreVisitante);
+			visitante.setIntCodigoResidente(intIdResidente);
 			visitante.setdHoraFechaVisitante(dHoraFechaVisitante);
 			
 			
@@ -28,11 +28,13 @@ public class GestionVisitantes {
 	
 	}
 	
-	public Collection<Visitante> listar(int codigo) throws DAOExcepcion{
+	public Collection<Visitante> listarVisitante() throws DAOExcepcion{
 		
 		VisitanteDAO visitanteDao=new  VisitanteDAO();	
+		Collection<Visitante> c = new ArrayList<Visitante>();
 		
-		return visitanteDao.listar(codigo);
+		return visitanteDao.listarVisitante();
 	}
-
+	
+	
 }

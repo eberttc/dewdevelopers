@@ -1,5 +1,6 @@
 package com.upc.condominio.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,7 +63,7 @@ public class QuejaDAO extends BaseDAO {
 		}
 		return queja;
 	}
-	
+/*	
 	public List<Queja> ListarQueja(String estadoQueja) throws DAOExcepcion {
 		
 		List<Queja> lista = new ArrayList<Queja>();
@@ -172,19 +173,18 @@ public class QuejaDAO extends BaseDAO {
 		}
 		return queja;
 	}
-
-	public Collection<Queja> listar() throws DAOExcepcion {
+*/
+	public Collection<Queja> listar(String filtro) throws DAOExcepcion {
 		Collection<Queja> c = new ArrayList<Queja>();
 		Connection con = null;
-		PreparedStatement stmt = null;
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		try {
 			con = ConexionBD.obtenerConexion();
-//			String query = "select * from bdcondominio.quejas c where c.C_Estado like '%Inves%'";
-//			String query = "select * from bdcondominio.quejas c where c.C_Motivo like '%Robo%'";
-			String query = "select * from bdcondominio.quejas";
-			stmt = con.prepareStatement(query);
-			rs = stmt.executeQuery();
+			String sql = "call filtrarQuejas(?)";
+			cs = con.prepareCall(sql);
+			cs.setString(1, filtro);
+			rs = cs.executeQuery();
 			while (rs.next()) {
 				Queja q = new Queja();
 				q.setIntIdQueja(rs.getInt("N_IdQueja"));
@@ -199,7 +199,7 @@ public class QuejaDAO extends BaseDAO {
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
 			this.cerrarResultSet(rs);
-			this.cerrarStatement(stmt);
+			this.cerrarStatement(cs);
 			this.cerrarConexion(con);
 		}
 		return c;

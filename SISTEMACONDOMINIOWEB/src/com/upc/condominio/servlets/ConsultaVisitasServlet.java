@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.upc.condominio.modelo.Queja;
-import com.upc.condominio.negocio.GestionQueja;
+import com.upc.condominio.modelo.Visitante;
+import com.upc.condominio.negocio.GestionVisitantes;
 
 /**
- * Servlet implementation class ConsultaQuejas
+ * Servlet implementation class ConsultaVisitasServlet
  */
-@WebServlet("/ConsultaQuejasServlet")
-public class ConsultaQuejasServlet extends HttpServlet {
+@WebServlet("/ConsultaVisitasServlet")
+public class ConsultaVisitasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaQuejasServlet() {
+    public ConsultaVisitasServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,31 +42,27 @@ public class ConsultaQuejasServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		processRequest(request,response);
-
 	}
-		
-		private void processRequest(HttpServletRequest request,
-				HttpServletResponse response) throws ServletException, IOException {
+	
+	
+	private void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-		
-//		String opcion=request.getParameter("opcion")==null?"":request.getParameter("opcion");
-//		String txtcodigo=request.getParameter("codigo")==null?"":request.getParameter("codigo");
-		
-		List<Queja> q=new ArrayList<Queja>();
-		GestionQueja queja=new GestionQueja();
-		try{
-			//trae todas las quejas
-			q=(List<Queja>) queja.listarQueja("%");				 								
-		}catch(Exception e){
-		
-			
-		}
-								
-		request.setAttribute("lista",q);
-		request.getRequestDispatcher("/pages/ConsultaQuejas.jsp").forward(request, response);
-		
-		}		
-
+	
+	List<Visitante> v=new ArrayList<Visitante>();
+	GestionVisitantes visit=new GestionVisitantes();
+	try{
+		//trae todas las Visitas
+		v=(List<Visitante>) visit.listarVisitante();				 								
+	}catch(Exception e){
+	
 		
 	}
+							
+	request.setAttribute("lista",v);
+	request.getRequestDispatcher("/pages/ConsultaVisitantes.jsp").forward(request, response);
+	
+	}		
 
+
+}

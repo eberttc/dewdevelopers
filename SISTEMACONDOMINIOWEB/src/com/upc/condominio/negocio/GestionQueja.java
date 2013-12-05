@@ -29,7 +29,7 @@ public class GestionQueja {
 				quejaDao.insertar(queja);
 		
 		}
-		
+/*		
 		public Queja obtenerQueja(int codigo) throws DAOExcepcion{
 			
 			QuejaDAO quejaDao=new  QuejaDAO();	
@@ -38,13 +38,13 @@ public class GestionQueja {
 			
 			return queja;
 		}
-
-		public Collection<Queja> listarQueja() throws DAOExcepcion{
+*/
+		public Collection<Queja> listarQueja(String filtro) throws DAOExcepcion{
 			
 			QuejaDAO quejaDao=new  QuejaDAO();	
 			Collection<Queja> c = new ArrayList<Queja>();
 			
-			return quejaDao.listar();
+			return quejaDao.listar(filtro);
 		
 		}
 /*		public Collection<Queja> listarQuejaPorTipo() throws DAOExcepcion{

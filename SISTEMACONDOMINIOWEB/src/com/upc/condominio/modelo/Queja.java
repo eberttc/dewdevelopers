@@ -6,6 +6,7 @@ public class Queja {
 
 	private int intIdQueja;
 	private int intIdResidente;
+	private String strNombreResidente;
 	private String strTipoQueja;
 	private String strMotivoQueja;
 	private Date dFechaQueja;
@@ -15,11 +16,12 @@ public class Queja {
 		
 	}
 	
-	public Queja(int intIdQueja, int intIdResidente, String strTipoQueja,
+	public Queja(int intIdQueja, int intIdResidente, String strNombreResidente, String strTipoQueja,
 			String strMotivoQueja, Date dFechaQueja, String strEstadoQueja) {
 		
 		this.intIdQueja = intIdQueja;
 		this.intIdResidente = intIdResidente;
+		this.strNombreResidente = strNombreResidente;
 		this.strTipoQueja = strTipoQueja;
 		this.strMotivoQueja = strMotivoQueja;
 		this.dFechaQueja = dFechaQueja;
@@ -40,6 +42,14 @@ public class Queja {
 
 	public void setIntIdResidente(int intIdResidente) {
 		this.intIdResidente = intIdResidente;
+	}
+
+	public String getStrNombreResidente() {
+		return strNombreResidente;
+	}
+
+	public void setStrNombreResidente(String strNombreResidente) {
+		this.strNombreResidente = strNombreResidente;
 	}
 
 	public String getStrTipoQueja() {
@@ -73,7 +83,7 @@ public class Queja {
 	public void setStrEstadoQueja(String strEstadoQueja) {
 		this.strEstadoQueja = strEstadoQueja;
 	}
-	
+
 	
 	
 }
