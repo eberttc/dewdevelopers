@@ -7,6 +7,10 @@
     id="WebApp_ID" 
     version="3.0">
   <display-name>SISTEMACONDOMINIOWEB</display-name>
+  
+ <session-config>
+  <session-timeout>10</session-timeout>
+ </session-config>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -15,4 +19,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
 </web-app>
