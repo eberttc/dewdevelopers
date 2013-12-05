@@ -25,11 +25,13 @@
 
 	<script>
 		$(function() {
-			$( "#txtFeNac" ).datepicker();
+
+
+			
 		});
 	</script>
 	
-	<jsp:include page="/pages/header.jsp" />
+	<jsp:include page="/pages/header1.jsp" />
 	
 	<div>
 	
@@ -40,7 +42,7 @@
 	
 	<fieldset class="form-horizontal well">
 	
-	<form id="form1" name="form1" method="post" action="ResidenteServlet?Param=modificar">	
+	<form id="form1" name="form1" method="post" action="<%=request.getContextPath()%>/ResidenteServlet?Param=modificar">	
 	
 		<%@page import="java.util.*, com.upc.condominio.modelo.*, java.text.SimpleDateFormat" %>
 		
@@ -91,7 +93,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNuDocumento" name="txtNuDocumento" value="<%=residente.getNumeroDocumento()%>" type="text" required autofocus/>
+					<input id="txtNuDocumento" name="txtNuDocumento" value="<%=residente.getNumeroDocumento()%>" type="number" required autofocus/>
 				</TD>
 			</TR>
 			
@@ -101,8 +103,8 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					<% SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  %>
-					 <input id="txtFeNac" name="txtFeNac" value="<%=sdf.format(residente.getFechaNacimiento())%>" type="text" required autofocus/>
+					
+					 <input id="txtFeNac" name="txtFeNac" value="<%=residente.getFechaNacimiento()%>" type="date" required autofocus/>
 				</TD>
 								
 			</TR>
@@ -113,7 +115,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					 <input id="txtCorreo" name="txtCorreo" value="<%=residente.getCorreo()%>" type="text" required autofocus/>
+					 <input id="txtCorreo" name="txtCorreo" value="<%=residente.getCorreo()%>" type="email" required autofocus/>
 				</TD>
 			</TR>
 			

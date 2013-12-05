@@ -21,22 +21,16 @@
     
 	<title>Condominio</title>
 </head>
+<%
+	String mensaje=request.getAttribute("mensaje")==null?"":request.getAttribute("mensaje").toString();
+	String vreturn=request.getAttribute("vreturn")==null?"":request.getAttribute("vreturn").toString();
+	
+%>
 <body>
 
-	<script>
-		$(function() {
-			$( "#txtFeNac" ).datepicker();
-		});
-		
-		$('#ventana_modal').modal( {
-			keyboard : true,
-			show : false,
-			backdrop : 'static'		
-		} );
-
-	</script>
 	
-	<jsp:include page="/pages/header.jsp" />
+	
+	<jsp:include page="/pages/header1.jsp" />
 
 	<div>	
 	<br>
@@ -59,7 +53,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNombre" name="txtNombre" type="text" required autofocus/>
+					<input id="txtNombre" name="txtNombre" type="text" value="${requestScope.txtNombre}" required autofocus/>
 				</TD>
 			</TR>
 			
@@ -82,7 +76,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNuDocumento" name="txtNuDocumento" type="text" required autofocus/>
+					<input id="txtNuDocumento" name="txtNuDocumento" value="${requestScope.txtNuDocumento}" type="number" required autofocus/>
 				</TD>
 			</TR>
 			
@@ -92,7 +86,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					 <input id="txtFeNac" name="txtFeNac" type="text" required autofocus/>
+					 <input id="txtFeNac" name="txtFeNac" value="${requestScope.txtFeNac}" type="date" required autofocus/>
 				</TD>
 			</TR>
 			
@@ -102,7 +96,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					 <input id="txtCorreo" name="txtCorreo" type="text" required autofocus/>
+					 <input id="txtCorreo" name="txtCorreo" type="email"  value="${requestScope.txtCorreo}"required autofocus/>
 				</TD>
 			</TR>
 			
@@ -127,6 +121,11 @@
 	</fieldset>
 	</div>
 	
-	
+	<script>
+		
+		if("<%=mensaje%>"=='1'){
+			alert("<%=vreturn%>");
+		}
+	</script>
 </body>
 </html>

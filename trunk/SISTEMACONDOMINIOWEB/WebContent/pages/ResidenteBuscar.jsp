@@ -23,7 +23,7 @@
  
 <body>
 
-	<jsp:include page="/pages/header.jsp" />
+	<jsp:include page="/pages/header1.jsp" />
 	
 	<div>
 	
