@@ -15,12 +15,12 @@ public class GestionMensajeTest {
 	
 	
 	//@Test
-	public void insertarTest() {
+	public void insertarMensajeTest() {
 
 		GestionMensaje negocio = new GestionMensaje();
 		Date fecha = new Date(System.currentTimeMillis());
 		try {
-			negocio.insertar("Reunion de residentes 1", "Lorem ipsum dolor kide ru soincp tur adipiscing elit",fecha);
+			negocio.insertarMensaje("Reunion de residentes 1", "Lorem ipsum dolor kide ru soincp tur adipiscing elit",fecha);
 
 			//Categoria nuevo = negocio.obtener(3);
 			//Assert.assertEquals("Categoria de Smartphones", nuevo.getDescripcion());
@@ -37,30 +37,30 @@ public class GestionMensajeTest {
 		Date fecha = new Date(System.currentTimeMillis());
 		
 		try {
-			negocio.actualizar(1,"Reunion de Residenes 1","consectetur adipiscing elite",fecha);
+			negocio.actualizarMensaje(7,"Reunion de Residenes 1","consectetur adipiscing elite",fecha);
 			
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Actualización: "+e.getMessage());
 		}
 	}
 	
-	//@Test
+	@Test
 	public void eliminarMensajeTest(){
 	
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			negocio.eliminar(2);
+			negocio.eliminarMensaje(4);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Eliminación: "+e.getMessage());
 		}
 	}
 	
-	@Test
-	public void ListarMensajesTest(){
+	//@Test
+	public void ListarMensajesResidenteTest(){
 		
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			Collection<Mensaje> listado = negocio.listar(2);
+			Collection<Mensaje> listado = negocio.listarMensajeResidente(2);
 			//System.out.println(listado.size());
 			System.out.println("TITULO \t\t\t | MENSAJE \t\t\t\t\t\t| FECHA");
 			System.out.println("---------------------------------------------------------------------------------------------------");
