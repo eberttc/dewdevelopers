@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Consulta de Quejas</title>
+<title>Consulta de Visitantes</title>
   <!-- Bootstrap core CSS -->
   
  
@@ -66,11 +66,11 @@ $(document).ready(function() {
   <body>
   
   <jsp:include page="/pages/header.jsp" />
-  <form id="frmMorosos" action="/SISTEMACONDOMINIOWEB/ConsultaQuejasServlet" method=post>
+  <form id="frmMorosos" action="/SISTEMACONDOMINIOWEB/ConsultaVisitasServlet" method=post>
   <input type="hidden" id="hidopcion"  name="opcion">  
     <div class="jumbotron">
       <div class="container">
-        <h3>Consulta de Quejas</h3>
+        <h3>Consulta de Visitantes</h3>
 
       </div>
     </div>
@@ -99,19 +99,19 @@ $(document).ready(function() {
       <table class="table table-bordered table-hover" id="jqueryDataTable">
         <thead>
           <tr class="success">
-            <th>ID Queja</th>
-            <th>ID Residente</th>
-            <th>Motivo Queja</th>
-            <th>Estado</th>
+            <th>DNI Visitante</th>
+            <th>Nombre Visitante</th>
+            <th>Residente</th>
+            <th>Fecha Visita</th>
           </tr>
         </thead>
         <tbody id="div_resultado">
           <c:forEach var="bean" items="${requestScope.lista}" varStatus="i">
           <tr>
-          	<td>${bean.intIdQueja}</td>
-          	<td>${bean.intIdResidente}</td>
-          	<td>${bean.strMotivoQueja}</td>
-          	<td>${bean.strEstadoQueja}</td>
+          	<td>${bean.strDNIVisitante}</td>
+          	<td>${bean.strNombreVisitante}</td>
+          	<td>${bean.strNombreResidente}</td>
+          	<td>${bean.dHoraFechaVisitante}</td>
           </tr>
           </c:forEach>
           <div ></div>

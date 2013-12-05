@@ -14,16 +14,16 @@ public class GestionVisitantesTest {
 			GestionVisitantes negocio = new GestionVisitantes();
 
 			try {
-				Collection<Visitante> listado = negocio.listar(2);
+				Collection<Visitante> listado = negocio.listarVisitante();
 
 				System.out.println("-------------------------------------------------------------------------");
-				System.out.println("CodVisitante   NomVisitante     CodResidente        Fecha/Hora");
+				System.out.println("CodVisitante   NomVisitante     NomResidente        Fecha/Hora");
 				System.out.println("-------------------------------------------------------------------------");
 			
 				for (Visitante visitante : listado) {
-					System.out.print(visitante.getintCorrelativo()+"\t"+"\t");
-					System.out.print(visitante.getstrNombreVisitante()+"\t"+"\t"+"\t");
-					System.out.print(visitante.getstrNombreResidente()+"     \t"+"\t");
+					System.out.print(visitante.getIntCorrelativo()+"\t"+"\t");
+					System.out.print(visitante.getStrNombreVisitante()+"\t"+"\t"+"\t");
+					System.out.print(visitante.getStrNombreResidente()+"     \t"+"\t");
 					System.out.print(visitante.getdHoraFechaVisitante()+"\t");
 					System.out.println(" ");
 				}
