@@ -20,12 +20,12 @@
     
     <script>
        function validar(){
-         var importe = document.f1.importepago.value;         
-
-         if (importe == null){
-            alert('Ingrese Importe de la cuota a generar');
-            return false;
+         var periodo = document.form1.periodo.value;        
+         if(periodo.length!=6){
+        	 alert('El formato del periodo es incorrecto (AÑOMES-YYYYMM)');
+             return false;
          }
+        	 
          return true;
        }
     </script>
@@ -39,37 +39,36 @@
 
 
 <p><strong>Mantenimiento de Cuotas &gt; Nuevo</strong></p>
-<form id="form1" name="form1" method="post" action="CuotaServletListar?paramOpcion=insertar" onsubmit="validar()" name="f1">
+<form id="form1" name="form1" method="post" action="CuotaServlet?paramOpcion=insertar" onsubmit="validar()">
   <table width="100%" height="104" border="1" cellpadding="0" cellspacing="0">
     <tr>
       <td width="50%">Periodo a generar [YYYYMM]:</td>
       <td width="50%">
       	<label>
-        <input type="text" name="periodo" id="periodo" />
+        <input  type="number" name="periodo" id="periodo"  required autofocus value="<%=request.getAttribute("paramPeriodo") %>">
       </label></td>
     </tr>
     <tr>
       <td>Importe de Pago:</td>
       <td><label>
-        <input type="text" name="importepago" id="importepago" />
+        <input type="number" name="importepago" id="importepago" required autofocus />
       </label></td>
     </tr>
     <tr>
       <td>Id de Vivienda:</td>
       <td><label>
-        <!--<input type="" name="idvivienda" id="idvivienda" />-->
-        
+       
         <%@page import="java.util.*, com.upc.condominio.modelo.Vivienda" %>
-	    <select name="slcvivienda" id="slcvivienda">
-      
-        <% List<Vivienda> listavivienda=(List<Vivienda>)request.getSession().getAttribute("prmlistaVivienda");
+	    <select name="slcvivienda" id="slcvivienda"  required autofocus>
+      		<option></option>
+        <%
+        Collection<Vivienda> listavivienda = (ArrayList<Vivienda>)request.getAttribute("prmlistaVivienda");
 		if(listavivienda!=null)			               
-			for(Vivienda vivienda:listavivienda){%> 
-				<option value="<%=String.format("", vivienda.getN_IdVivi())%>"><%=vivienda.getC_Ubicacion()%></option>
-		<%} %>>
+			for(Vivienda v:listavivienda){%> 
+				<option value="<%=v.getN_IdVivi()%>"><%="ID: "+v.getN_IdVivi()+" - N°: " +v.getC_Numero() + " - Ubic.:"+ v.getC_Ubicacion()%>
+				</option>
+		<%} %>
         </select>
-        
-        
       </label></td>
     </tr>
     <tr>
@@ -80,7 +79,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <input type="submit" value="Guardar"  class="btn btn-primary" />
+        <input id="btnGuardar" type="submit" value="Guardar"  class="btn btn-primary" />
       </td>
     </tr>
   </table> 
@@ -91,13 +90,11 @@
  <!-- Site footer -->
 	   <div class="footer">
 	   	 <p>&nbsp;</p>
-	     <p>&copy; Ocarril 2014 </p>
+	     <p>&copy; Orlando Carril 2014 </p>
 	   </div>
 	   
 	 </div> <!-- /container -->
     
-   
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
