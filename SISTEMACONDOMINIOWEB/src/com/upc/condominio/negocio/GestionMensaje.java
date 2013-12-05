@@ -10,7 +10,7 @@ import com.upc.condominio.modelo.Mensaje;
 
 public class GestionMensaje {
 
-	public Mensaje insertar(String titulo, String contenido, Date fec_pub)throws DAOExcepcion {
+	public Mensaje insertarMensaje(String titulo, String contenido, Date fec_pub)throws DAOExcepcion {
 		
 		MensajeDAO dao = new MensajeDAO();
 
@@ -19,10 +19,10 @@ public class GestionMensaje {
 		m.setC_conten(contenido);
 		m.setD_fecPub(fec_pub);
 		
-		return dao.insertar(m);
+		return dao.insertarMensaje(m);
 	}
 	
-	public Mensaje actualizar(int id, String titulo, String contenido, Date fec_pub)throws DAOExcepcion {
+	public Mensaje actualizarMensaje(int id, String titulo, String contenido, Date fec_pub)throws DAOExcepcion {
 		
 		MensajeDAO dao = new MensajeDAO();
 
@@ -32,18 +32,18 @@ public class GestionMensaje {
 		m.setC_conten(contenido);
 		m.setD_fecPub(fec_pub);
 		
-		return dao.actualizar(m);
+		return dao.actualizarMensaje(m);
 	}
 
-	public void eliminar(int id_mensaje) throws DAOExcepcion {
+	public void eliminarMensaje(int id_mensaje) throws DAOExcepcion {
 	
 		MensajeDAO dao = new MensajeDAO();
-		dao.eliminar(id_mensaje);
+		dao.eliminarMensaje(id_mensaje);
 	
 }
 	
-	public Collection<Mensaje> listar(int x) throws DAOExcepcion{
+	public Collection<Mensaje> listarMensajeResidente(int x) throws DAOExcepcion{
 		MensajeDAO mensajeDao = new MensajeDAO();
-		return mensajeDao.listar(x);
+		return mensajeDao.listarMensajeResidente(x);
 	}
 }

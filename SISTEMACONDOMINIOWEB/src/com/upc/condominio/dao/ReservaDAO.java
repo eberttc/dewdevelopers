@@ -53,16 +53,16 @@ public class ReservaDAO extends BaseDAO{
 	public Collection<Horario> listarHorariosDisponibles(Date fecha, int idEspacio) throws DAOExcepcion{
 		Collection<Horario> cr = new ArrayList<Horario>();
 		Connection con=null;
-		PreparedStatement stmt = null;
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		int aux = 0;
 		try {
 			con = ConexionBD.obtenerConexion();
 			String sql = "CALL ListarHorariosDisponibles(?,?);";
-			stmt = con.prepareCall(sql);
-			stmt.setDate(1, fecha);
-			stmt.setInt(2, idEspacio);
-			rs = stmt.executeQuery();
+			cs = con.prepareCall(sql);
+			cs.setDate(1, fecha);
+			cs.setInt(2, idEspacio);
+			rs = cs.executeQuery();
 			
 			while (rs.next()) {
 				Horario h = new Horario();
@@ -77,7 +77,7 @@ public class ReservaDAO extends BaseDAO{
 			throw new DAOExcepcion(e.getMessage());
 		}finally{
 			this.cerrarResultSet(rs);
-			this.cerrarStatement(stmt);
+			this.cerrarStatement(cs);
 			this.cerrarConexion(con);
 			
 		}
