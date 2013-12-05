@@ -37,7 +37,7 @@ public class ResidenteDAO extends BaseDAO {
 				//
 				stmt.setString(5, residente.getCorreo());
 				stmt.setString(6, residente.getClave());
-				stmt.setString(7, "1");
+				stmt.setString(7, "S");
 				
 				
 				
@@ -77,7 +77,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 			String query =	"SELECT COUNT(*) as cantidad FROM RESIDENTES R " +
-							"WHERE R.N_TipDoc = ? AND R.C_NumDoc = ? AND C_ESTREG='1'";
+							"WHERE R.N_TipDoc = ? AND R.C_NumDoc = ? AND C_ESTREG='S'";
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, p_nTi_Doc);
@@ -107,7 +107,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 			String query =	"SELECT COUNT(*) as cantidad FROM RESIDENTES R " +
-							"WHERE R.C_Correo = ? AND C_ESTREG='1'";
+							"WHERE R.C_Correo = ? AND C_ESTREG='S'";
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, p_vCorreo);
@@ -136,7 +136,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 				String query =	"SELECT R.N_IdRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
-								"WHERE R.C_NomRes LIKE ? AND C_ESTREG='1'";
+								"WHERE R.C_NomRes LIKE ? AND C_ESTREG='S'";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setString(1, "%" + nombre + "%");
@@ -177,7 +177,7 @@ public class ResidenteDAO extends BaseDAO {
 		
 		try {
 				String query =	"SELECT R.N_IdRes, R.C_NomRes, R.N_TipDoc, R.C_NumDoc, R.D_FecNac, R.C_Correo FROM RESIDENTES R " +
-								"WHERE R.N_IdRes = ? AND C_ESTREG='1'";
+								"WHERE R.N_IdRes = ? AND C_ESTREG='S'";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idResidente);
