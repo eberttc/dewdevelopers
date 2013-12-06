@@ -11,12 +11,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+	<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
+ 	 	 	    
+    <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
+   
   </head>
 
   <body>
@@ -46,13 +44,7 @@
    
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap-3.0.0.js"></script>
+    
   </body>
 </html>
