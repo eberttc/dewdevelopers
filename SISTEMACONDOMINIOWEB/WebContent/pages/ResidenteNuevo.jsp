@@ -30,7 +30,7 @@
 
 	
 	
-	<jsp:include page="/pages/header1.jsp" />
+	<jsp:include page="/pages/header.jsp" />
 
 	<div>	
 	<br>

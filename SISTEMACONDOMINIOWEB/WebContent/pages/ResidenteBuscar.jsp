@@ -23,7 +23,7 @@
  
 <body>
 
-	<jsp:include page="/pages/header1.jsp" />
+	<jsp:include page="/pages/header.jsp" />
 	
 	<div>
 	
@@ -32,7 +32,7 @@
 	</fieldset>
 		
 	<fieldset class="form-horizontal well">
-	 	<form id="form1" name="form1" method="post" action="ResidenteServlet?Param=buscar">
+	 	<form id="form1" name="form1" method="post" action="<%=request.getContextPath()%>/ResidenteServlet?Param=buscar" target="form1">
 		  <p>Buscar Residente: 
 		    <label>
 		    <input type="text" name="nombre" id="nombre" placeholder="Dejar en blanco si desea listar todos..." />
