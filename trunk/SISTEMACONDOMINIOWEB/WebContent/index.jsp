@@ -12,7 +12,7 @@
     <title>Trastienda</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
 
 	<style type="text/css">
 		body {
@@ -91,9 +91,9 @@
     </div> <!-- /container -->
 
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-1.10.2.js"></script>
+    <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap-3.0.0.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
       <script type="text/javascript">
    	   
     
