@@ -11,8 +11,13 @@
 
     <title>Condominio</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
+  
+   <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
+ 	 
+ 	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
+ 	 <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 	  	 	    
+     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
+    
 
 	<style type="text/css">
 		body {
@@ -90,11 +95,8 @@
 	  <c:remove var="MENSAJE" scope="request" />
     </div> <!-- /container -->
 
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
-      <script type="text/javascript">
+  
+ <script type="text/javascript">
    	   
     
     $(document).ready(function () {
