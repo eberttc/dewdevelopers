@@ -2,6 +2,7 @@ package com.upc.condominio.servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.negocio.GestionResidente;
 import com.upc.condominio.negocio.GestionVisitantes;
 import com.upc.condominio.util.FormatoFecha;
 
@@ -27,7 +30,27 @@ public class VisitanteServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+
+			try {
+				
+				
+			GestionResidente negocio=new GestionResidente();
+			
+			List<Residente> listaResidente = negocio.buscarPorNombre("");
+            request.setAttribute("residentes", listaResidente);
+           
+			//redireccionas al archivo del fomrulario
+			RequestDispatcher rd = request.getRequestDispatcher("/pages/CreaVisitante.jsp?aux=");
+			rd.forward(request, response);
+			
+		} catch (DAOExcepcion e) {
+			System.out.println(e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("/pages/CreaVisitante.jsp?aux=n");
+			rd.forward(request, response);
+		
+	}
+
 	}
 
 
