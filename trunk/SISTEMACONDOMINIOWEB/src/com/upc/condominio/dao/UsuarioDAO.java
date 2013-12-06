@@ -93,7 +93,7 @@ public class UsuarioDAO extends BaseDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		ArrayList<Menu> listadoMenu=new ArrayList<>();
+		ArrayList<Menu> listadoMenu=new ArrayList<Menu>();
 		
 			
 		try {
