@@ -32,7 +32,7 @@
 	</fieldset>
 		
 	<fieldset class="form-horizontal well">
-	 	<form id="form1" name="form1" method="post" action="<%=request.getContextPath()%>/ResidenteServlet?Param=buscar" target="form1">
+	 	<form id="form1" name="form1" method="post" action="<%=request.getContextPath()%>/ResidenteServlet?Param=buscar">
 		  <p>Buscar Residente: 
 		    <label>
 		    <input type="text" name="nombre" id="nombre" placeholder="Dejar en blanco si desea listar todos..." />
