@@ -49,7 +49,7 @@ public class GestionMensajeTest {
 	
 		GestionMensaje negocio = new GestionMensaje();
 		try {
-			negocio.eliminarMensaje(4);
+			negocio.eliminarMensaje(8);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la Eliminación: "+e.getMessage());
 		}

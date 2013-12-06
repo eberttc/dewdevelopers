@@ -27,14 +27,15 @@ try {
 }
 
 oAjax = creaAjax();
+
 function validarFechaMenorActual(fecha){
 	var x=new Date(fecha);
-	x.setFullYear(x.getFullYear(),x.getMonth(),x.getUTCDate());
+	x.setFullYear(x.getFullYear(),x.getMonth(),x.getUTCDate()+1);
 	var today = new Date();
 	
 	if (x<today){
 		document.getElementById("div_resultado").innerHTML = 
-		"<div class=\"alert alert-warning\"><button type=\"button\" class=\"close\"	data-dismiss=\"alert\">&times;</button><b>ERROR!</b> No puede Seleccionar una fecha inferior a la de hoy.</div>"
+		"<div class=\"alert alert-danger\"><button type=\"button\" class=\"close\"	data-dismiss=\"alert\">&times;</button><b>ERROR!</b> No puede Seleccionar una fecha inferior a la de hoy.</div>"
 		document.getElementById("fc_espacioComun").selectedIndex = 0;
 		document.getElementById("fc_espacioComun").disabled = true;
 	}else{

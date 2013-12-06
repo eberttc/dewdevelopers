@@ -5,10 +5,16 @@
 <html>
   
   <head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Reserva Espacio comun</title>    
-  <meta name="viewport" content="width=device-width">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  	<meta name="viewport" content="width=device-width">
+   	<link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
+ 	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
+ 	 <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 	  	 	    
+     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
     <style type="text/css">
       body {
         padding-bottom: 20px;
@@ -16,13 +22,13 @@
     </style>
     <script language="javascript" src="../js/ajax.js"></script>
     <script type="text/javascript">
-    
+     
    
     </script>
   </head>
   
   <body>
-  <div><%@ include file="header.jsp" %></div>
+  <jsp:include page="/pages/header1.jsp" />
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
@@ -39,7 +45,7 @@
             onchange="validarFechaMenorActual(this.value);"
             onchange="listarHorarioDisponible('listarHorarios.jsp','&fecha='+this.value,'&ec='+document.getElementById('fc_espacioComun').value,'div_resultado')">
             </div>
-            <div class="col-md-8">Espacio:
+            <div class="col-md-4">Espacio:
               <select class="form-control" id="fc_espacioComun" name="fc_espacioComun" required="required"
               onchange="listarHorarioDisponible('listarHorarios.jsp','&ec='+this.value,'&fecha='+document.getElementById('fc_fechaReserva').value,'div_resultado')">
 				<option></option>
@@ -56,7 +62,7 @@
 						    } 
 						 %>
               </select>
-            <INPUT type="hidden" name="idResidente" value="<%=request.getParameter("idResidente") %>">
+              <input type="hidden" id="idResidente" name="idResidente" value="${sessionScope.USUARIO_ACTUAL.idUsuario}">
             </div>
             <table class="table">
               <thead>
@@ -98,7 +104,7 @@
            </div>
            <p>
             <div class="col-md-4">
-              <input type="submit" value="ENVIAR">
+              <input type="submit" value="ENVIAR" onclick="ver();">
             </div>
             
           </form>
@@ -117,6 +123,7 @@
       </footer>
     </div>
     <!-- /container -->
+    
   </body>
 
 </html>

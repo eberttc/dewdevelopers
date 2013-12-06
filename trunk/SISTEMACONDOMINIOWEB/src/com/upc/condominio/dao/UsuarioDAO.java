@@ -23,8 +23,8 @@ public class UsuarioDAO extends BaseDAO {
 		String query1 = "select N_IdRes, C_Correo, C_Clave, C_NomRes"			
 						+ " from residentes where C_Correo=? and C_Clave=?";
 		
-		String query2 = "select N_IdUsua, C_Clave, C_NomUsua"			
-			        	+ " from usuariosistema where N_IdUsua=? and C_Clave=?";
+		String query2 = "select N_IdUsua, C_Correo,C_Clave, C_NomUsua"			
+			        	+ " from usuariosistema where C_Correo=? and C_Clave=?";
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -52,8 +52,8 @@ public class UsuarioDAO extends BaseDAO {
 					vo.setNombres(rs.getString("C_NomRes"));									
 					vo.setTipoUsuario(tipoUsuraio);
 				}else{
-					
 					vo.setIdUsuario(rs.getInt("N_IdUsua"));
+					vo.setCorreo(rs.getString("C_Correo"));
 					vo.setClave(rs.getString("C_Clave"));
 					vo.setNombres(rs.getString("C_NomUsua"));									
 					vo.setTipoUsuario(tipoUsuraio);

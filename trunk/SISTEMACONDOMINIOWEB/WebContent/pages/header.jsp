@@ -66,14 +66,14 @@
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reservas <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
-	              <li><a href="pages/ingresarReserva.jsp?idResidente=${sessionScope.USUARIO_ACTUAL.idUsuario}">Espacio comun</a></li>	              
+	              <li><a href="<%=request.getContextPath()%>/pages/ingresarReserva.jsp">Espacio comun</a></li>	              
 	                           	             	             
 	            </ul>
 	          </li>
 	          <li class="dropdown">
 	            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mensajeria <b class="caret"></b></a>
 	            <ul class="dropdown-menu">	             
-	              <li><a href="#">Registrar Mensajes</a></li>	              
+	              <li><a href="<%=request.getContextPath()%>/pages/ingresarMensaje.jsp">Registrar Mensajes</a></li>	              
 	              <li><a href="MensajeServlet?CodUsuario=${sessionScope.USUARIO_ACTUAL.idUsuario}">Ver Mensajes</a></li>	              
 	                           	             	             
 	            </ul>

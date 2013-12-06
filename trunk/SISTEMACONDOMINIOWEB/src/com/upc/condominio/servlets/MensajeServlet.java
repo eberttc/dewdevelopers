@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Mensaje;
+import com.upc.condominio.modelo.Usuario;
 import com.upc.condominio.negocio.GestionMensaje;
 import com.upc.condominio.util.FormatoFecha;
 
@@ -29,9 +31,12 @@ public class MensajeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int cod = Integer.parseInt(request.getParameter("CodUsuario"));
+		//int cod = Integer.parseInt(request.getParameter("CodUsuario"));
 		GestionMensaje negocio = new GestionMensaje();
 		try {
+			HttpSession session=request.getSession();
+			Usuario usuario= (Usuario) session.getAttribute("USUARIO_ACTUAL");//listo ahora ya tienes al usuario para que onbtengas en codigo
+			int cod = usuario.getIdUsuario();
 			Collection<Mensaje> listado = negocio.listarMensajeResidente(cod);
 			request.setAttribute("Mensajes", listado);
 			RequestDispatcher rd = request.getRequestDispatcher("/pages/ListarMensajes.jsp");
@@ -54,6 +59,7 @@ public class MensajeServlet extends HttpServlet {
 			GestionMensaje negocio = new  GestionMensaje();
 			switch (aux){
 			case "in":
+				System.out.print("IN");
 					negocio.insertarMensaje(asunto, contenido, fecha);
 					break;
 			case "up":
@@ -63,8 +69,10 @@ public class MensajeServlet extends HttpServlet {
 				break;
 			
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()+"/pages/ingresarMensaje.jsp?aux=y");
+		} catch (DAOExcepcion e) {
+			System.out.println("ERROR: "+e.getMessage());
+			response.sendRedirect(request.getContextPath()+"/pages/ingresarMensaje.jsp?aux=n");
 		}
 		
 	}
