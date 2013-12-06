@@ -10,7 +10,7 @@
 <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<jsp:include page="/pages/header1.jsp" />
+<jsp:include page="/pages/header.jsp" />
 <h3>BANDEJA DE ENTRADA</h3></h3>
         <p></p>
         <table class="table" >
