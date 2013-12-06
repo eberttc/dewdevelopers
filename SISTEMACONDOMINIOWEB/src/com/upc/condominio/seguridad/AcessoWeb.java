@@ -118,7 +118,7 @@ public class AcessoWeb implements Filter {
 		
 		Matcher matcher = pattern.matcher(call);
 
-		if (matcher.matches()) {
+		if (matcher.find()) {
 			
 			return true;
 		}
