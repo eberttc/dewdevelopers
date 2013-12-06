@@ -56,7 +56,7 @@ public class ConsultaQuejasServlet extends HttpServlet {
 		GestionQueja queja=new GestionQueja();
 		try{
 			//trae todas las quejas
-			q=(List<Queja>) queja.listarQueja("%");				 								
+			q=(List<Queja>) queja.listarQuejaTipo("%");				 								
 		}catch(Exception e){
 		
 			

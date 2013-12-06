@@ -39,12 +39,12 @@ public class GestionQueja {
 			return queja;
 		}
 */
-		public Collection<Queja> listarQueja(String filtro) throws DAOExcepcion{
+		public Collection<Queja> listarQuejaTipo(String filtro) throws DAOExcepcion{
 			
 			QuejaDAO quejaDao=new  QuejaDAO();	
 			Collection<Queja> c = new ArrayList<Queja>();
 			
-			return quejaDao.listar(filtro);
+			return quejaDao.listarQuejaTipo(filtro);
 		
 		}
 /*		public Collection<Queja> listarQuejaPorTipo() throws DAOExcepcion{

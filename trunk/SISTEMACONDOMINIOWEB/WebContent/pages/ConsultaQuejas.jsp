@@ -92,7 +92,7 @@ $(document).ready(function() {
         </div>
         <div class="col-md-3">
              <input type="button" class="btn btn-primary" value="Buscar"
-              onclick="filtrarQueja('filtroQuejas.jsp','&filtro= ','div_resultado')"/>
+              onclick="filtrarQueja('filtroQuejas.jsp','&filtro=e','div_resultado')"/>
         </div>
       </div>
       <hr>
@@ -100,21 +100,14 @@ $(document).ready(function() {
         <thead>
           <tr class="success">
             <th>ID Queja</th>
-            <th>ID Residente</th>
+            <th>Residente</th>
+            <th>Tipo Queja</th>
             <th>Motivo Queja</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody id="div_resultado">
-          <c:forEach var="bean" items="${requestScope.lista}" varStatus="i">
-          <tr>
-          	<td>${bean.intIdQueja}</td>
-          	<td>${bean.intIdResidente}</td>
-          	<td>${bean.strMotivoQueja}</td>
-          	<td>${bean.strEstadoQueja}</td>
-          </tr>
-          </c:forEach>
-          <div ></div>
+          
         </tbody>
       </table>  
       <footer></footer>

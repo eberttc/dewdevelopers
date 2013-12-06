@@ -31,7 +31,7 @@ public class GestionQuejaTest {
 		GestionQueja negocio = new GestionQueja();
 
 		try {
-			Collection<Queja> listado = negocio.listarQueja("lev");
+			Collection<Queja> listado = negocio.listarQuejaTipo("lev");
 			
 
 			System.out.println("-------------------------------------------------------------------------");
@@ -40,7 +40,8 @@ public class GestionQuejaTest {
 			
 			for (Queja queja : listado) {
 				System.out.print("   "+String.format("%1$-10s",queja.getIntIdQueja()));
-				System.out.print(String.format("%1$-10s",queja.getIntIdResidente()));
+				System.out.print(String.format("%1$-10s",queja.getStrNombreResidente()));
+				System.out.print(String.format("%1$-10s",queja.getStrTipoQueja()));
 				System.out.print(String.format("%1$-40s",queja.getStrMotivoQueja()));
 				System.out.print(String.format("%1$-100s",queja.getStrEstadoQueja()));
 				System.out.println(" ");
