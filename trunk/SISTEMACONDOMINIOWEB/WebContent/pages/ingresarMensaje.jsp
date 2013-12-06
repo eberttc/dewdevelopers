@@ -10,6 +10,7 @@
  	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
  	 <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 	  	 	    
      <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
+     <script language="javascript" src="<%=request.getContextPath()%>/js/ajax.js"></script>
   </head>
   
   <body>
@@ -37,7 +38,8 @@
         <div class="form-group">
           <label for="inputfecha" class="col-sm-2 control-label">Fecha</label>
           <div class="col-sm-4">
-            <input type="date" class="form-control" name="fc_fecha" placeholder="Asunto" id="inputfecha" required="required">
+            <input type="date" class="form-control" name="fc_fecha" placeholder="Asunto" id="inputfecha" required="required"
+            onchange="validarFechaMenorActual(this.value);">
           </div>
         </div>
         <div class="form-group">

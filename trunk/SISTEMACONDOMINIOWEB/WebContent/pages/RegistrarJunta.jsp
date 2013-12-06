@@ -9,20 +9,12 @@
 <title>RegistrarJunta</title>
 
  	<!-- Bootstrap core CSS -->
+ 	
      <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
- 	 
  	 <script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script> 	 
  	 <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 	  	 	    
      <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
-     
-     <style type="text/css">
-      body {
-        padding-top: 50px;
-        padding-bottom: 20px;
-      }                                                                                          
-	
 
-    </style>
   
   
     <script>
