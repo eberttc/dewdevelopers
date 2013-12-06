@@ -80,8 +80,10 @@ public class MensajeDAO  extends BaseDAO{
 			cs.setInt(1, id_mensaje);
 			int i = cs.executeUpdate();
 			if(i != 1){
-				throw new SQLException("El Mensaje no se pudo Eliminar por que ya fue comunicado a los residentes "+i);
-			}else{System.out.println("El registro se elimninó con éxito");}
+				throw new SQLException("El Mensaje no se pudo Eliminar"+i);
+			}else{
+				System.out.println("El registro se elimninó con éxito "+i);
+			}
 			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());

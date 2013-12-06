@@ -2,6 +2,7 @@ package com.upc.condominio.servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import org.apache.jasper.tagplugins.jstl.core.Out;
 import sun.misc.Perf.GetPerfAction;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
+import com.upc.condominio.modelo.Horario;
 import com.upc.condominio.negocio.GestionReserva;
 import com.upc.condominio.util.FormatoFecha;
 
@@ -33,6 +35,7 @@ public class ReservaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//response.sendRedirect(request.getContextPath()+"/pages/ingresarReserva.jsp?aux=0");
+
 	}
 
 	
@@ -42,7 +45,7 @@ public class ReservaServlet extends HttpServlet {
 		int idEspacio = Integer.parseInt(request.getParameter("fc_espacioComun"));
 		int idResidente = Integer.parseInt(request.getParameter("idResidente"));
 		int idHorario = Integer.parseInt(request.getParameter("fc_horario"));
-		//System.out.print("valors  12125"+idEspacio+"---"+idHorario+"**"+fecha);
+		System.out.print("valors  12125"+idEspacio+"---"+idHorario+"**"+fecha+" "+idResidente);
 		try {
 			GestionReserva gr = new GestionReserva();
 			gr.insertar(fecha, idEspacio, idResidente, idHorario);
