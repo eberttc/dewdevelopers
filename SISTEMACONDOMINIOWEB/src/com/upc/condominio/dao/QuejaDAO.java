@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Queja;
 import com.upc.condominio.util.ConexionBD;
@@ -23,7 +21,7 @@ public class QuejaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_CODRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
+				String query =	"INSERT INTO QUEJAS (N_IDQUEJA, N_IDRES, C_TIPQUE, C_MOTIVO, D_FECQUE, C_ESTADO) " +
 								"VALUES (?,?,?,?,?,?)";
 				
 				con = ConexionBD.obtenerConexion();
@@ -188,7 +186,7 @@ public class QuejaDAO extends BaseDAO {
 			while (rs.next()) {
 				Queja q = new Queja();
 				q.setIntIdQueja(rs.getInt("N_IdQueja"));
-				q.setIntIdResidente(rs.getInt("N_CodRes"));
+				q.setIntIdResidente(rs.getInt("N_IdRes"));
 				q.setStrMotivoQueja(rs.getString(4));
 				q.setStrEstadoQueja(rs.getString(6));
 				c.add(q);
@@ -220,7 +218,7 @@ public class QuejaDAO extends BaseDAO {
 			while (rs.next()) {
 				Queja q = new Queja();
 				q.setIntIdQueja(rs.getInt("N_IdQueja"));
-				q.setIntIdResidente(rs.getInt("N_CodRes"));
+				q.setIntIdResidente(rs.getInt("N_IdRes"));
 				q.setStrMotivoQueja(rs.getString(4));
 				q.setStrEstadoQueja(rs.getString(6));
 				c.add(q);
