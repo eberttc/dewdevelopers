@@ -78,7 +78,7 @@ $(document).ready(function() {
       <hr>
       <div class="row">
         <div class="col-md-3" >
-          <h4>Tipo de Queja</h4>
+          <h4>Residente</h4>
         </div>
         <div class="col-md-3">
           <input type="text" id="txtcodigo" name="codigo" class="form-control" 
