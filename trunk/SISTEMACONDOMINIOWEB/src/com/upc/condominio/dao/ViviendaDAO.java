@@ -139,6 +139,55 @@ public class ViviendaDAO extends BaseDAO {
 		return v_nCantidad;
 	}
 	
+	public List<Vivienda> listar(int idVivienda) throws DAOExcepcion {
+	
+	
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Vivienda> listado=new ArrayList<Vivienda>();
+		
+		try {
+				String query =	"SELECT V.N_IdVivi, V.C_NroEdi, V.C_NroDpto, V.N_NumMet, V.C_TipViv, R.N_idRes, R.C_NomRes " +
+								"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_idRes = R.N_idRes " +
+								"WHERE V.N_IdVivi like ? AND V.C_EstReg = 1";
+				con = ConexionBD.obtenerConexion();
+				stmt = con.prepareStatement(query);
+				if(idVivienda==0)
+					stmt.setString(1, "%%");
+				else
+					stmt.setString(1, "%"+idVivienda+"%");
+			
+				rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+					Vivienda vivienda = new Vivienda();
+					Residente residente = new Residente();
+					residente.setIdResidente(rs.getInt("N_idRes"));
+					residente.setNombreResidente(rs.getString("C_NomRes"));
+					
+					vivienda.setResidente(residente);
+					vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
+					vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+					vivienda.setC_Numero(rs.getString("C_NroDpto"));
+					vivienda.setN_Metraje(rs.getDouble("N_NumMet"));
+					vivienda.setC_TipViv(rs.getString("C_TipViv"));
+					listado.add(vivienda);
+					
+			}
+		} catch (SQLException e) {
+			
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+		} finally {
+				this.cerrarResultSet(rs);
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+		}
+		return listado;
+	}
+	
+
 	public Vivienda obtener(int idVivienda) throws DAOExcepcion {
 	
 		Vivienda vivienda = new Vivienda();
@@ -148,9 +197,9 @@ public class ViviendaDAO extends BaseDAO {
 		ResultSet rs = null;
 		
 		try {
-				String query =	"SELECT V.N_IdVivi, V.C_Ubicacion, V.C_Numero, V.N_Metraje, V.C_TipViv, R.N_CodRes, R.C_NomRes " +
-								"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_CodRes = R.N_CodRes " +
-								"WHERE V.N_IdVivi = ? AND V.C_EstReg = 1";
+			   String query =	"SELECT V.N_IdVivi, V.C_NroEdi, V.C_NroDpto, V.N_NumMet, V.C_TipViv, R.N_idRes, R.C_NomRes " +
+					"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_idRes = R.N_idRes " +
+					"WHERE V.N_IdVivi = ? AND V.C_EstReg = 1";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idVivienda);
@@ -158,14 +207,14 @@ public class ViviendaDAO extends BaseDAO {
 				
 				if (rs.next()) {
 					
-					residente.setIdResidente(rs.getInt("N_CodRes"));
+					residente.setIdResidente(rs.getInt("N_idRes"));
 					residente.setNombreResidente(rs.getString("C_NomRes"));
 					
 					vivienda.setResidente(residente);
 					vivienda.setN_IdVivi(rs.getInt("N_IdVivi"));
-					vivienda.setC_Ubicacion(rs.getString("C_Ubicacion"));
-					vivienda.setC_Numero(rs.getString("C_Numero"));
-					vivienda.setN_Metraje(rs.getDouble("N_Metraje"));
+					vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+					vivienda.setC_Numero(rs.getString("C_NroDpto"));
+					vivienda.setN_Metraje(rs.getDouble("N_NumMet"));
 					vivienda.setC_TipViv(rs.getString("C_TipViv"));
 					
 			}
@@ -188,7 +237,7 @@ public class ViviendaDAO extends BaseDAO {
 		
 		try {
 			
-				String query =	"UPDATE VIVIENDAS SET C_Ubicacion=?, C_Numero=?, N_Metraje=?, C_TipViv=?, N_CodRes=? " +
+				String query =	"UPDATE VIVIENDAS SET C_NroEdi=?, C_NroDpto=?, N_NumMet=?, C_TipViv=?, N_IdRes=? " +
 								"WHERE N_IdVivi=?";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
