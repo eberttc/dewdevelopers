@@ -11,24 +11,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js" type="text/javascript"></script>
   </head>
-  <script>
-  
-  		function validar(){
-  			
-  			
-  			
-  			
-  			
-  		}
-  
-  </script>
+ 
 <body>
 
-  	<jsp:include page="/pages/header1.jsp" />
+  	<jsp:include page="/pages/header.jsp" />
     <form method="post" action="<%=request.getContextPath()%>/VisitanteServlet">
       
-      <div class="container">
-        <table class="table">
+      <div class="container">      
+        <table class="table">        
           <tbody>
             <tr>
               <td>DNI Visitante:</td>
