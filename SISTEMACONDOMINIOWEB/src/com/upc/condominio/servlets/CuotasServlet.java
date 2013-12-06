@@ -52,7 +52,7 @@ public class CuotasServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		Usuario usuario=(Usuario) session.getAttribute("USUARIO_ACTUAL");
 		
-		String page="/pages/principal.jsp";
+		String page="/pages/ConsultaMorosos.jsp";
 		List<Cuota> c=new ArrayList<Cuota>();
 		GestionCuota cuota=new GestionCuota();
 		try{
