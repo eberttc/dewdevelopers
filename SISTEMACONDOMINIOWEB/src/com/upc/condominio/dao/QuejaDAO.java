@@ -100,7 +100,7 @@ public class QuejaDAO extends BaseDAO {
 		}
 		return lista;
 	} 	
-
+/*
 	public Queja obtener(int idQueja) throws DAOExcepcion {
 		
 		Queja queja = new Queja();
@@ -172,7 +172,7 @@ public class QuejaDAO extends BaseDAO {
 		return queja;
 	}
 */
-	public Collection<Queja> listar(String filtro) throws DAOExcepcion {
+	public Collection<Queja> listarQuejaTipo(String filtro) throws DAOExcepcion {
 		Collection<Queja> c = new ArrayList<Queja>();
 		Connection con = null;
 		CallableStatement cs = null;
@@ -185,10 +185,11 @@ public class QuejaDAO extends BaseDAO {
 			rs = cs.executeQuery();
 			while (rs.next()) {
 				Queja q = new Queja();
-				q.setIntIdQueja(rs.getInt("N_IdQueja"));
-				q.setIntIdResidente(rs.getInt("N_IdRes"));
+				q.setIntIdQueja(rs.getInt(1));
+				q.setStrNombreResidente(rs.getString(2));
+				q.setStrTipoQueja(rs.getString(3));
 				q.setStrMotivoQueja(rs.getString(4));
-				q.setStrEstadoQueja(rs.getString(6));
+				q.setStrEstadoQueja(rs.getString(5));
 				c.add(q);
 			}
 

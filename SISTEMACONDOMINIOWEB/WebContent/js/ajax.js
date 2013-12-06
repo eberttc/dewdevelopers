@@ -67,21 +67,23 @@ function listarHorarioDisponibleRespuesta() {
 
 }
 
-function fAjax(archivo,vars,divid){
+function filtrarQueja(archivo,vars,divid){
 	myRand = parseInt(Math.random()*999999999999999);
 	var modurl = archivo +"?rand=" + myRand + vars; 
 	oAjax.open("GET", modurl, true);
 	mydiv = divid;
-	oAjax.onreadystatechange = rAjax;
+	oAjax.onreadystatechange = r_filtrarQueja;
 	oAjax.send(null);
 }
 
-function rAjax() {
+function r_filtrarQueja() {
 	if (oAjax.readyState == 4) {
 		if(oAjax.status == 200) {
 			var miTexto = oAjax.responseText;
 			document.getElementById(mydiv).innerHTML = (miTexto);
 		}
+	}else{
+		document.getElementById(mydiv).innerHTML = "<tr><td colspan=\"4\" class=\"alert alert-warning\">Esperando...</td></tr>";
 	}
 }
 /**----------------------*/

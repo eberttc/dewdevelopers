@@ -44,21 +44,20 @@
             <tr>
               <td>Motivo:</td>
               <td>
-                <input class="form-control" type="text" id="txtMotivo" name="txtMotivo" required autofocus>
+                <input class="form-control" type="text" id="txtMotivo" name="txtMotivo" required>
               </td>
             </tr>
             <tr>
               <td>Detalle de la Queja:</td>
               <td>
-                <textarea class="form-control" id="txtDetalle" name="txtDetalle" required autofocus></textarea>
+                <textarea class="form-control" id="txtDetalle" name="txtDetalle" required></textarea>
               </td>
             </tr>
             <tr>
               <td></td>
               <td>
                 <div class="btn-group">
-                  <input id="botonEnviar" type="submit" value="ENVIAR"></a>
-                   <input id="botonCancela" type="button" value="CANCELAR"></a>
+                  <input class="btn btn-default" id="botonEnviar" type="submit" value="ENVIAR">
                 </div>
                 <div>
                 <%
@@ -79,7 +78,6 @@
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 			            <b>ERROR!</b> No se pudo insertar el registro.
 			          </div>
-            		
             	<%}%>
                 </div>
               </td>
