@@ -114,15 +114,21 @@ public class AcessoWeb implements Filter {
 		String caller[] = httpReq.getRequestURI().split("/");
 		// Lo siguiente devuelve true
 		Pattern pattern = Pattern.compile("(.css||.js|.html|.htm|.gif|.jpg|.png)");
+		
+		
 		String call = caller[caller.length - 1];
 		
-		Matcher matcher = pattern.matcher(call);
+		/*Matcher matcher = pattern.matcher(call);
 
 		if (matcher.find()) {
 			
 			return true;
-		}
-
+		}*/
+		if ( call.indexOf(".css") > 0||call.indexOf(".js") > 0||call.indexOf(".html") > 0||call.indexOf(".gif") > 0 || call.indexOf(".png") > 0 || call.indexOf(".jpg") > 0){
+			return true;
+	    }
+	   
+	  
 		
 		String pagInicio[] = {"SISTEMACONDOMINIOWEB","index.jsp","LoginServlet"};
 		//si no encuentra retorna false 
