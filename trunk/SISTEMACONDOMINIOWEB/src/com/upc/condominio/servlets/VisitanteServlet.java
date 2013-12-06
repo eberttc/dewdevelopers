@@ -52,7 +52,7 @@ public class VisitanteServlet extends HttpServlet {
 			//redireccionas al archivo del fomrulario
 			RequestDispatcher rd = request.getRequestDispatcher("/pages/CreaVisitante.jsp?aux=y");
 			rd.forward(request, response);
-
+			
 		} catch (DAOExcepcion e) {
 			System.out.println(e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("/pages/CreaVisitante.jsp?aux=n");

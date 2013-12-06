@@ -25,7 +25,7 @@
               </td>
             </tr>
             <tr>
-              <td>Nombre Visitante:</td>
+              
               <td>
                 <input class="form-control" type="text" id="txtNombreVisitante" name="txtNombreVisitante" required autofocus>
               </td>
@@ -71,7 +71,7 @@
           </tbody>
         </table>
       </div>
-    </form>
+    </form><td>Nombre Visitante:</td>
 
 
 </body>
