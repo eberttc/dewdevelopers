@@ -51,6 +51,8 @@ public class ResidenteServlet extends HttpServlet {
 					if (param.equals("eliminar")) {
 						
 				        residenteCore.eliminar(Integer.parseInt(idResidente));
+				        List<Residente> listaResidente = residenteCore.buscarPorNombre("");
+		                request.setAttribute("residentes", listaResidente);
 				        paginaDestino = "/pages/ResidenteBuscar.jsp";
 					
 					}else if (param.equals("editar")) {
@@ -129,7 +131,7 @@ public class ResidenteServlet extends HttpServlet {
 							request.setAttribute("txtFeNac",fechaNacimiento);
 							request.setAttribute("txtCorreo",correo);
 							request.setAttribute("txtNuDocumento",numeroDocumento);
-							request.setAttribute("vreturn", vReturn);
+						
 							mensaje="1";
 							paginaDestino = "/pages/ResidenteNuevo.jsp";
 						}
@@ -153,13 +155,21 @@ public class ResidenteServlet extends HttpServlet {
 						//residente.setClave(clave);
 						
 						vReturn = residenteCore.actualizar(residente);
+						if(vReturn.equals("RESIDENTE EDITADO EXITOSAMENTE.")){
+							paginaDestino = "/pages/Satisfactorio.jsp";
+						}else{
+							mensaje="1";
+							paginaDestino = "/pages/ResidenteEditar.jsp";
+						}
 						
-						paginaDestino = "/pages/Satisfactorio.jsp";
+						request.setAttribute("residente", residente);
+						
 					}else{
 						
 						paginaDestino = "/pages/ResidenteBuscar.jsp";
 					}
 					
+					request.setAttribute("vreturn", vReturn);
 					request.setAttribute("mensaje", mensaje);
 					RequestDispatcher rd = request.getRequestDispatcher(paginaDestino);
 		        	rd.forward(request, response);
