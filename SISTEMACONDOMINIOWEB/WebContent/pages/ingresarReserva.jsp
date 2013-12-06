@@ -20,7 +20,7 @@
         padding-bottom: 20px;
       }
     </style>
-    <script language="javascript" src="../js/ajax.js"></script>
+    <script language="javascript" src="<%=request.getContextPath()%>/js/ajax.js"></script>
     <script type="text/javascript">
      
    
@@ -104,7 +104,7 @@
            </div>
            <p>
             <div class="col-md-4">
-              <input type="submit" value="ENVIAR" onclick="ver();">
+              <input type="submit" class="btn btn-default" value="ENVIAR" onclick="ver();">
             </div>
             
           </form>

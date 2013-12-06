@@ -30,7 +30,7 @@ oAjax = creaAjax();
 
 function validarFechaMenorActual(fecha){
 	var x=new Date(fecha);
-	x.setFullYear(x.getFullYear(),x.getMonth(),x.getUTCDate()+1);
+	x.setFullYear(x.getFullYear(),x.getMonth(),x.getUTCDate());
 	var today = new Date();
 	
 	if (x<today){
@@ -43,6 +43,7 @@ function validarFechaMenorActual(fecha){
 		listarHorarioDisponible('listarHorarios.jsp','&fecha='+document.getElementById('fc_fechaReserva').value,'&ec='+document.getElementById('fc_espacioComun').value,'div_resultado')
 	}
 }
+
 function listarHorarioDisponible(archivo,ec,fecha,divid){
 	
 	//	alert(ec+fecha);
