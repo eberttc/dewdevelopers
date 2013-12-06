@@ -67,6 +67,15 @@ public class GestionVivienda {
         return vivienda;
 				
 	}
+	public List<Vivienda> obtenerPorId(int idVivienda) throws DAOExcepcion {
+		
+	
+			ViviendaDAO dao = new ViviendaDAO();
+			 return  dao.listar(idVivienda);
+		
+       
+				
+	}
 	
 	public List<Vivienda> listar() throws DAOExcepcion {
 		List<Vivienda> lista =null;
@@ -90,8 +99,8 @@ public class GestionVivienda {
 			Vivienda viviendaAux = new Vivienda();
 			viviendaAux = obtener(vivienda.getN_IdVivi());	
 			
-			if ((vivienda.getC_Ubicacion()==viviendaAux.getC_Ubicacion())&&(vivienda.getC_Numero().equals(viviendaAux.getC_Numero()))
-				&&(vivienda.getC_TipViv()==viviendaAux.getC_TipViv())){
+			if ((vivienda.getC_Ubicacion().equals(viviendaAux.getC_Ubicacion()))&&(vivienda.getC_Numero().equals(viviendaAux.getC_Numero()))
+				&&(vivienda.getC_TipViv().equals(viviendaAux.getC_TipViv()))){
 				v_vReturn = "OK";
 			}else{
 				v_vReturn = getExisteVivienda(vivienda);
