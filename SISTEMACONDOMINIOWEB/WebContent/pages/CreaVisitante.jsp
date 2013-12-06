@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -9,11 +11,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js" type="text/javascript"></script>
   </head>
+  <script>
   
+  		function validar(){
+  			
+  			
+  			
+  			
+  			
+  		}
+  
+  </script>
 <body>
 
-  	<jsp:include page="/pages/header.jsp" />
-    <form method="post" action="../VisitanteServlet">
+  	<jsp:include page="/pages/header1.jsp" />
+    <form method="post" action="<%=request.getContextPath()%>/VisitanteServlet">
       
       <div class="container">
         <table class="table">
@@ -21,11 +33,11 @@
             <tr>
               <td>DNI Visitante:</td>
               <td>
-                <input class="form-control" type="text" id="txtDNIVisitante" name="txtDNIVisitante" required autofocus>
+                <input class="form-control" type="number" id="txtDNIVisitante" name="txtDNIVisitante" required autofocus>
               </td>
             </tr>
             <tr>
-              
+              <td>Nombre Visitante:</td>
               <td>
                 <input class="form-control" type="text" id="txtNombreVisitante" name="txtNombreVisitante" required autofocus>
               </td>
@@ -34,9 +46,13 @@
               <td>Residente:</td>
               <td>
                 <select class="form-control" id="txtResidente" name="txtResidente">
-                  <option value="1">1 | Juan Lopez</option>
-                  <option value="2">2 | Carlos Gomez</option>
-                  <option value="3">3 | Karla Sifuentes</option>
+               	<c:forEach items="${requestScope.residentes}" var="residente" varStatus="i">
+					 <option value="<c:out value='${residente.idResidente}'/>"> 
+						 <c:out value='${residente.nombreResidente}'/> 
+					 </option>
+								
+				</c:forEach>
+                 
                 </select>
               </td>
             </tr>
@@ -56,8 +72,8 @@
                 <div>
                 <% 
                 
-                String aux = request.getParameter("aux");
-                if(aux !=null && aux.equals("y")){
+                String aux = request.getParameter("aux")==null?"":request.getParameter("aux");
+                if(aux.equals("y")){
                 	
                 	out.println("Se guardo con exito");
                 }else{
@@ -71,7 +87,7 @@
           </tbody>
         </table>
       </div>
-    </form><td>Nombre Visitante:</td>
+    </form>
 
 
 </body>
