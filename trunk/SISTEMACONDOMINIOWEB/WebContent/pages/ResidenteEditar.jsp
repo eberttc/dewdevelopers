@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -16,10 +16,16 @@
  	<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
-     
+       <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script>
   
     
 	<title>Condominio</title>
+	<%
+	String mensaje=request.getAttribute("mensaje")==null?"":request.getAttribute("mensaje").toString();
+	String vreturn=request.getAttribute("vreturn")==null?"":request.getAttribute("vreturn").toString();
+	String tipoDocumento=request.getAttribute("txtTipoDocumento")==null?"":request.getAttribute("txtTipoDocumento").toString();
+
+%>
 </head>
 <body>
 
@@ -31,9 +37,9 @@
 		});
 	</script>
 	
-	<jsp:include page="/pages/header.jsp" />
+	<jsp:include page="../pages/header.jsp" />
 	
-	<div>
+	
 	
 	<div>	
 	<br>
@@ -81,8 +87,8 @@
 				
 				<TD WIDTH=100>			
 					<select id="txtTipoDocumento" name="txtTipoDocumento">
-					  <option value="1">DNI</option>
-					  <option value="2">CARNET EXTRANJERIA</option>			  
+					  <option value="1" <%if(tipoDocumento.equals("1")){%>selected<%}%>>DNI</option>
+					  <option value="2" <%if(tipoDocumento.equals("2")){%>selected<%}%>>CARNET EXTRANJERIA</option>			  
 					</select>
 				</TD>
 			</TR>
@@ -93,7 +99,7 @@
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNuDocumento" name="txtNuDocumento" value="<%=residente.getNumeroDocumento()%>" type="number" required autofocus/>
+					<input id="txtNuDocumento" name="txtNuDocumento" value="<%=residente.getNumeroDocumento()%>" min="0" max="9999999999" type="number" required autofocus/>
 				</TD>
 			</TR>
 			
@@ -138,5 +144,13 @@
 	</fieldset>
 	</div>
 	
+
+	<script>
+		
+		if("<%=mensaje%>"=='1'){
+			bootbox.alert("<%=vreturn%>");
+			  
+		}
+	</script>
 </body>
 </html>

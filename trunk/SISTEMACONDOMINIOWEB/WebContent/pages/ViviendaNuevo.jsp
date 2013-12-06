@@ -15,22 +15,24 @@
  
  	<script src="<%=request.getContextPath()%>/js/jquery-1.10.2.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
     <script src="<%=request.getContextPath()%>/js/bootstrap-3.0.0.js"></script>
-       <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootbox.min.js"></script> 
+     
   
     
 	<title>Condominio</title>
-</head>
-<%
+	<%
 	String mensaje=request.getAttribute("mensaje")==null?"":request.getAttribute("mensaje").toString();
 	String vreturn=request.getAttribute("vreturn")==null?"":request.getAttribute("vreturn").toString();
-	String tipoDocumento=request.getAttribute("txtTipoDocumento")==null?"":request.getAttribute("txtTipoDocumento").toString();
+	String tipViv=request.getAttribute("txtTipViv")==null?"":request.getAttribute("txtTipViv").toString();
+	String idResidente=request.getAttribute("listaResidente")==null?"":request.getAttribute("listaResidente").toString();
 
+	
 	
 %>
+</head>
 <body>
-
-	
 	
 	<jsp:include page="../pages/header.jsp" />
 
@@ -41,64 +43,74 @@
 	
 	<fieldset class="form-horizontal well">
 		
-		<form id="form1" name="form1" method="post" action="ResidenteServlet?Param=insertar">	
+		<form id="form1" name="form1" method="post" action="ViviendaServlet?Param=insertar"  onsubmit="return validar();">	
 	
 		<%@page import="java.util.*, com.upc.condominio.modelo.*" %>
 				
-		<h3>Nuevo Residente</h3>
+		<h3>Nueva vivienda</h3>
 		
 		<TABLE WIDTH=300>
-		
+			
 			<TR>
 				<TD WIDTH=100>	
-					Nombre:
+					Residente:
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNombre" name="txtNombre" type="text" value="${requestScope.txtNombre}" required autofocus/>
+					<%
+					List<Residente> listaResidentes = (ArrayList<Residente>)request.getAttribute("residentes");
+					if(listaResidentes != null) { 
+					int i = 1;
+					%>
+					<select name="listaResidente" id="listaResidente" style=" width : 243px;">
+						<%for(Residente x : listaResidentes) {%>  
+						  <option value=<%out.print(x.getIdResidente());%>   <%if(idResidente.equals(x.getIdResidente())){%>selected<%}%>  ><%out.print(x.getNombreResidente());%></option>
+						<% } %> 
+					</select>
+					<% } %>
 				</TD>
 			</TR>
 			
 			<TR>
 				<TD WIDTH=100>	
-					Tipo Doc.: 
+					Tipo Vivienda: 
 				</TD>
 				
 				<TD WIDTH=100>			
-					<select id="txtTipoDocumento" name="txtTipoDocumento" >
-					  <option value="1" <%if(tipoDocumento.equals("1")){%>selected<%}%>>DNI</option>
-					  <option value="2" <%if(tipoDocumento.equals("2")){%>selected<%}%>>CARNET EXTRANJERIA</option>			  
+					<select id="txtTipViv" name="txtTipViv" >
+					  <option value="1" <%if(tipViv.equals("1")){%>selected<%}%>>CASA</option>
+					  <option value="2" <%if(tipViv.equals("2")){%>selected<%}%>>DEPARTAMENTO</option>			  
 					</select>
 				</TD>
 			</TR>
 			
 			<TR>
 				<TD WIDTH=100>	
-					Num. Doc.: 
+					Nro. Edificio:
 				</TD>
 				
 				<TD WIDTH=100>
-					<input id="txtNuDocumento" name="txtNuDocumento" value="${requestScope.txtNuDocumento}" min="0" max="9999999999"  type="number" required autofocus style=" width : 179px;"/>
+					<input id="txtNroEdi" name="txtNroEdi" type="text"  maxlength="2" value="${requestScope.txtNroEdi}" required autofocus/>
 				</TD>
 			</TR>
 			
 			<TR>
 				<TD WIDTH=100>	
-					Fecha Nac.:
+					Nro. Departamento: 
 				</TD>
 				
 				<TD WIDTH=100>
-					 <input id="txtFeNac" name="txtFeNac" value="${requestScope.txtFeNac}" type="date" required autofocus/>
+					<input id="txtNroDpto" name="txtNroDpto" type="text" maxlength="2"  value="${requestScope.txtNroDpto}"  required autofocus/>
 				</TD>
 			</TR>
 			
 			<TR>
 				<TD WIDTH=100>	
-					Correo:
+					Metraje:
 				</TD>
 				
 				<TD WIDTH=100>
-					 <input id="txtCorreo" name="txtCorreo" type="email"  value="${requestScope.txtCorreo}"required autofocus/>
+					 <input id="txtMetraje" name="txtMetraje" type="text" value="${requestScope.txtMetraje}"  required autofocus/>
 				</TD>
 			</TR>
 			
@@ -129,6 +141,19 @@
 			bootbox.alert("<%=vreturn%>");
 			  
 		}
+
+		function validar(){
+					
+					
+					var f=document.forms[0];
+					
+					  if (!/^([0-9])*[.]?[0-9]*$/.test(f.txtMetraje.value)){
+						  bootbox.alert("El formato de Metraje no es valido");
+						  f.txtMetraje.focus();
+						  return false;
+					  }
+				}
+		
 	</script>
 </body>
 </html>
