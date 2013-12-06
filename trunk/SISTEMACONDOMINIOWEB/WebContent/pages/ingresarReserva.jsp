@@ -28,7 +28,7 @@
   </head>
   
   <body>
-  <jsp:include page="/pages/header1.jsp" />
+  <jsp:include page="../pages/header.jsp" />
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
