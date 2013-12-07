@@ -100,7 +100,12 @@ $(document).ready(function() {
 	     <td><% out.print(x.getD_FecVen()); %></td>
 	     <td><% out.print(x.getO_TipPag().getcDescri()); %></td>
 	     <td><% out.print(x.getD_FecPag()); %></td>
-	    <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Pagar</a></td>
+	     <%if( (x.getD_FecPag()!=null)){ %>
+	    		 <td> Pagado-Cancelado</td>
+	    	<%}else{ %>	 
+	    <td><a  href="<%=request.getContextPath() %>/CuotaServlet?paramOpcion=pagar&paramIdCuota=<%=x.getN_IdCuot() %>">Pagar</a>
+	    </td>
+	    <%} %>
 	  </tr>
 	<% }  
 	  } %>
