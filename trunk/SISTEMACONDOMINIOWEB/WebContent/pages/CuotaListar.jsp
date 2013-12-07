@@ -105,8 +105,14 @@ $(document).ready(function() {
 	     <td><% out.print(x.getD_FecVen()); %></td>
 	     <td><% out.print(x.getO_TipPag().getcDescri()); %></td>
 	     <td><% out.print(x.getD_FecPag()); %></td>
-	    <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Editar</a> - <a href="<%=request.getContextPath()%>
+	     
+	      <%if( (x.getN_ImpPag()>0)){ %>
+	    		  <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Editar</a> - <a href="<%=request.getContextPath()%>
 	/CuotaServlet?id=<%=x.getN_IdCuot()%>" onclick="return confirm('¿Está seguro que desea eliminar Cuota');">Eliminar</a></td>
+	    		 
+	    	<%}else{ %>	 
+	   <td> Colocar Cuota</td>
+	    <%} %>
 	  </tr>
 	<% }  
 	  } %>
