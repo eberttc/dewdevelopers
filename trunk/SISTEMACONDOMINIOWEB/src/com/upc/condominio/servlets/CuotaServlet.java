@@ -13,9 +13,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
+import com.upc.condominio.modelo.Usuario;
 import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.negocio.GestionCuota;
 import com.upc.condominio.util.FormatoFecha;
@@ -84,6 +86,27 @@ public class CuotaServlet extends HttpServlet {
                 request.setAttribute("prmPeriodo", paramPeriodo);
                 
                 paginaDestino = "/pages/CuotaRegistrar.jsp";
+			}else if (paramOpcion.equals("pagos")) {
+				
+				HttpSession session = request.getSession();
+                Usuario usuario = new Usuario();
+                usuario = (Usuario) session.getAttribute("USUARIO_ACTUAL");
+                if(usuario.getTipoUsuario().equals("R"))
+                {
+                	Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+                	listaCuota = gestionCuota.listarPorResidente(usuario.getCorreo());
+                	
+                	System.out.println("<get> listaCuota COUNT :"+ String.format("", listaCuota.size())) ; 
+    				for(Cuota c: listaCuota)
+    				{
+    					System.out.println("<get> paramOpcion :"+ paramOpcion+" --- " +c.getC_Period() + " - "+ c.getN_ImpPag() + " - "+ c.getO_Vivienda().getC_Numero() + " - "+ c.getO_Vivienda().getC_Ubicacion() + "</h3>");
+    				}
+    				
+    				 request.setAttribute("listaCuota", listaCuota);
+    				 request.setAttribute("prmResidente", (usuario.getTipoUsuario().equals("R")?"RESIDENTE - ":"ADMINISTRADOR - ") + usuario.getNombres()+" - Correo : [" + usuario.getCorreo()+"]" );
+                    
+                	paginaDestino = "/pages/CuotaPagar.jsp";
+                }
 			}else
 				paginaDestino = "/pages/CuotaListar.jsp";
 			
@@ -163,6 +186,27 @@ public class CuotaServlet extends HttpServlet {
 		                                
 		                paginaDestino = "/pages/CuotaListar.jsp";
 		                
+					}else if (paramOpcion.equals("pagos")) {
+						
+						HttpSession session = request.getSession();
+		                Usuario usuario = new Usuario();
+		                usuario = (Usuario) session.getAttribute("USUARIO_ACTUAL");
+		                if(usuario.getTipoUsuario().equals("R"))
+		                {
+		                	Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		                	listaCuota = gestionCuota.listarPorResidente(usuario.getCorreo());
+		                	
+		                	System.out.println("<get> listaCuota COUNT :"+ String.format("", listaCuota.size())) ; 
+		    				for(Cuota c: listaCuota)
+		    				{
+		    					System.out.println("<get> paramOpcion :"+ paramOpcion+" --- " +c.getC_Period() + " - "+ c.getN_ImpPag() + " - "+ c.getO_Vivienda().getC_Numero() + " - "+ c.getO_Vivienda().getC_Ubicacion() + "</h3>");
+		    				}
+		    				
+		    				 request.setAttribute("listaCuota", listaCuota);
+		    				 request.setAttribute("prmResidente", (usuario.getTipoUsuario().equals("R")?"RESIDENTE - ":"ADMINISTRADOR - ") + usuario.getNombres()+" - Correo : [" + usuario.getCorreo()+"]" );
+		                    
+		                	paginaDestino = "/pages/CuotaPagar.jsp";
+		                }
 					}
 					
 					RequestDispatcher rd = request.getRequestDispatcher(paginaDestino);
