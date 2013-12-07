@@ -122,6 +122,18 @@ public class GestionCuota {
 		return listaCuota;
 	}
 	
+	public Collection<Cuota> listarPorResidente(String pLoginResidente) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		try {
+			CuotaDAO cuotaDAO = new CuotaDAO();
+			listaCuota = cuotaDAO.listarPorResidentePA(pLoginResidente);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaCuota;
+	}
+
 	public Collection<Vivienda> listarViviendaSinCuota(Cuota pcuota) throws DAOExcepcion {
 		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
 		Collection<Vivienda> listaVivienda = new ArrayList<Vivienda>();
