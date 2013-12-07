@@ -46,6 +46,8 @@ public class WebListenerSesion implements ServletContextListener, HttpSessionLis
 		} catch (Exception e) {
 			
 		}
+		
+		System.out.println("se destruyo la sesion");
     }
 
 	/**
