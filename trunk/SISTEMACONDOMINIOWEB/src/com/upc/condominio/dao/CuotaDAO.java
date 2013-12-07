@@ -777,4 +777,58 @@ public class CuotaDAO  extends BaseDAO {
 		return listaCuota;
 	}
 
+	public Collection<Cuota> listarPorResidentePA(String pLoginResidente) throws DAOExcepcion {
+		Collection<Cuota> listaCuota = new ArrayList<Cuota>();
+		Connection conexion = null;
+		CallableStatement procedAlmacenado = null;
+		ResultSet resulset = null;
+		try {
+			conexion = ConexionBD.obtenerConexion();
+			procedAlmacenado = (CallableStatement) conexion.prepareCall("{ call usp_cond_mnt_list_cuota_residente (?) }");
+			procedAlmacenado.setString(1, pLoginResidente);
+			resulset = procedAlmacenado.executeQuery();
+			TipoPago tipoPago = null;
+			Vivienda vivienda = null;
+			Residente residente= null;
+			while (resulset.next()) 
+			{
+				Cuota cuota = new Cuota();
+				cuota = new Cuota();
+				cuota.setN_IdCuot(resulset.getInt("N_IdCuot"));
+				cuota.setC_Period(resulset.getString("C_Period"));
+				cuota.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				cuota.setN_TipPag(resulset.getInt("N_TipPag"));
+				cuota.setN_ImpPag(resulset.getFloat("N_ImpPag"));
+				cuota.setD_FecVen(resulset.getDate("D_FecVen"));
+				cuota.setD_FecPag(resulset.getDate("D_FecPag"));
+				tipoPago = new TipoPago(resulset.getInt("N_TipPag")
+									  , resulset.getString("C_Descri")
+									  ,"S");
+				cuota.setO_TipPag(tipoPago);
+				
+				residente = new Residente();
+				residente.setIdResidente(resulset.getInt("N_IdRes"));
+				residente.setNombreResidente(resulset.getString("C_NomRes"));
+				
+				vivienda = new Vivienda();
+				vivienda.setN_IdVivi(resulset.getInt("N_IdVivi"));
+				vivienda.setC_Numero(resulset.getString("C_NroDpto"));
+				vivienda.setResidente(residente);
+				//vivienda.setC_Ubicacion(rs.getString("C_NroEdi"));
+				cuota.setO_Vivienda(vivienda);
+				
+				listaCuota.add(cuota);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(resulset);
+			this.cerrarStatement(procedAlmacenado);
+			this.cerrarConexion(conexion);
+		}
+		return listaCuota;
+	}
+
 }
