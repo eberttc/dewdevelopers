@@ -2,6 +2,7 @@ package com.upc.condominio.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -9,8 +10,10 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.upc.condominio.modelo.Cuota;
 import com.upc.condominio.modelo.Residente;
 import com.upc.condominio.modelo.Vivienda;
+import com.upc.condominio.negocio.GestionCuota;
 import com.upc.condominio.negocio.GestionVivienda;
 import com.upc.condominio.negocio.GestionVivienda;
 import com.upc.condominio.exceptions.DAOExcepcion;
@@ -22,7 +25,7 @@ public class GestionViviendaTest {
 	GestionVivienda GestionVivienda = new GestionVivienda();
 	
 	
-	@Test
+	//@Test
 	public void insertarTest() throws ParseException {
 		
 		String v_vReturn = "NO_OK";
@@ -57,6 +60,23 @@ public class GestionViviendaTest {
 		}
 	}
 	
+	@Test
+		public void listarTest() {
+					
+			GestionVivienda gestionVivienda = new GestionVivienda();
+			try {
+				Collection<Vivienda> lstVivienda = gestionVivienda.listar();
+				System.out.println("Cantidad de Registros : " + lstVivienda.size());
+				for (Vivienda vivienda : lstVivienda) {
+					Assert.assertNotNull(vivienda);
+					System.out.println("Ubicacion: " + vivienda.getC_Ubicacion() + "; Tipo de vivienda:" + vivienda.getC_TipViv());
+				}
+			} 
+			catch (DAOExcepcion e) {	
+				Assert.fail("ERROR: " + e.getMessage());
+			}
+		}
+		
 	//@Test
 	public void actualizarTest() throws ParseException{
 		
