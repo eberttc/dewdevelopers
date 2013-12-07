@@ -51,9 +51,49 @@ $(document).ready(function() {
 		 
 	 };
 	
-	 
+	 function detalleResidente(id){
+		 
+		 if(id==""){
+			 return;
+			 
+		 }
+	 		var fecha=new Date();
+    		window.showModalDialog("<%=request.getContextPath()%>/RegistrarJuntaServlet?opcion=4&codigo="+id+"&fecha="+fecha,window,"dialogHeight:500px;"+
+            "dialogWidth:600px;center:yes;help:no;resizable:no;status:no");    		    		
+   
+		 
+	 }
 	
+	function detalleVivienda(id){
+		if(id==""){
+			 return;
+			 
+		 }
+ 		var fecha=new Date();
+		window.showModalDialog("<%=request.getContextPath()%>/RegistrarJuntaServlet?opcion=5&codigo="+id+"&fecha="+fecha,window,"dialogHeight:500px;"+
+        "dialogWidth:600px;center:yes;help:no;resizable:no;status:no");    		    		
 
+		
+	}
+	
+	$('#myLinkR').click(function(){
+		
+		var id=$('#myLinkR').attr("enlace");
+		
+		detalleResidente(id);
+		
+		
+	});
+	
+	$('#myLinkV').click(function(){
+		
+		var id=$('#myLinkV').attr("enlace");
+		
+		detalleVivienda(id);
+		
+		
+	});
+	
 	 verificaCheck();
 
 } );
@@ -95,13 +135,11 @@ $(document).ready(function() {
         <thead>
           <tr class="success">
             <th>Id Cuota</th>
-            <th>Nombre Residente</th>
-            <th>Dni Residente</th>
+            <th>Nombre Residente</th>           
             <th>Importe a pagar</th>
              <th>Fecha Vencimiento</th>
             <th>Id Vivienda</th>
-            <th>Ubicacion</th>
-            <th>Edificio</th>
+            
           
           </tr>
         </thead>
@@ -109,13 +147,10 @@ $(document).ready(function() {
           <c:forEach var="bean" items="${requestScope.lista}" varStatus="i">
           <tr>
           	<td >${bean.n_IdCuot}</td>
-          	<td>${bean.o_Vivienda.residente.nombreResidente}</td>
-          	<td>${bean.o_Vivienda.residente.numeroDocumento}</td>
+          	<td><a id="myLinkR" href="#" enlace="${bean.o_Vivienda.residente.idResidente}">${bean.o_Vivienda.residente.nombreResidente}</a></td>
           	<td>${bean.n_ImpPag}</td>
           	<td>${bean.d_FecVen}</td>
-          	<td>${bean.o_Vivienda.n_IdVivi}</td>
-          	<td>${bean.o_Vivienda.c_Ubicacion}</td>
-          	<td>${bean.o_Vivienda.c_Numero}</td>
+          	<td><a id="myLinkV" href="#" enlace="${bean.o_Vivienda.n_IdVivi}" >${bean.o_Vivienda.n_IdVivi}</a></td>          	
           	          	
           	          		           	        
           </tr>
