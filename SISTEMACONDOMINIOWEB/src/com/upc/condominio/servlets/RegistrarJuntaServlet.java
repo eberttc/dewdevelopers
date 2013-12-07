@@ -16,8 +16,12 @@ import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
 import com.upc.condominio.modelo.Directivos;
 import com.upc.condominio.modelo.Junta;
+import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.negocio.GestionCuota;
 import com.upc.condominio.negocio.GestionJunta;
+import com.upc.condominio.negocio.GestionResidente;
+import com.upc.condominio.negocio.GestionVivienda;
 import com.upc.condominio.util.DateTimeUtil;
 import com.upc.condominio.util.FormatoFecha;
 
@@ -101,6 +105,21 @@ public class RegistrarJuntaServlet extends HttpServlet {
 				String codigo=request.getParameter("codigo").trim().equals("")?"-1":request.getParameter("codigo").trim();								
 				c=(List<Directivos>) negocioJunta.BuscarDirectivos(Integer.parseInt(codigo));				
 				request.setAttribute("lista",c);
+				
+			}else if(opcion.equals("4")){
+				page="/pages/detalleResidente.jsp";
+				String codigo=request.getParameter("codigo").trim().equals("")?"-1":request.getParameter("codigo").trim();								
+				GestionResidente negocio=new GestionResidente();
+				Residente resi=negocio.obtener(Integer.parseInt(codigo));
+				request.setAttribute("resi",resi);
+				
+			}else if(opcion.equals("5")){
+				page="/pages/detalleVivienda.jsp";
+				String codigo=request.getParameter("codigo").trim().equals("")?"-1":request.getParameter("codigo").trim();								
+			
+				GestionVivienda viv=new GestionVivienda();
+				Vivienda vivienda=viv.obtener(Integer.parseInt(codigo));
+				request.setAttribute("vivienda",vivienda);
 				
 			}
 						
