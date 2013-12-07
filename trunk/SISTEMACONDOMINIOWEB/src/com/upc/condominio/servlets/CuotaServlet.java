@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,9 +18,14 @@ import javax.servlet.http.HttpSession;
 
 import com.upc.condominio.exceptions.DAOExcepcion;
 import com.upc.condominio.modelo.Cuota;
+import com.upc.condominio.modelo.Residente;
+import com.upc.condominio.modelo.TipoPago;
 import com.upc.condominio.modelo.Usuario;
 import com.upc.condominio.modelo.Vivienda;
 import com.upc.condominio.negocio.GestionCuota;
+import com.upc.condominio.negocio.GestionResidente;
+import com.upc.condominio.negocio.GestionTipoPago;
+import com.upc.condominio.negocio.GestionVivienda;
 import com.upc.condominio.util.FormatoFecha;
 
 
@@ -46,7 +52,7 @@ public class CuotaServlet extends HttpServlet {
 		System.out.println("<get> paramOpcion : UN INGRESO DE DOGET</h3>");
 		String paramOpcion = request.getParameter("paramOpcion");
 		String paramPeriodo = request.getParameter("paramPeriodo");
-		String paramIdCuota = request.getParameter("paramIdCuota");
+		String paramIdCuota = request.getParameter("paramIdCuota")==null?"0":request.getParameter("paramIdCuota"); //request.getParameter("paramIdCuota");
 		
 		String paginaDestino = "";
 		
@@ -107,6 +113,50 @@ public class CuotaServlet extends HttpServlet {
                     
                 	paginaDestino = "/pages/CuotaPagar.jsp";
                 }
+			}else if (paramOpcion.equals("pagar")) {
+
+				System.out.println("Opcion pagar : "+ paramOpcion) ;
+				
+				cuota = new Cuota();
+				cuota.setN_IdCuot(Integer.parseInt(paramIdCuota));
+				cuota= gestionCuota.obtener(cuota);
+				
+				GestionVivienda gestionVivienda = new GestionVivienda();
+				Vivienda vivienda = gestionVivienda.obtener(cuota.getN_IdVivi());
+				
+				GestionResidente gestionResidente = new GestionResidente();
+				Residente residente = gestionResidente.obtener(vivienda.getResidente().getIdResidente());
+				
+				GestionTipoPago gestionTipoPago = new GestionTipoPago();
+				Collection<TipoPago> listaTipoPago = gestionTipoPago.listar("S");
+            	
+				
+				request.setAttribute("txtPeriodo", cuota.getC_Period());
+            	System.out.println("txtPeriodo : "+ cuota.getC_Period()) ; 
+            	
+            	request.setAttribute("txtImportePago", cuota.getN_ImpPag());
+            	System.out.println("txtImportePago : "+ cuota.getN_ImpPag()) ; 
+            	
+                request.setAttribute("txtVivienda", " - N° :" + vivienda.getC_Numero() + " - Ubic.:" + vivienda.getC_Ubicacion()+ " - Tipo Vivienda : "+vivienda.getC_TipViv());
+                System.out.println("txtVivienda : " + " - N° :" + vivienda.getC_Numero() + " - Ubic.:" + vivienda.getC_Ubicacion()+ " - Tipo Vivienda : "+vivienda.getC_TipViv()) ; 
+                
+            	request.setAttribute("txtfechaVcto", cuota.getD_FecVen());
+            	System.out.println("txtfechaVcto : "+ cuota.getD_FecVen()) ; 
+            	
+            	Date fechaPago = new Date(System.currentTimeMillis());
+            	cuota.setD_FecPag(fechaPago);
+            	request.setAttribute("txtfechaPago", fechaPago);
+            	System.out.println("txtfechaPago : "+ fechaPago) ; 
+            	
+                request.setAttribute("txtResidente",residente.getNombreResidente() + " - " + residente.getNumeroDocumento());
+                System.out.println("txtResidente : "+ residente.getNombreResidente() + " - " + residente.getNumeroDocumento()) ; 
+                
+                request.setAttribute("txtIdCuota", cuota.getN_IdCuot());
+            	request.setAttribute("txtIdVivienda", cuota.getN_IdVivi());
+            	
+                request.setAttribute("prmlistaTipoPago", listaTipoPago);
+                
+                paginaDestino = "/pages/CuotaRegistrarPago.jsp";
 			}else
 				paginaDestino = "/pages/CuotaListar.jsp";
 			
@@ -138,6 +188,12 @@ public class CuotaServlet extends HttpServlet {
 				String strVivienda=request.getParameter("slcvivienda");
 				String strImporte =request.getParameter("importepago");
 				String strfechaVcto = request.getParameter("fechaVcto");
+				
+				String strImportePago =request.getParameter("txtImportePago");
+				String strIdVivienda =request.getParameter("txtIdVivienda");
+				String strIdCuota =request.getParameter("txtIdCuota");
+				
+				
 				String paginaDestino = "";
 				
 				System.out.println("<Post> paramOpcion :"+paramOpcion + "</h3>");
@@ -175,7 +231,7 @@ public class CuotaServlet extends HttpServlet {
 						cuota.setN_ImpPag( Float.parseFloat(strImporte));
 						cuota.setD_FecVen(fechaVenc);
 						vReturn = gestionCuota.insertar(cuota);
-						paginaDestino = "/pages/CuotaListar.jsp";
+						paginaDestino = "/pages/CuotaRegistrar.jsp?aux=y";
 						
 					}else if (paramOpcion.equals("buscar")) {
 						
@@ -207,6 +263,39 @@ public class CuotaServlet extends HttpServlet {
 		                    
 		                	paginaDestino = "/pages/CuotaPagar.jsp";
 		                }
+					}else if (paramOpcion.equals("pagar")) {
+
+						System.out.println("<Do-Post> - Opcion pagar : "+ paramOpcion) ;
+						
+						Cuota cuota = new Cuota();
+						String strTipoPago=request.getParameter("slcTipoPago");	
+						cuota.setN_TipPag(Integer.parseInt(strTipoPago));
+						System.out.println("<Do-Post> slcTipoPago :"+ strTipoPago + "</h3>");
+						
+						cuota.setN_IdCuot(Integer.parseInt(strIdCuota));
+						System.out.println("<Do-Post> strIdCuota :"+ strIdCuota + "</h3>");
+						
+						cuota = gestionCuota.obtener(cuota);
+						int intTipoPago = Integer.parseInt(strTipoPago);
+						cuota.setN_TipPag(intTipoPago);
+						Date fechaPago = new Date(System.currentTimeMillis());
+		            	cuota.setD_FecPag(fechaPago);
+		            	
+						
+						System.out.println("<Do-Post> fechaPago :"+ fechaPago + "</h3>");
+		            	
+						gestionCuota.realizarPago(cuota) ;
+	                
+		                paginaDestino = "/pages/CuotaRegistrarPago.jsp?aux=y";
+					}else if (paramOpcion.equals("buscar")) {
+						
+						Cuota cuota = new Cuota();
+						cuota.setC_Period(strPeriodo);
+						Collection<Cuota> listaCuota = gestionCuota.listar(cuota);
+		                request.setAttribute("listaCuota", listaCuota);
+		                                
+		                paginaDestino = "/pages/CuotaListar.jsp";
+		                
 					}
 					
 					RequestDispatcher rd = request.getRequestDispatcher(paginaDestino);
