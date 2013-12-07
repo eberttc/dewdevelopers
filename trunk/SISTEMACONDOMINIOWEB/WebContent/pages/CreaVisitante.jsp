@@ -15,6 +15,12 @@
 <body>
 
   	<jsp:include page="/pages/header.jsp" />
+  	<div class="jumbotron">
+      <div class="container">
+        <h3>REGISTRO DE VISITANTES</h3>
+        <p></p>
+      </div>
+    </div>
     <form method="post" action="<%=request.getContextPath()%>/VisitanteServlet">
       
       <div class="container">      
@@ -23,13 +29,13 @@
             <tr>
               <td>DNI Visitante:</td>
               <td>
-                <input class="form-control" type="number" id="txtDNIVisitante" name="txtDNIVisitante" required autofocus>
+                <input class="form-control" type="text" id="txtDNIVisitante" name="txtDNIVisitante" required autofocus>
               </td>
             </tr>
             <tr>
               <td>Nombre Visitante:</td>
               <td>
-                <input class="form-control" type="text" id="txtNombreVisitante" name="txtNombreVisitante" required autofocus>
+                <input class="form-control" type="text" id="txtNombreVisitante" name="txtNombreVisitante" required>
               </td>
             </tr>
             <tr>
@@ -49,28 +55,33 @@
             <tr>
               <td>Fecha de Visita:</td>
               <td>
-                <input class="form-control" type= "date" id="txtFechaVisita" name="txtFechaVisita" required autofocus />
+                <input class="form-control" type= "date" id="txtFechaVisita" name="txtFechaVisita" required />
               </td>
             </tr>
             <tr>
               <td></td>
               <td>
                 <div class="btn-group">
-                  <input id="botonEnviar" type="submit" value="ENVIAR">
-                   <input id="botonCancela" type="button" value="CANCELAR">
+                  <input id="botonEnviar" class="btn btn-default" type="submit" value="ENVIAR">
                 </div>
                 <div>
-                <% 
-                
-                String aux = request.getParameter("aux")==null?"":request.getParameter("aux");
-                if(aux.equals("y")){
-                	
-                	out.println("Se guardo con exito");
-                }else{
-                	out.println("No se pudo Guardar");
-                }
-                
-                %>
+                 <%
+            String aux = request.getParameter("aux");
+            if(aux != null && aux.equals("y")){%>
+            		  <p></p>
+			          <div class="alert alert-success">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			            <b>En hora buena,</b>El registro se insertó con éxito.
+			          </div>
+            	
+            <%}else if(aux != null && aux.equals("n")){%>
+			          <p></p>
+			          <div class="alert alert-danger">
+			            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			            <b>ERROR!</b> No se pudo insertar los registros.
+			          </div>
+            		
+            	<%}%>
                 </div>
               </td>
             </tr>
