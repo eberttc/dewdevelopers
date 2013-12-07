@@ -70,7 +70,7 @@ public class ViviendaDAO extends BaseDAO {
 		try {
 			String query =	"SELECT V.N_IdVivi, V.C_NroEdi, V.C_NroDpto, V.N_NumMet, V.C_TipViv, R.N_IdRes, R.C_NomRes " +
 					"FROM VIVIENDAS V INNER JOIN RESIDENTES R ON V.N_IdRes = R.N_IdRes " +
-					"WHERE V.C_EstReg ='S'";
+					"WHERE V.C_EstReg ='1'";
 				con = ConexionBD.obtenerConexion();
 				stmt = con.prepareStatement(query);
 				rs = stmt.executeQuery();
