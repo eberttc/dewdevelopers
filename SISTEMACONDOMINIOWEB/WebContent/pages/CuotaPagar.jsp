@@ -19,14 +19,14 @@
 <script language="Javascript">
 	function OnButton1()
 	{
-		document.form1.action = "CuotaServlet?paramOpcion=pagos";
+		document.form1.action = "<%=request.getContextPath()%>/CuotaServlet?paramOpcion=pagos";
     	document.form1.submit();      
 
     	return true;
 	}
 	function OnButton2()
 	{
-    	document.form1.action = "CuotaServlet?paramOpcion=pagar";
+    	document.form1.action = "<%=request.getContextPath()%>/CuotaServlet?paramOpcion=pagar";
     	document.form1.submit();             	
     	return true;
 	}
