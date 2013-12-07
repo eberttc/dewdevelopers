@@ -19,22 +19,33 @@
 <script language="Javascript">
 	function OnButton1()
 	{
-		document.form1.action = "CuotaServlet?paramOpcion=buscar";
+		if(document.forms[0].txtperiodo.value==""){
+			
+			
+			alert("Especifique un periodo");
+			return false;
+		}
+		document.form1.action = "<%=request.getContextPath()%>/CuotaServlet?paramOpcion=buscar";
     	document.form1.submit();      
 
     	return true;
 	}
 	function OnButton2()
 	{
-    	document.form1.action = "CuotaServlet?paramOpcion=nuevo";
+		
+		if(document.forms[0].txtperiodo.value==""){
+			
+			
+			alert("Especifique un periodo");
+			return false;
+		}
+    	document.form1.action = "<%=request.getContextPath()%>/CuotaServlet?paramOpcion=nuevo";
     	document.form1.submit();             	
     	return true;
 	}
 	</script>
 </head>
-<%
-String listado=session.getAttribute("listaCuota")==null?"":session.getAttribute("listaCuota").toString();
-%>
+
 
 <script type="text/javascript">
 
