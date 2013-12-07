@@ -133,6 +133,24 @@ public class GestionCuotaTest {
 	}
 	
 	@Test
+	public void listarPorResidenterTest(){
+		String pLoginResidente="carlos10@gmail.com";
+			
+		GestionCuota gestionCuota = new GestionCuota();
+		try {
+			Collection<Cuota> lstCuota = gestionCuota.listarPorResidente(pLoginResidente);
+			System.out.println(lstCuota.size());
+			for (Cuota m : lstCuota) {
+				System.out.println(m.getN_IdCuot()+" | " + m.getC_Period()+" | "+m.getO_Vivienda().getResidente().getNombreResidente()+" | "+m.getN_TipPag()+" | "+m.getN_ImpPag()+" | "+m.getO_TipPag().getcDescri()+" | ");
+			}
+			Assert.assertTrue(lstCuota.size()>0);
+		} catch (DAOExcepcion e) {
+				
+			Assert.fail("Falló el Listado: "+e.getMessage());
+		}
+	}
+		
+	//@Test
 	public void ListarViviendaSinCuotaTest(){
 			Cuota pcuota = new Cuota();
 			pcuota.setC_Period("201301");
