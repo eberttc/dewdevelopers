@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de CUOTAS Generadas</title>
+<title>Listado de Cuotas PAGADAS y POR PAGAR</title>
   <!-- Bootstrap core CSS -->
  	<!-- Bootstrap core CSS -->
      <link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -19,14 +19,14 @@
 <script language="Javascript">
 	function OnButton1()
 	{
-		document.form1.action = "CuotaServlet?paramOpcion=buscar";
+		document.form1.action = "CuotaServlet?paramOpcion=pagos";
     	document.form1.submit();      
 
     	return true;
 	}
 	function OnButton2()
 	{
-    	document.form1.action = "CuotaServlet?paramOpcion=nuevo";
+    	document.form1.action = "CuotaServlet?paramOpcion=pagar";
     	document.form1.submit();             	
     	return true;
 	}
@@ -50,26 +50,21 @@ $(document).ready(function() {
   <fieldset>
   	<div class="jumbotron">
       <div class="container">
-        <h3>Cuotas Generadas</h3>
+        <h3>Cuotas Pagadas y Por Pagar</h3>
       </div>
     </div>
   </fieldset>  
   <fieldset class="form-horizontal well">
   	<form id="form1" name="form1" method="post" > <!-- action="CuotaServlet?paramOpcion=buscar;CuotaServlet?paramOpcion=nuevo" -->
-        <p>Periodo a buscar [YYYYMM]:
+        <p>Residente :
         <label>
-        	<input type="text" name="txtperiodo" id="txtperiodo" placeholder="201301"  class="form-control" />
+        	<input type="text" size="100px" disabled="disabled" name="txtperiodo" id="txtperiodo" placeholder="Dato del Residente"  class="form-control"  value="<%=request.getAttribute("prmResidente") %>"/>
 		</label>
 		    
         <label>
         <input type="submit" class="btn btn-primary" id="btnBuscar" value="Buscar" onclick="OnButton1();"/>
         </label>
-          <input type="submit" class="btn btn-primary"  id="btnNuevo" value="Nuevo" onclick="OnButton2();"/>	            
-        </p>
       </form>
-     <!-- <form id="form2" name="form2" method="post" action=CuotaServlet?paramOpcion=nuevo>
-		   	
-		</form> -->
   </fieldset>
 
   <fieldset  class="form-horizontal well">
@@ -105,8 +100,7 @@ $(document).ready(function() {
 	     <td><% out.print(x.getD_FecVen()); %></td>
 	     <td><% out.print(x.getO_TipPag().getcDescri()); %></td>
 	     <td><% out.print(x.getD_FecPag()); %></td>
-	    <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Editar</a> - <a href="<%=request.getContextPath()%>
-	/CuotaServlet?id=<%=x.getN_IdCuot()%>" onclick="return confirm('¿Está seguro que desea eliminar Cuota');">Eliminar</a></td>
+	    <td><a href="<%=request.getContextPath() %>/CuotaServlet?id=<%=x.getN_IdCuot() %>">Pagar</a></td>
 	  </tr>
 	<% }  
 	  } %>
