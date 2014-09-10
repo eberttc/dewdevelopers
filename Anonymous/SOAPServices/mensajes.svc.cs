@@ -7,11 +7,23 @@ using System.Text;
 
 namespace SOAPServices
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "mensajes" in code, svc and config file together.
-    public class mensajes : Imensajes
+     public class mensajes : Imensajes
     {
-        public void DoWork()
+
+
+
+        #region Imensajes Members
+
+        public string saludar(string name)
         {
+            return "hola" + name;
         }
+
+        public string despedir(string name, string curso)
+        {
+            return "chau" + name + "|atentamente, tu profe de " + curso;
+        }
+
+        #endregion
     }
 }
