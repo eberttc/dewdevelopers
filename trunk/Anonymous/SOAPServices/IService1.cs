@@ -28,7 +28,7 @@ namespace SOAPServices
     public class CompositeType
     {
         bool boolValue = true;
-        string stringValue = "Hello ";
+        string stringValue = "Hell ";
 
         [DataMember]
         public bool BoolValue
