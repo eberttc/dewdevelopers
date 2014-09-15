@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Gestion de Servicios</title>
+</h:head>
+
+<h:body>
+	<h3>
+		<h:outputLabel value="#{loginBean.uname}" />
+		
+	</h3>
+	<h:form id="form1">
+		<p:growl id="mensaje" life="2000" />
+	</h:form>
+	<p:growl id="growl" showDetail="true" life="3000" />
+	<p:panel id="service" header="WEB SERVICE">
+		<p align="right">Resultados encontrados</p>
+		<h:form>
+			
+			
+			
+			<p:inputText value="#{web.uname}"></p:inputText>
+			<p:commandButton value="obtenber" action="#{web.obtener()}"></p:commandButton> 					
+			<p:inputText value="#{web.message}">				
+			</p:inputText>
+		    
+
+
+		</h:form>
+
+	
+	</p:panel>
+
+
+</h:body>
+
+</html>
